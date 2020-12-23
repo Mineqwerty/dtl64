@@ -203,4 +203,30 @@ extern const GeoLayout test_platform_geo[];
 extern const Gfx unknown_seg8_dl_08026260[];
 extern const Collision unknown_seg8_collision_080262F8[];
 
+
+
+#include "drawtime/geo_header.h"
+
+#include "drawcursor/geo_header.h"
+
+#include "drawtime64/geo_header.h"
+
+#include "drawrightarm/geo_header.h"
+
+#include "drawleftarm/geo_header.h"
+
+#include "drawrightleg/geo_header.h"
+
+#include "drawleftleg/geo_header.h"
+
+#include "jowee/geo_header.h"
+
+
+#include "jowee/anim_header.h"
+#include "mari/geo_header.h"
+
+
+#include "mari/anim_header.h"
+#include "drawcloud/geo_header.h"
+
 #endif

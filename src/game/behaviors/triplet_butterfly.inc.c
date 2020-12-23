@@ -157,7 +157,7 @@ void bhv_triplet_butterfly_update(void) {
             triplet_butterfly_act_activate();
             break;
         case TRIPLET_BUTTERFLY_ACT_EXPLODE:
-            triplet_butterfly_act_explode();
+           // triplet_butterfly_act_explode();
             break;
     }
 

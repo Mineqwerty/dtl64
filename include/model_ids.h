@@ -489,6 +489,25 @@
 #define MODEL_SMOKE                       0x96        // smoke_geo
 // find me
 // find me
+
+//custom
+#define MODEL_DRAWTIME                  0xF0       
+#define MODEL_DRAWCURSOR                  0xF1 
+#define MODEL_DRAWTIME64                  0xF2 
+#define MODEL_DRAWRIGHTARM                  0xF3
+#define MODEL_DRAWLEFTARM                  0xF4
+#define MODEL_DRAWRIGHTLEG                  0xF5
+#define MODEL_DRAWLEFTLEG                  0xF6
+
+
+#define MODEL_JOWEE                  0xEF
+#define MODEL_MARI                  0xEE
+
+#define MODEL_DRAWCLOUD                  0xF7
+
+
+
+
 // find me
 // find me
 // find me

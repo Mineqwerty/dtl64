@@ -78,3 +78,16 @@ UNUSED static const u64 binid_17 = 17;
 
 #include "koopa_shell/model.inc.c"
 UNUSED static const u64 binid_18 = 18;
+
+
+#include "drawcursor/model.inc.c"
+
+
+
+
+#include "jowee/model.inc.c"
+#include "jowee/anims/data.inc.c"
+#include "jowee/anims/table.inc.c"
+#include "mari/model.inc.c"
+#include "mari/anims/data.inc.c"
+#include "mari/anims/table.inc.c"

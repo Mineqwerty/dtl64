@@ -1310,10 +1310,10 @@ const BehaviorScript bhvWind[] = {
 const BehaviorScript bhvEndToad[] = {
     BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_ANIMATIONS(oAnimations, toad_seg6_anims_0600FB58),
+    LOAD_ANIMATIONS(oAnimations, jowee_anims), 
     ANIMATE(0),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_end_toad_loop),
+        
     END_LOOP(),
 };
 
@@ -1586,13 +1586,13 @@ const BehaviorScript bhvBetaFishSplashSpawner[] = {
 const BehaviorScript bhvSpindrift[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_ANIMATIONS(oAnimations, spindrift_seg5_anims_05002D68),
+    LOAD_ANIMATIONS(oAnimations, mari_anims),
     ANIMATE(0),
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ 0, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
     SET_HOME(),
     SET_INT(oInteractionSubtype, INT_SUBTYPE_TWIRL_BOUNCE),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_spindrift_loop),
+        
     END_LOOP(),
 };
 

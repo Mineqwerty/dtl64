@@ -193,6 +193,22 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_FLYGUY,                  flyguy_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CHUCKYA,                 chuckya_geo),
     LOAD_MODEL_FROM_GEO(MODEL_TRAJECTORY_MARKER_BALL,      bowling_ball_track_geo),
+    //custom
+    
+    LOAD_MODEL_FROM_GEO(MODEL_DRAWTIME,                 drawtime_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAWCURSOR,                 drawcursor_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAWTIME64,                 drawtime64_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAWRIGHTARM,                 drawrightarm_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAWLEFTARM,                 drawleftarm_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAWRIGHTLEG,                 drawrightleg_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAWLEFTLEG,                 drawleftleg_geo),
+
+
+    LOAD_MODEL_FROM_GEO(MODEL_JOWEE,                 jowee_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_MARI,                 mari_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAWCLOUD,                 drawcloud_geo),
+
+
     RETURN(),
 };
 

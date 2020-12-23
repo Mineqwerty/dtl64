@@ -5,9 +5,11 @@
 
 #include "types.h"
 
+extern u8 gSurfacePoolError;
+
 // NUM_CELLS needs to be a power of 2 so that the bitwise
 // in surface_collision.c functions can work properly
-#define NUM_CELLS   16
+#define NUM_CELLS   64
 
 struct SurfaceNode
 {

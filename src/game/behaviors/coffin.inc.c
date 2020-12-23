@@ -1,144 +1,26 @@
-/**
- * Behavior for bhvCoffinSpawner and bhvCoffin.
- * The coffins are spawned by a singular spawner,
- * with half being able to stand up.
- * Coffins unload after leaving the room.
- */
+#include "vars.h"
+#include "game/segment2.h"
+#include "game/ingame_menu.h"
 
-/**
- * Struct with s16 values for a horizontal position.
- */
-struct LateralPosition {
-    s16 x;
-    s16 z;
-};
+f32 sCursorPos[] = {0, 0};
+f32 sCursorAccel[] = {0, 0};
+extern int maxDistX = 212;
+extern int maxDistY = 212;
+extern s16 cellX, cellZ;
+extern int drawColor[] = {0, 0, 0, 1};
+int drawColorNumber = 0;
+int eraseAlpha = 255;
+extern int brushSize = 1;
+extern int curBParam;
+extern int cursorspawn;
 
-/**
- * Array of positions for all coffins relative to their spawner.
- */
-struct LateralPosition coffinRelativePos[] = {
-    { 412, -150 }, { 762, -150 }, { 1112, -150 },
-    { 412,  150 }, { 762,  150 }, { 1112,  150 },
-};
-
-/**
- * Loop behavior for the object that spawns the six coffins in BBH.
- * Loads the coffins when in the room, they unload themselves.
- */
 void bhv_coffin_spawner_loop(void) {
-    struct Object *coffin;
-    s32 i;
-    s16 relativeZ;
-
-    if (o->oAction == COFFIN_SPAWNER_ACT_COFFINS_UNLOADED) {
-        if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
-            for (i = 0; i < 6; i++) {
-                relativeZ = coffinRelativePos[i].z;
-
-                // Behavior param of 0 for all even i, 1 for all odd
-                coffin = spawn_object_relative(i & 1, coffinRelativePos[i].x, 0, relativeZ, o,
-                                              MODEL_BBH_WOODEN_TOMB, bhvCoffin);
-
-                // Never true, game would enter a while(1) before it could.
-                // Possible a remnant of days this didn't happen.
-                if (coffin != NULL) {
-                    // Rotate the coffin 180 degrees if its on the other side of the room.
-                    if (relativeZ > 0) {
-                        coffin->oFaceAngleYaw = 0x8000;
-                    }
-                }
-            }
-
-            o->oAction += 1;
-        }
-    } else if (o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM) {
-        o->oAction = COFFIN_SPAWNER_ACT_COFFINS_UNLOADED;
-    }
+   
 }
 
-/**
- * The main action for the coffins. Coffins with COFFIN_BP_STATIC skip the behavior, while
- * the other coffins will enter a standing action when Mario is near.
- * Also controls laying the coffin down after it has stood up.
- */
+
 void coffin_act_idle(void) {
-    f32 yawCos;
-    f32 yawSin;
-    f32 dx;
-    f32 dz;
-    f32 distForwards;
-    f32 distSideways;
-
-    if (o->oBehParams2ndByte != COFFIN_BP_STATIC) {
-        // Lay down if standing
-        if (o->oFaceAnglePitch != 0) {
-            o->oAngleVelPitch = approach_s16_symmetric(o->oAngleVelPitch, -2000, 200);
-
-            // If the coffin landed...
-            if (obj_face_pitch_approach(0, -o->oAngleVelPitch)) {
-                cur_obj_play_sound_2(SOUND_GENERAL_ELEVATOR_MOVE_2);
-
-                // This bit changes the coffin's position,
-                // spawns dust there, then resets the position.
-                obj_perform_position_op(POS_OP_SAVE_POSITION);
-                o->oMoveAngleYaw = o->oFaceAngleYaw - 0x4000;
-                obj_set_dist_from_home(200.0f);
-                spawn_mist_from_global();
-                obj_perform_position_op(POS_OP_RESTORE_POSITION);
-            }
-
-            o->oTimer = 0;
-        } else {
-            // Yaw never changes and is aligned, so yawCos = 1 or -1, yawSin = 0
-            yawCos = coss(o->oFaceAngleYaw);
-            yawSin = sins(o->oFaceAngleYaw);
-
-            dx = gMarioObject->oPosX - o->oPosX;
-            dz = gMarioObject->oPosZ - o->oPosZ;
-
-            distForwards = dx * yawCos + dz * yawSin;
-            distSideways = dz * yawCos - dx * yawSin;
-
-            // This checks a box around the coffin and if it has been a bit since it stood up.
-            // It also checks in the case Mario is squished, so he doesn't get permanently squished.
-            if (o->oTimer > 60
-                && (o->oDistanceToMario > 100.0f || gMarioState->action == ACT_SQUISHED)) {
-                if (gMarioObject->oPosY - o->oPosY < 200.0f && absf(distForwards) < 140.0f) {
-                    if (distSideways < 150.0f && distSideways > -450.0f) {
-                        cur_obj_play_sound_2(SOUND_GENERAL_BUTTON_PRESS_2_LOWPRIO);
-                        o->oAction = COFFIN_ACT_STAND_UP;
-                    }
-                }
-            }
-
-            o->oAngleVelPitch = 0;
-        }
-    }
-}
-
-/**
- * Stand up the coffin and keep it standing until the timer hits 60.
- */
-void coffin_act_stand_up(void) {
-    // Stand up
-    if (o->oFaceAnglePitch != 0x4000) {
-        o->oAngleVelPitch = approach_s16_symmetric(o->oAngleVelPitch, 1000, 200);
-        obj_face_pitch_approach(0x4000, o->oAngleVelPitch);
-    } else {
-        // Stay standing
-        if (o->oTimer > 60) {
-            o->oAction = COFFIN_ACT_IDLE;
-            o->oFaceAngleRoll = 0;
-        } else if (o->oTimer > 30) {
-            if (gGlobalTimer % 4 == 0) {
-                cur_obj_play_sound_2(SOUND_GENERAL_ELEVATOR_MOVE_2);
-            }
-            // Shake the coffin while its standing
-            o->oFaceAngleRoll = 400 * (gGlobalTimer % 2) - 200;
-        }
-
-        o->oAngleVelPitch = 0;
-    }
+   
 }
 
 /**
@@ -146,22 +28,213 @@ void coffin_act_stand_up(void) {
  * that action.
  */
 void bhv_coffin_loop(void) {
-    // Gotta save those 6 object slots
-    if (o->parentObj->oAction == COFFIN_SPAWNER_ACT_COFFINS_UNLOADED) {
-        obj_mark_for_deletion(o);
-    } else {
-        // Scale the coffin vertically? Must have thought it was too short?
-        o->header.gfx.scale[1] = 1.1f;
 
-        switch (o->oAction) {
-            case COFFIN_ACT_IDLE:
-                coffin_act_idle();
-                break;
-            case COFFIN_ACT_STAND_UP:
-                coffin_act_stand_up();
-                break;
-        }
-
-        load_object_collision_model();
+if (gPlayer1Controller->buttonPressed & R_JPAD) {
+    drawColorNumber += 1;
+    if (drawColorNumber > 13) {
+        drawColorNumber = 0;
     }
+}
+if (gPlayer1Controller->buttonPressed & L_JPAD) {
+    drawColorNumber -= 1;
+    if (drawColorNumber < 0) {
+        drawColorNumber = 13;
+    }
+}
+if (gPlayer1Controller->buttonPressed & U_JPAD) {
+    brushSize += 1;
+    if (brushSize > 3) {
+        brushSize = 1;
+    }
+}
+if (gPlayer1Controller->buttonPressed & D_JPAD) {
+    eraseAlpha += 255;
+    if (eraseAlpha > 255) {
+        eraseAlpha = 0;
+    }
+}
+
+if (gPlayer1Controller->buttonPressed & B_BUTTON) {
+    curBParam+=1;
+    if (curBParam == 6) {
+        initiate_warp(LEVEL_CASTLE, 1, 0x1F, 0);
+    }
+    cursorspawn=0;
+    sCursorPos[0] = 0.0f;
+     sCursorPos[1] = 0.0f;
+     mark_obj_for_deletion(o);
+     return;
+}
+
+switch (curBParam) {
+    case 0: maxDistX = 212; maxDistY = 212;
+    break;
+    case 1: maxDistX = 212; maxDistY = 318;
+    break;
+    case 2: maxDistX = 106; maxDistY = 318;
+    break;
+    case 3: maxDistX = 106; maxDistY = 318;
+    break;
+    case 4: maxDistX = 106; maxDistY = 318;
+    break;
+    case 5: maxDistX = 106; maxDistY = 318;
+    break;
+    case 7: maxDistX = 212; maxDistY = 212;
+    break;
+}
+
+switch (drawColorNumber) {
+    //black
+    case 0: drawColor[0] = 0; drawColor[1] = 0; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Black");
+    break;
+    //white
+    case 1: drawColor[0] = 255; drawColor[1] = 255; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "White");
+    break;
+    //red
+    case 2: drawColor[0] = 255; drawColor[1] = 0; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Red");
+    break;
+    //orange
+    case 3: drawColor[0] = 255; drawColor[1] = 128; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Orange");
+    break;
+    //yellow
+    case 4: drawColor[0] = 255; drawColor[1] = 255; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Yellow");
+    break;
+    //green
+    case 5: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Green");
+    break;
+    //cyan
+    case 6: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 170; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Cyan");
+    break;
+    //light blue
+    case 7: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Light Blue");
+    break;
+    //blue
+    case 8: drawColor[0] = 0; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Blue");
+    break;
+    //purple
+    case 9: drawColor[0] = 128; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Purple");
+    break;
+    //pink
+    case 10: drawColor[0] = 255; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Pink");
+    break;
+    //brown
+    case 11: drawColor[0] = 66; drawColor[1] = 38; drawColor[2] = 18; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Brown");
+    break;
+    //light grey
+    case 12: drawColor[0] = 170; drawColor[1] = 170; drawColor[2] = 170; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Light Grey");
+    break;
+    //grey
+    case 13: drawColor[0] = 80; drawColor[1] = 80; drawColor[2] = 80; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Grey");
+    break;
+
+}
+
+create_dl_translation_matrix(MENU_MTX_PUSH, 222.0f, 50.0f, 0);
+gDPSetEnvColor(gDisplayListHead++, drawColor[0], drawColor[1], drawColor[2], eraseAlpha);
+    gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+   
+    s16 rawStickX = gPlayer3Controller->rawStickX;
+    s16 rawStickY = gPlayer3Controller->rawStickY;
+    
+warp_camera(0, 0, 300);
+    // Handle deadzone
+    if (rawStickY > -2 && rawStickY < 2) {
+        rawStickY = 0;
+    }
+    if (rawStickX > -2 && rawStickX < 2) {
+        rawStickX = 0;
+    }
+    
+switch (curBParam) {
+    case 0:
+    cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
+    break;
+    case 1:
+    cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (24*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x3F;
+    break;
+    case 2:
+    cellX = (8*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (24*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x3F;
+    break;
+    case 3:
+    cellX = (8*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (24*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x3F;
+    break;
+    case 4:
+    cellX = (8*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (24*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x3F;
+    break;
+    case 5:
+    cellX = (8*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (24*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x3F;
+    break;
+    case 7:
+    cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
+    break;
+}
+    print_text_fmt_int(100, 50, "Brush %d", brushSize);
+    print_text_fmt_int(60, 30, "Cellx %d", (int)cellX);
+    print_text_fmt_int(100, 30, "Cellz %d", (int)cellZ);
+    if (eraseAlpha == 255) {
+        print_text(100, 70, "Draw");
+    }
+    else if (eraseAlpha == 0) {
+        print_text(100, 70, "Erase");
+    }
+
+    // Move cursor
+    sCursorAccel[0] = rawStickX / 8;
+    sCursorAccel[1] = rawStickY / 8;
+    sCursorPos[0] += rawStickX / 8;
+    sCursorPos[1] += rawStickY / 8;
+
+if (sCursorPos[0] > maxDistX) {
+        sCursorPos[0] = maxDistX;
+        sCursorAccel[0] = 0.0f;
+    }
+    if (sCursorPos[0] < -maxDistX) {
+        sCursorPos[0] = -maxDistX;
+        sCursorAccel[0] = 0.0f;
+    }
+
+    if (sCursorPos[1] > maxDistY) {
+        sCursorPos[1] = maxDistY;
+        sCursorAccel[1] = 0.0f;
+    }
+    if (sCursorPos[1] < -maxDistY) {
+        sCursorPos[1] = -maxDistY;
+        sCursorAccel[1] = 0.0f;
+    }
+
+
+    o->oPosX += sCursorAccel[0];
+    o->oPosY += sCursorAccel[1];
+    
+
+
+    // Stop cursor from going offscreen
+    
+
+
+
+
 }

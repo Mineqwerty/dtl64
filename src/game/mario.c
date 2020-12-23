@@ -33,8 +33,10 @@
 #include "sound_init.h"
 #include "thread6.h"
 
+
 u32 unused80339F10;
 s8 filler80339F1C[20];
+
 
 /**************************************************
  *                    ANIMATIONS                  *
@@ -547,7 +549,7 @@ struct Surface *resolve_and_return_wall_collisions(Vec3f pos, f32 offset, f32 ra
 f32 vec3f_find_ceil(Vec3f pos, f32 height, struct Surface **ceil) {
     UNUSED f32 unused;
 
-    return find_ceil(pos[0], height + 80.0f, pos[2], ceil);
+    return find_ceil(pos[0], height + 3.0f, pos[2], ceil);
 }
 
 /**
@@ -1329,7 +1331,7 @@ void update_mario_geometry_inputs(struct MarioState *m) {
         m->floorHeight = find_floor(m->pos[0], m->pos[1], m->pos[2], &m->floor);
     }
 
-    m->ceilHeight = vec3f_find_ceil(&m->pos[0], m->floorHeight, &m->ceil);
+    m->ceilHeight = vec3f_find_ceil(m->pos, m->pos[1], &m->ceil);
     gasLevel = find_poison_gas_level(m->pos[0], m->pos[2]);
     m->waterLevel = find_water_level(m->pos[0], m->pos[2]);
 
@@ -1693,6 +1695,54 @@ void func_sh_8025574C(void) {
  */
 s32 execute_mario_action(UNUSED struct Object *o) {
     s32 inLoop = TRUE;
+extern const u16 mario_sprite64_rgba16[];
+extern const u16 mario_sprite_rgba16[];
+extern const u16 mario_spritelimb_rgba16_copy[]; //left arm
+extern const u16 mario_spritelimb_rgba16_copy_copy[]; //right arm
+extern const u16 mario_spritelimb_rgba16_copy_copy_copy[]; //left leg
+extern const u16 mario_spritelimb_rgba16[]; //right leg
+
+extern const u16 drawtime_sprite_rgba16[];
+extern const u16 drawtime64_sprite64_rgba16[];
+extern const u16 drawrightarm_spritelimb_rgba16[];
+extern const u16 drawleftarm_spritelimb_rgba16[];
+extern const u16 drawrightleg_spritelimb_rgba16[];
+extern const u16 drawleftleg_spritelimb_rgba16[];
+
+
+u16 *SwitchTextureHead = segmented_to_virtual(drawtime_sprite_rgba16);
+u16 *SwitchTextureBody = segmented_to_virtual(drawtime64_sprite64_rgba16);
+u16 *SwitchTextureLArm = segmented_to_virtual(drawrightarm_spritelimb_rgba16);
+u16 *SwitchTextureRArm = segmented_to_virtual(drawleftarm_spritelimb_rgba16);
+u16 *SwitchTextureLLeg = segmented_to_virtual(drawrightleg_spritelimb_rgba16);
+u16 *SwitchTextureRLeg = segmented_to_virtual(drawleftleg_spritelimb_rgba16);
+
+u16 *MarioTexHead = segmented_to_virtual(mario_sprite_rgba16);
+u16 *MarioTexBody = segmented_to_virtual(mario_sprite64_rgba16);
+u16 *MarioTexLArm = segmented_to_virtual(mario_spritelimb_rgba16_copy);
+u16 *MarioTexRArm = segmented_to_virtual(mario_spritelimb_rgba16_copy_copy);
+u16 *MarioTexLLeg = segmented_to_virtual(mario_spritelimb_rgba16_copy_copy_copy);
+u16 *MarioTexRLeg = segmented_to_virtual(mario_spritelimb_rgba16);
+
+bcopy(SwitchTextureHead, MarioTexHead, 2*32*32);
+bcopy(SwitchTextureBody, MarioTexBody, 2*48*32);
+bcopy(SwitchTextureLArm, MarioTexLArm, 2*48*16);
+bcopy(SwitchTextureRArm, MarioTexRArm, 2*48*16);
+bcopy(SwitchTextureLLeg, MarioTexLLeg, 2*48*16);
+bcopy(SwitchTextureRLeg, MarioTexRLeg, 2*48*16);
+extern int freeze;
+if (freeze == 1) { 
+    freeze=0;
+    o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_NONE];
+    return set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
+    
+}
+if (freeze == 2) { 
+    freeze=0;
+    o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];
+    return set_mario_action(gMarioStates, ACT_IDLE, 0);
+    
+}
 
     if (gMarioState->action) {
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
