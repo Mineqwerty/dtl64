@@ -47,7 +47,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_MARI, 2521, 127, 1709, 0, 0, 0, 0x00000000, bhvSpindrift),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		STOP_MUSIC(0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 	END_AREA(),
 

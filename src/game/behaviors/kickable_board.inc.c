@@ -1,79 +1,66 @@
 // kickable_board.c.inc
 
+
+
+
+
 s32 check_mario_attacking(UNUSED s32 sp18) {
-    if (obj_check_if_collided_with_object(o, gMarioObject)) {
-        if (abs_angle_diff(o->oMoveAngleYaw, gMarioObject->oMoveAngleYaw) > 0x6000) {
-            if (gMarioStates[0].action == ACT_SLIDE_KICK)
-                return 1;
-            if (gMarioStates[0].action == ACT_PUNCHING)
-                return 1;
-            if (gMarioStates[0].action == ACT_MOVE_PUNCHING)
-                return 1;
-            if (gMarioStates[0].action == ACT_SLIDE_KICK_SLIDE)
-                return 1;
-            if (gMarioStates[0].action == ACT_JUMP_KICK)
-                return 2;
-            if (gMarioStates[0].action == ACT_WALL_KICK_AIR)
-                return 2;
-        }
-    }
-    return 0;
+    
 }
 
 void init_kickable_board_rock(void) {
-    o->oKickableBoardF8 = 1600;
-    o->oKickableBoardF4 = 0;
+   
 }
 
 void bhv_kickable_board_loop(void) {
-    s32 sp24;
-    switch (o->oAction) {
-        case 0:
-            o->oFaceAnglePitch = 0;
-            if (check_mario_attacking(0)) {
-                init_kickable_board_rock();
-                o->oAction++;
-            }
-            load_object_collision_model();
-            break;
-        case 1:
-            o->oFaceAnglePitch = 0;
-            load_object_collision_model();
-            o->oFaceAnglePitch = -sins(o->oKickableBoardF4) * o->oKickableBoardF8;
-            if (o->oTimer > 30 && (sp24 = check_mario_attacking(0))) {
-                if (gMarioObject->oPosY > o->oPosY + 160.0f && sp24 == 2) {
-                    o->oAction++;
-                    cur_obj_play_sound_2(SOUND_GENERAL_BUTTON_PRESS_2);
-                } else
-                    o->oTimer = 0;
-            }
-            if (o->oTimer != 0) {
-                o->oKickableBoardF8 -= 8;
-                if (o->oKickableBoardF8 < 0)
-                    o->oAction = 0;
-            } else
-                init_kickable_board_rock();
-            if (!(o->oKickableBoardF4 & 0x7FFF))
-                cur_obj_play_sound_2(SOUND_GENERAL_BUTTON_PRESS_2);
-            o->oKickableBoardF4 += 0x400;
-            break;
-        case 2:
-            cur_obj_become_intangible();
-            cur_obj_set_model(MODEL_WF_KICKABLE_BOARD_FELLED);
-            o->oAngleVelPitch -= 0x80;
-            o->oFaceAnglePitch += o->oAngleVelPitch;
-            if (o->oFaceAnglePitch < -0x4000) {
-                o->oFaceAnglePitch = -0x4000;
-                o->oAngleVelPitch = 0;
-                o->oAction++;
-                cur_obj_shake_screen(SHAKE_POS_SMALL);
-                cur_obj_play_sound_2(SOUND_GENERAL_UNKNOWN4);
-            }
-            load_object_collision_model();
-            break;
-        case 3:
-            load_object_collision_model();
-            break;
+
+  if (o->oinitMoving == 0.0f) {
+      switch (o->oBehParams2ndByte) {
+        case 0: o->omaxDispX = 3000.0f; o->omaxDispY = 0.0f; o->omaxDispZ = 0.0f; o->omovX = -1.0; o->omovY = 0.0; o->omovZ = 0.0;
+        break;
+        case 1: o->omaxDispX = 0.0f; o->omaxDispY = 1000.0f; o->omaxDispZ = 0.0f; o->omovX = 0.0; o->omovY = -1.0; o->omovZ = 0.0;
+        break;
+        case 2: o->omaxDispX = 0.0f; o->omaxDispY = 0.0f; o->omaxDispZ = 500.0f; o->omovX = 0.0; o->omovY = 0.0; o->omovZ = 1.0;
+        break;
     }
-    o->header.gfx.throwMatrix = NULL;
+    o->oinitPosX = o->oPosX;
+    o->oinitPosY = o->oPosY;
+    o->oinitPosZ = o->oPosZ;
+    o->oinitMoving = 1.0f;
+  }
+
+
+    extern const u16 draw_moving_platform_sprite_rgba16[];
+    extern const u16 moving_platform_sprite_rgba16[];
+    u16 *SwitchTexture = segmented_to_virtual(draw_moving_platform_sprite_rgba16);
+    u16 *PlatformTexture = segmented_to_virtual(moving_platform_sprite_rgba16);
+    
+
+    bcopy(SwitchTexture, PlatformTexture, 2*32*32);
+    if (gMarioState->drawState > 1) {
+        load_object_collision_model();
+    }
+
+    print_text_fmt_int(100, 30, "Cellz %d", (s32)o->oinitPosX);
+    
+    o->oPosX += o->omovX*12.0f;
+    o->oPosY += o->omovY*8.0f;
+    o->oPosZ += o->omovZ*12.0f;
+
+    if (gMarioObject->platform == o) {
+        apply_platform_displacement(TRUE, o);
+    }
+
+if (absf(o->oPosX - o->oinitPosX) > o->omaxDispX) {
+    o->omovX *= -1;
+}
+if (absf(o->oPosY - o->oinitPosY) > o->omaxDispY) {
+    o->omovY *= -1;
+}
+if (absf(o->oPosZ - o->oinitPosZ) > o->omaxDispZ) {
+    o->omovZ *= -1;
+}
+
+
+
 }

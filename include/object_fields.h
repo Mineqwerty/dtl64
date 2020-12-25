@@ -583,8 +583,16 @@
 #define /*0x108*/ oHorizontalMovementUnk108 OBJECT_FIELD_F32(0x20)
 
 /* Kickable Board */
-#define /*0x0F4*/ oKickableBoardF4 OBJECT_FIELD_S32(0x1B)
-#define /*0x0F8*/ oKickableBoardF8 OBJECT_FIELD_S32(0x1C)
+#define omaxDispX OBJECT_FIELD_F32 (0x1B)
+#define omaxDispY OBJECT_FIELD_F32 (0x1C)
+#define omaxDispZ OBJECT_FIELD_F32 (0x1D)
+#define omovX OBJECT_FIELD_F32 (0x1E)
+#define omovY OBJECT_FIELD_F32 (0x1F)
+#define omovZ OBJECT_FIELD_F32 (0x20)
+#define oinitPosX OBJECT_FIELD_F32 (0x21)
+#define oinitPosY OBJECT_FIELD_F32 (0x22)
+#define oinitPosZ OBJECT_FIELD_F32 (0x23)
+#define oinitMoving OBJECT_FIELD_F32 (0x24)
 
  /* King Bob-omb */
 #define /*0x088*/ oKingBobombUnk88  OBJECT_FIELD_S32(0x00)

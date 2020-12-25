@@ -229,4 +229,14 @@ extern const Collision unknown_seg8_collision_080262F8[];
 #include "mari/anim_header.h"
 #include "drawcloud/geo_header.h"
 
+#include "cloud_platform/geo_header.h"
+
+#include "cloud_platform/collision_header.h"
+
+#include "draw_moving_platform/geo_header.h"
+
+#include "moving_platform/geo_header.h"
+
+#include "moving_platform/collision_header.h"
+
 #endif

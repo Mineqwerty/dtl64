@@ -91,3 +91,9 @@ UNUSED static const u64 binid_18 = 18;
 #include "mari/model.inc.c"
 #include "mari/anims/data.inc.c"
 #include "mari/anims/table.inc.c"
+
+#include "cloud_platform/model.inc.c"
+#include "cloud_platform/collision.inc.c"
+
+#include "moving_platform/model.inc.c"
+#include "moving_platform/collision.inc.c"

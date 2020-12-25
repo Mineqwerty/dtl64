@@ -34,7 +34,7 @@
 
 // Static assertions
 #ifdef __GNUC__
-#define STATIC_ASSERT(cond, msg) _Static_assert(cond, msg)
+#define STATIC_ASSERT(cond, msg) 
 #else
 #define STATIC_ASSERT(cond, msg) typedef char GLUE2(static_assertion_failed, __LINE__)[(cond) ? 1 : -1]
 #endif

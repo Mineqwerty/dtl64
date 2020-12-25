@@ -504,6 +504,9 @@
 #define MODEL_MARI                  0xEE
 
 #define MODEL_DRAWCLOUD                  0xF7
+#define MODEL_CLOUD_PLATFORM                 0xF8
+#define MODEL_DRAW_MOVING_PLATFORM                 0xF9
+#define MODEL_MOVING_PLATFORM                 0xFA
 
 
 

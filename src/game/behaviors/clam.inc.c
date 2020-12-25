@@ -8,6 +8,8 @@ extern const u16 drawleftarm_spritelimb_rgba16[];
 extern const u16 drawrightleg_spritelimb_rgba16[];
 extern const u16 drawleftleg_spritelimb_rgba16[];
 extern const u16 drawcloud_sprite_rgba16[];
+extern const u16 draw_moving_platform_sprite_rgba16[];
+
 extern int freeze = 0;
 
 
@@ -33,8 +35,17 @@ if (gCurrLevelNum == LEVEL_WF) {
         curBParam = o->oBehParams2ndByte;
         if (gPlayer1Controller->buttonPressed & START_BUTTON) {
             freeze = 2;
+            cursorspawn = 0;
+            curBParam = 0;
+            func_80321080(500);
             mark_obj_for_deletion(cursor);
             mark_obj_for_deletion(o);
+            switch (o->oBehParams2ndByte) {
+                case 7: gMarioState->drawState = 1;
+                break;
+                case 8: gMarioState->drawState = 2;
+                break;
+            }
             
         }
     }
@@ -59,6 +70,8 @@ if (gCurrLevelNum == LEVEL_WF) {
     break;
     case 7: maxDistX = 212; maxDistY = 212; rowNum = 32; vertLimit = 31;
     break;
+    case 8: maxDistX = 212; maxDistY = 212; rowNum = 32; vertLimit = 31;
+    break;
 }
    cursor = spawn_object_relative(0, 0, maxDistY, -60, o, MODEL_DRAWCURSOR, bhvCoffin);
     freeze = 1;
@@ -66,6 +79,8 @@ if (gCurrLevelNum == LEVEL_WF) {
     gMarioState->pos[1] = o->oPosY;
     gMarioState->pos[2] = o->oPosZ;
    gCamera->mode = CAMERA_MODE_BEHIND_MARIO;
+
+   play_secondary_music(SEQ_STREAMED_STREAMED_DRAWING_THEME, 0, 255, 100);
    cursorspawn = 1;
     }
 
@@ -85,6 +100,8 @@ switch (curBParam) {
     case 5: SwitchTexture = segmented_to_virtual(drawleftleg_spritelimb_rgba16);
     break;
     case 7: SwitchTexture = segmented_to_virtual(drawcloud_sprite_rgba16);
+    break;
+    case 8: SwitchTexture = segmented_to_virtual(draw_moving_platform_sprite_rgba16);
     break;
     
 }

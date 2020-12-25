@@ -37,3 +37,6 @@
 #include "jowee/geo.inc.c"
 #include "mari/geo.inc.c"
 #include "drawcloud/geo.inc.c"
+#include "cloud_platform/geo.inc.c"
+#include "draw_moving_platform/geo.inc.c"
+#include "moving_platform/geo.inc.c"

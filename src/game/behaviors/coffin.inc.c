@@ -55,15 +55,17 @@ if (gPlayer1Controller->buttonPressed & D_JPAD) {
 }
 
 if (gPlayer1Controller->buttonPressed & B_BUTTON) {
+    if (gCurrLevelNum == LEVEL_BOB) {
     curBParam+=1;
     if (curBParam == 6) {
-        initiate_warp(LEVEL_CASTLE, 1, 0x1F, 0);
+        initiate_warp(LEVEL_WF, 1, 0x0A, 0);
     }
     cursorspawn=0;
     sCursorPos[0] = 0.0f;
      sCursorPos[1] = 0.0f;
      mark_obj_for_deletion(o);
      return;
+     }
 }
 
 switch (curBParam) {
@@ -80,6 +82,8 @@ switch (curBParam) {
     case 5: maxDistX = 106; maxDistY = 318;
     break;
     case 7: maxDistX = 212; maxDistY = 212;
+    break;
+    case 8: maxDistX = 212; maxDistY = 212;
     break;
 }
 
@@ -190,10 +194,12 @@ switch (curBParam) {
     cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
     cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
     break;
+    case 8:
+    cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
+    break;
 }
     print_text_fmt_int(100, 50, "Brush %d", brushSize);
-    print_text_fmt_int(60, 30, "Cellx %d", (int)cellX);
-    print_text_fmt_int(100, 30, "Cellz %d", (int)cellZ);
     if (eraseAlpha == 255) {
         print_text(100, 70, "Draw");
     }
@@ -202,10 +208,10 @@ switch (curBParam) {
     }
 
     // Move cursor
-    sCursorAccel[0] = rawStickX / 8;
-    sCursorAccel[1] = rawStickY / 8;
-    sCursorPos[0] += rawStickX / 8;
-    sCursorPos[1] += rawStickY / 8;
+    sCursorAccel[0] = rawStickX / 12;
+    sCursorAccel[1] = rawStickY / 12;
+    sCursorPos[0] += rawStickX / 12;
+    sCursorPos[1] += rawStickY / 12;
 
 if (sCursorPos[0] > maxDistX) {
         sCursorPos[0] = maxDistX;
