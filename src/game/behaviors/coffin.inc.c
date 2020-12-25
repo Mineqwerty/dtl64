@@ -13,6 +13,7 @@ int eraseAlpha = 255;
 extern int brushSize = 1;
 extern int curBParam;
 extern int cursorspawn;
+extern int cursorDelete;
 
 void bhv_coffin_spawner_loop(void) {
    
@@ -52,6 +53,16 @@ if (gPlayer1Controller->buttonPressed & D_JPAD) {
     if (eraseAlpha > 255) {
         eraseAlpha = 0;
     }
+}
+
+if (cursorDelete == 1) {
+    cursorDelete == 0;
+    cursorspawn = 0;
+    sCursorPos[0] = 0.0f;
+     sCursorPos[1] = 0.0f;
+     mark_obj_for_deletion(o);
+     return;
+
 }
 
 if (gPlayer1Controller->buttonPressed & B_BUTTON) {

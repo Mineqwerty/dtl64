@@ -971,6 +971,7 @@ s32 bowser_check_fallen_off_stage(void) // bowser off stage?
     }
     return 0;
 }
+struct PlatformDisplacementInfo sBowserDisplacementInfo;
 
 void (*sBowserActions[])(void) = { bowser_act_default,  bowser_act_thrown_dropped,  bowser_act_jump_onto_stage,  bowser_act_dance,
                                    bowser_act_dead,  bowser_act_text_wait,  bowser_act_intro_walk,  bowser_act_charge_mario,
@@ -1033,7 +1034,7 @@ void bowser_free_update(void) {
     struct Object *platform;
     UNUSED f32 floorHeight;
     if ((platform = o->platform) != NULL)
-        apply_platform_displacement(FALSE, platform);
+        apply_platform_displacement(&sBowserDisplacementInfo, &o->oPosX, &o->oFaceAngleYaw, platform);
     o->oBowserUnk10E = 0;
     cur_obj_update_floor_and_walls();
     cur_obj_call_action_function(sBowserActions);

@@ -11,7 +11,7 @@ extern const u16 drawcloud_sprite_rgba16[];
 extern const u16 draw_moving_platform_sprite_rgba16[];
 
 extern int freeze = 0;
-
+extern int cursorDelete = 0;
 
 extern int cursorspawn = 0;
 extern int drawColor[];
@@ -38,7 +38,7 @@ if (gCurrLevelNum == LEVEL_WF) {
             cursorspawn = 0;
             curBParam = 0;
             func_80321080(500);
-            mark_obj_for_deletion(cursor);
+            cursorDelete = 1;
             mark_obj_for_deletion(o);
             switch (o->oBehParams2ndByte) {
                 case 7: gMarioState->drawState = 1;
