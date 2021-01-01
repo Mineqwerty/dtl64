@@ -239,4 +239,14 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 #include "moving_platform/collision_header.h"
 
+#include "draw_spring/geo_header.h"
+
+#include "bounce_spring/geo_header.h"
+
+#include "bounce_spring/collision_header.h"
+
+#include "draw_hoverboard/geo_header.h"
+
+#include "hoverboard/geo_header.h"
+
 #endif

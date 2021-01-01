@@ -371,6 +371,7 @@
 #define MODEL_MONTY_MOLE                  0x55        // monty_mole_geo
 #define MODEL_UKIKI                       0x56        // ukiki_geo
 #define MODEL_FWOOSH                      0x57        // fwoosh_geo
+#define MODEL_SNOW_GATE                      0x58 
 
 // group 7
 #define MODEL_SPINDRIFT                   0x54        // spindrift_geo
@@ -507,6 +508,9 @@
 #define MODEL_CLOUD_PLATFORM                 0xF8
 #define MODEL_DRAW_MOVING_PLATFORM                 0xF9
 #define MODEL_MOVING_PLATFORM                 0xFA
+#define MODEL_DRAW_SPRING                 0xFB
+#define MODEL_BOUNCE_SPRING                 0xFC
+#define MODEL_DRAW_HOVERBOARD                 0xFD
 
 
 

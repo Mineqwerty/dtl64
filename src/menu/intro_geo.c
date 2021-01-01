@@ -110,7 +110,7 @@ Gfx *geo_title_screen(s32 sp50, struct GraphNode *sp54, UNUSED void *context) {
         }
         guScale(scaleMat, scaleX, scaleY, scaleZ);
         gSPMatrix(displayListIter++, scaleMat, G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
-        gSPDisplayList(displayListIter++, &intro_seg7_dl_0700B3A0);
+        gSPDisplayList(displayListIter++, &titleScreen_Plane_mesh);
         gSPPopMatrix(displayListIter++, G_MTX_MODELVIEW);
         gSPEndDisplayList(displayListIter);
         gTitleZoomCounter++;
@@ -140,7 +140,7 @@ Gfx *geo_fade_transition(s32 sp40, struct GraphNode *sp44, UNUSED void *context)
             if (0) {
             }
         }
-        gSPDisplayList(displayListIter++, &intro_seg7_dl_0700C6A0);
+        //gSPDisplayList(displayListIter++, &titleScreen_Plane_mesh);
         gSPEndDisplayList(displayListIter);
         if (gTitleZoomCounter >= 0x13) {
             gTitleFadeCounter += 0x1a;

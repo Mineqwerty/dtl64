@@ -1737,6 +1737,10 @@ if (freeze == 1) {
     return set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
     
 }
+if (gMarioStates->cutsceneStep == 0) {
+    o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_NONE];
+    return set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
+}
 if (freeze == 2) { 
     freeze=0;
     o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];

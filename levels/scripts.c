@@ -180,7 +180,7 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_EXCLAMATION_BOX,         exclamation_box_geo),
     LOAD_MODEL_FROM_GEO(MODEL_GOOMBA,                  goomba_geo),
     LOAD_MODEL_FROM_DL( MODEL_EXCLAMATION_POINT,       exclamation_box_outline_seg8_dl_08025F08, LAYER_ALPHA),
-    LOAD_MODEL_FROM_GEO(MODEL_KOOPA_SHELL,             koopa_shell_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_KOOPA_SHELL,             hoverboard_geo),
     LOAD_MODEL_FROM_GEO(MODEL_METAL_BOX,               metal_box_geo),
     LOAD_MODEL_FROM_DL( MODEL_METAL_BOX_DL,            metal_box_dl,                             LAYER_OPAQUE),
     LOAD_MODEL_FROM_GEO(MODEL_BLACK_BOBOMB,            black_bobomb_geo),
@@ -211,6 +211,9 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_CLOUD_PLATFORM,                 cloud_platform_geo),
     LOAD_MODEL_FROM_GEO(MODEL_DRAW_MOVING_PLATFORM,                 draw_moving_platform_geo),
     LOAD_MODEL_FROM_GEO(MODEL_MOVING_PLATFORM,                 moving_platform_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAW_SPRING,                 draw_spring_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BOUNCE_SPRING,                 bounce_spring_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAW_HOVERBOARD,                 draw_hoverboard_geo),
 
 
     RETURN(),
@@ -264,6 +267,7 @@ const LevelScript script_func_global_7[] = {
     LOAD_MODEL_FROM_GEO(MODEL_MONTY_MOLE,              monty_mole_geo),
     LOAD_MODEL_FROM_GEO(MODEL_UKIKI,                   ukiki_geo),
     LOAD_MODEL_FROM_GEO(MODEL_FWOOSH,                  fwoosh_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_SNOW_GATE,                  snow_gate_geo),
     RETURN(),
 };
 

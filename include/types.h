@@ -342,6 +342,7 @@ struct MarioState
     /*0xC0*/ f32 quicksandDepth;
     /*0xC4*/ f32 unkC4;
     int drawState;
+    int cutsceneStep;
 };
 
 #endif // TYPES_H

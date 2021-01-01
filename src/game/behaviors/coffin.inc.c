@@ -56,7 +56,7 @@ if (gPlayer1Controller->buttonPressed & D_JPAD) {
 }
 
 if (cursorDelete == 1) {
-    cursorDelete == 0;
+    cursorDelete = 0;
     cursorspawn = 0;
     sCursorPos[0] = 0.0f;
      sCursorPos[1] = 0.0f;
@@ -69,7 +69,8 @@ if (gPlayer1Controller->buttonPressed & B_BUTTON) {
     if (gCurrLevelNum == LEVEL_BOB) {
     curBParam+=1;
     if (curBParam == 6) {
-        initiate_warp(LEVEL_WF, 1, 0x0A, 0);
+        curBParam = 0;
+        
     }
     cursorspawn=0;
     sCursorPos[0] = 0.0f;
@@ -78,6 +79,7 @@ if (gPlayer1Controller->buttonPressed & B_BUTTON) {
      return;
      }
 }
+
 
 switch (curBParam) {
     case 0: maxDistX = 212; maxDistY = 212;
@@ -95,6 +97,10 @@ switch (curBParam) {
     case 7: maxDistX = 212; maxDistY = 212;
     break;
     case 8: maxDistX = 212; maxDistY = 212;
+    break;
+    case 9: maxDistX = 212; maxDistY = 212;
+    break;
+    case 10: maxDistX = 212; maxDistY = 212;
     break;
 }
 
@@ -164,15 +170,17 @@ gDPSetEnvColor(gDisplayListHead++, drawColor[0], drawColor[1], drawColor[2], era
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
    
-    s16 rawStickX = gPlayer3Controller->rawStickX;
-    s16 rawStickY = gPlayer3Controller->rawStickY;
+    s16 rawStickX = gPlayer1Controller->rawStickX;
+    s16 rawStickY = gPlayer1Controller->rawStickY;
+    s16 mouseRawStickX = gPlayer2Controller->rawStickX;
+    s16 mouseRawStickY = gPlayer2Controller->rawStickY;
     
 warp_camera(0, 0, 300);
     // Handle deadzone
-    if (rawStickY > -2 && rawStickY < 2) {
+    if (rawStickY+mouseRawStickY > -2 && rawStickY+mouseRawStickY < 2) {
         rawStickY = 0;
     }
-    if (rawStickX > -2 && rawStickX < 2) {
+    if (rawStickX+mouseRawStickX > -2 && rawStickX+mouseRawStickX < 2) {
         rawStickX = 0;
     }
     
@@ -209,6 +217,14 @@ switch (curBParam) {
     cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
     cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
     break;
+    case 9:
+    cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
+    break;
+    case 10:
+    cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
+    break;
 }
     print_text_fmt_int(100, 50, "Brush %d", brushSize);
     if (eraseAlpha == 255) {
@@ -219,10 +235,10 @@ switch (curBParam) {
     }
 
     // Move cursor
-    sCursorAccel[0] = rawStickX / 12;
-    sCursorAccel[1] = rawStickY / 12;
-    sCursorPos[0] += rawStickX / 12;
-    sCursorPos[1] += rawStickY / 12;
+    sCursorAccel[0] = (rawStickX + mouseRawStickX)/ 12;
+    sCursorAccel[1] = (rawStickY + mouseRawStickY) / 12;
+    sCursorPos[0] += (rawStickX + mouseRawStickX) / 12;
+    sCursorPos[1] += (rawStickY + mouseRawStickY) / 12;
 
 if (sCursorPos[0] > maxDistX) {
         sCursorPos[0] = maxDistX;

@@ -396,14 +396,14 @@
  * Course Table names for Score Menu Save view
  */
 #define TEXT_MENU_BOB _(" 1 BOB-OMB BATTLEFIELD")
-#define TEXT_MENU_WF _(" 2 WHOMP'S FORTRESS")
+#define TEXT_MENU_WF _(" - SNOWY FIELDS")
 #define TEXT_MENU_JRB _(" 3 JOLLY ROGER BAY")
 #define TEXT_MENU_CCM _(" 4 COOL, COOL MOUNTAIN")
 #define TEXT_MENU_BBH _(" 5 BIG BOO'S HAUNT")
 #define TEXT_MENU_HMC _(" 6 HAZY MAZE CAVE")
 #define TEXT_MENU_LLL _(" 7 LETHAL LAVA LAND")
 #define TEXT_MENU_SSL _(" 8 SHIFTING SAND LAND")
-#define TEXT_MENU_DDD _(" 9 DIRE, DIRE DOCKS")
+#define TEXT_MENU_DDD _(" - SNOWY FIELDS")
 #define TEXT_MENU_SL _("10 SNOWMAN'S LAND")
 #define TEXT_MENU_WDW _("11 WET-DRY WORLD")
 #define TEXT_MENU_TTM _("12 TALL, TALL MOUNTAIN")

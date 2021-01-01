@@ -8,3 +8,5 @@
 #include "actors/drawleftleg/model.inc.c"
 #include "actors/drawcloud/model.inc.c"
 #include "actors/draw_moving_platform/model.inc.c"
+#include "actors/draw_spring/model.inc.c"
+#include "actors/draw_hoverboard/model.inc.c"

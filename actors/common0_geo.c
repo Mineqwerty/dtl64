@@ -40,3 +40,7 @@
 #include "cloud_platform/geo.inc.c"
 #include "draw_moving_platform/geo.inc.c"
 #include "moving_platform/geo.inc.c"
+#include "draw_spring/geo.inc.c"
+#include "bounce_spring/geo.inc.c"
+#include "draw_hoverboard/geo.inc.c"
+#include "hoverboard/geo.inc.c"

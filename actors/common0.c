@@ -97,3 +97,8 @@ UNUSED static const u64 binid_18 = 18;
 
 #include "moving_platform/model.inc.c"
 #include "moving_platform/collision.inc.c"
+
+#include "bounce_spring/model.inc.c"
+#include "bounce_spring/collision.inc.c"
+
+#include "hoverboard/model.inc.c"

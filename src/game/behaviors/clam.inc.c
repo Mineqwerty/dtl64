@@ -9,9 +9,12 @@ extern const u16 drawrightleg_spritelimb_rgba16[];
 extern const u16 drawleftleg_spritelimb_rgba16[];
 extern const u16 drawcloud_sprite_rgba16[];
 extern const u16 draw_moving_platform_sprite_rgba16[];
+extern const u16 draw_spring_sprite_rgba16[];
+extern const u16 draw_hoverboard_sprite_rgba16[];
 
 extern int freeze = 0;
 extern int cursorDelete = 0;
+int directions = 15;
 
 extern int cursorspawn = 0;
 extern int drawColor[];
@@ -30,10 +33,15 @@ void clam_act_1(void) {
 }
 
 void bhv_clam_loop(void) {
-if (gCurrLevelNum == LEVEL_WF) {
-    if (o->oDistanceToMario < 80.0f) {
+if (gCurrLevelNum == LEVEL_WF || gCurrLevelNum == LEVEL_DDD) {
+    if (o->oDistanceToMario < 160.0f) {
         curBParam = o->oBehParams2ndByte;
         if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+            create_dialog_box_with_response(DIALOG_019);
+        }
+
+
+        if (gDialogResponse == 1) {
             freeze = 2;
             cursorspawn = 0;
             curBParam = 0;
@@ -44,6 +52,10 @@ if (gCurrLevelNum == LEVEL_WF) {
                 case 7: gMarioState->drawState = 1;
                 break;
                 case 8: gMarioState->drawState = 2;
+                break;
+                case 9: gMarioState->drawState = 3;
+                break;
+                case 10: gMarioState->drawState = 4; spawn_object(o, MODEL_NONE, bhvOpenableGrill);
                 break;
             }
             
@@ -72,8 +84,16 @@ if (gCurrLevelNum == LEVEL_WF) {
     break;
     case 8: maxDistX = 212; maxDistY = 212; rowNum = 32; vertLimit = 31;
     break;
+    case 9: maxDistX = 212; maxDistY = 212; rowNum = 32; vertLimit = 31;
+    break;
+    case 10: maxDistX = 212; maxDistY = 212; rowNum = 32; vertLimit = 31;
+    break;
 }
    cursor = spawn_object_relative(0, 0, maxDistY, -60, o, MODEL_DRAWCURSOR, bhvCoffin);
+  
+       
+
+
     freeze = 1;
     gMarioState->pos[0] = o->oPosX;
     gMarioState->pos[1] = o->oPosY;
@@ -83,6 +103,40 @@ if (gCurrLevelNum == LEVEL_WF) {
    play_secondary_music(SEQ_STREAMED_STREAMED_DRAWING_THEME, 0, 255, 100);
    cursorspawn = 1;
     }
+
+if (gCurrLevelNum == LEVEL_BOB) {
+
+if (directions > 0) {
+           directions -= 1;
+           if (directions == 0) {
+               create_dialog_box(DIALOG_033);
+           }
+   }
+if (directions == 0) {
+               if (gDialogResponse == 1) {
+                   gDialogResponse = 0;
+                   directions = -1;
+               }
+           }
+
+
+if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+            create_dialog_box_with_response(DIALOG_019);
+        }
+
+
+        if (gDialogResponse == 1) {
+            freeze = 2;
+            cursorspawn=0;
+    sCursorPos[0] = 0.0f;
+     sCursorPos[1] = 0.0f;
+     gMarioState->cutsceneStep = 3;
+initiate_warp(LEVEL_TTM, 1, 0x0A, 0);
+gDialogResponse = 0;
+return;
+        }
+        }
+
 
     extern s16 cellX, cellZ;
 u16 *SwitchTexture = segmented_to_virtual(drawtime_sprite_rgba16);
@@ -103,65 +157,111 @@ switch (curBParam) {
     break;
     case 8: SwitchTexture = segmented_to_virtual(draw_moving_platform_sprite_rgba16);
     break;
+    case 9: SwitchTexture = segmented_to_virtual(draw_spring_sprite_rgba16);
+    break;
+    case 10: SwitchTexture = segmented_to_virtual(draw_hoverboard_sprite_rgba16);
+    break;
     
 }
     static int Dist = 0;
-
-    if (gPlayer1Controller->buttonDown & A_BUTTON) {
+print_text_fmt_int(20, 70, "Cellecks %d", cellX);
+print_text_fmt_int(20, 50, "Cellzeh %d", cellZ);
+    if (gPlayer1Controller->buttonDown & A_BUTTON || gPlayer2Controller->buttonDown & A_BUTTON) {
        if (brushSize == 1) {
-        SwitchTexture[ -cellX + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
        }
        if (brushSize == 2) {
            
            static int cellLimit = 1;
-           if ((int)cellX == rowNum) {
+           if (cellX == rowNum-1) {
+               cellLimit=0;
+           }
+           else if (cellX == 0) {
                cellLimit=0;
            }
            else {
                cellLimit=1;
            }
 
-        SwitchTexture[ -cellX+1 + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-1 + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(rowNum-1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(rowNum) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(rowNum+1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(rowNum-1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(rowNum) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(rowNum+1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+    
+       
+        SwitchTexture[ -cellX+cellLimit + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-cellLimit + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        if (cellZ + 2 <= vertLimit) {
+            //up one
+        SwitchTexture[ -cellX+(rowNum-cellLimit) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(rowNum) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(rowNum+cellLimit) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        }
+        if (cellZ - 2 >= 0) {
+            //down one
+        SwitchTexture[ -cellX-(rowNum-cellLimit) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(rowNum) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(rowNum+cellLimit) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        }
            
        }
        if (brushSize == 3) {
-           
-        SwitchTexture[-cellX+1 + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-1 + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+2 + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-2 + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(rowNum-2) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(rowNum-1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(rowNum) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(rowNum+1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(rowNum+2) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(rowNum-2) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(rowNum-1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(rowNum) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(rowNum+1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(rowNum+2) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+           static int RcellLimit = 2;
+           static int LcellLimit = 2;
+           if (cellX == rowNum-2) {
+               RcellLimit=1;
+           }
+           else if (cellX == rowNum-1) {
+               RcellLimit=0;
+           }
+           else {
+               RcellLimit=2;
+           }
+            if (cellX == 1) {
+                LcellLimit=1;
+            }
+           else if (cellX == 0) {
+               LcellLimit=0;
+           }
+           else {
+               LcellLimit=2;
+           }
 
-              SwitchTexture[ -cellX+(2*rowNum-2) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(2*rowNum-1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(2*rowNum) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(2*rowNum+1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX+(2*rowNum+2) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-
-        SwitchTexture[ -cellX-(2*rowNum-2) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(2*rowNum-1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(2*rowNum) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(2*rowNum+1) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
-        SwitchTexture[ -cellX-(2*rowNum+2) + rowNum *cellZ] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
            
+        SwitchTexture[-cellX+(RcellLimit/2) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(LcellLimit/2) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(RcellLimit) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(LcellLimit) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        //up one
+        if (cellZ + 2 <= vertLimit) {
+        SwitchTexture[ -cellX+(rowNum-(LcellLimit)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(rowNum-(LcellLimit/2)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(rowNum) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(rowNum+(RcellLimit/2)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(rowNum+(RcellLimit)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        }
+        //down one
+        if (cellZ - 2 >= 0) {
+        SwitchTexture[ -cellX-(rowNum-(LcellLimit/2)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(rowNum-(LcellLimit)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(rowNum) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(rowNum+(RcellLimit)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(rowNum+(RcellLimit/2)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        }
+        //up two
+        if (cellZ + 3 <= vertLimit) {
+        SwitchTexture[ -cellX+(2*rowNum-(LcellLimit/2)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(2*rowNum-(LcellLimit)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(2*rowNum) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(2*rowNum+(RcellLimit)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX+(2*rowNum+(RcellLimit/2)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        }
+        //down two
+        if (cellZ - 2 >= 0) {
+        SwitchTexture[ -cellX-(2*rowNum-(LcellLimit/2)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(2*rowNum-(LcellLimit)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(2*rowNum) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(2*rowNum+(RcellLimit)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        SwitchTexture[ -cellX-(2*rowNum+(RcellLimit/2)) + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
+        }
        }
     }
     if (gPlayer1Controller->buttonPressed & Z_TRIG) {

@@ -1,53 +1,37 @@
 // drawbridge.c.inc
 
+int spring_jumping = 0;
+
 void bhv_lll_drawbridge_spawner_loop(void) {
-    struct Object *drawbridge1, *drawbridge2;
-
-    drawbridge1 = spawn_object(o, MODEL_LLL_DRAWBRIDGE_PART, bhvLllDrawbridge);
-    drawbridge1->oMoveAngleYaw = o->oMoveAngleYaw;
-    drawbridge1->oPosX += coss(o->oMoveAngleYaw) * 640.0f;
-    drawbridge1->oPosZ += sins(o->oMoveAngleYaw) * 640.0f;
-
-    drawbridge2 = spawn_object(o, MODEL_LLL_DRAWBRIDGE_PART, bhvLllDrawbridge);
-    drawbridge2->oMoveAngleYaw = o->oMoveAngleYaw + 0x8000;
-    drawbridge2->oPosX += coss(o->oMoveAngleYaw) * -640.0f;
-    drawbridge2->oPosZ += sins(o->oMoveAngleYaw) * -640.0f;
-
-    o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    
 }
 
 void bhv_lll_drawbridge_loop(void) {
-    s32 globalTimer = gGlobalTimer;
+    extern const u16 draw_spring_sprite_rgba16[];
+    extern const u16 bounce_spring_sprite_rgba16[];
+    u16 *SwitchTexture = segmented_to_virtual(draw_spring_sprite_rgba16);
+    u16 *SpringTexture = segmented_to_virtual(bounce_spring_sprite_rgba16);
 
-    switch (o->oAction) {
-        case LLL_DRAWBRIDGE_ACT_LOWER:
-            o->oFaceAngleRoll += 0x100;
-            break;
 
-        case LLL_DRAWBRIDGE_ACT_RAISE:
-            o->oFaceAngleRoll -= 0x100;
-            break;
+    bcopy(SwitchTexture, SpringTexture, 2*32*32);
+    if (gMarioState->drawState > 2) {
+        load_object_collision_model();
     }
 
-    if ((s16) o->oFaceAngleRoll < -0x1FFD) {
-        o->oFaceAngleRoll = 0xDFFF;
+if (spring_jumping == 1) {
+    gMarioState->vel[1] = 100.0f;
+    spring_jumping = 0;
+    set_camera_mode(gCamera, CAMERA_MODE_SLIDE_HOOT, 1);
+}
+if (gMarioState->action == ACT_IDLE) {
+    set_camera_mode(gCamera, CAMERA_MODE_FREE_ROAM, 1);
+}
 
-        //! Because the global timer increments when the game is paused, pausing and unpausing
-        //  the game at regular intervals can leave the drawbridge raised indefinitely.
-        if (o->oTimer >= 51 && (globalTimer % 8) == 0) {
-            o->oAction = LLL_DRAWBRIDGE_ACT_LOWER;
-            cur_obj_play_sound_2(SOUND_GENERAL_BOAT_TILT1);
-        }
-    }
+if (gMarioObject->platform == o) {
+    set_mario_action(gMarioStates, ACT_DOUBLE_JUMP, 0);
+    spring_jumping = 1;
+}
 
-    if ((s16) o->oFaceAngleRoll >= 0) {
-        o->oFaceAngleRoll = 0;
 
-        //! Because the global timer increments when the game is paused, pausing and unpausing
-        //  the game at regular intervals can leave the drawbridge lowered indefinitely.
-        if (o->oTimer >= 51 && (globalTimer % 8) == 0) {
-            o->oAction = LLL_DRAWBRIDGE_ACT_RAISE;
-            cur_obj_play_sound_2(SOUND_GENERAL_BOAT_TILT2);
-        }
-    }
+
 }

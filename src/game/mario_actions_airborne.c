@@ -71,7 +71,7 @@ s32 check_fall_damage(struct MarioState *m, u32 hardFallAction) {
     if (m->actionState == ACT_GROUND_POUND) {
         damageHeight = 600.0f;
     } else {
-        damageHeight = 1150.0f;
+        damageHeight = 115000.0f;
     }
 
 #pragma GCC diagnostic pop

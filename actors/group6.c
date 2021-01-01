@@ -23,3 +23,5 @@ UNUSED static const u64 binid_3 = 3;
 
 #include "fwoosh/model.inc.c"
 UNUSED static const u64 binid_4 = 4;
+
+#include "snow_gate/model.inc.c"

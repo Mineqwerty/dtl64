@@ -17,45 +17,22 @@
 #endif
 
 DEFINE_DIALOG(DIALOG_000, 1, 6, 30, 200, _("\
-Wow! You're smack in the\n\
-middle of the battlefield.\n\
-You'll find the Power\n\
-Stars that Bowser stole\n\
-inside the painting\n\
-worlds.\n\
-First, talk to the\n\
-Bob-omb Buddy. (Press [B]\n\
-to talk.) He'll certainly\n\
-help you out, and so will\n\
-his " COMRADES " in other\n\
-areas.\n\
-To read signs, stop, face\n\
-them and press [B]. Press [A]\n\
-or [B] to scroll ahead. You\n\
-can talk to some other\n\
-characters by facing them\n\
-and pressing [B]."))
+Wow! These springs are\n\
+bouncy! Draw a spring\n\
+that will give you a \n\
+vertical boost! Holding \n\
+down A will make you \n\
+skyrocket!"))
 
 DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, _("\
-Watch out! If you wander\n\
-around here, you're liable\n\
-to be " PLASTERED " by a\n\
-water bomb!\n\
-Those enemy Bob-ombs love\n\
-to fight, and they're\n\
-always finding ways to\n\
-attack.\n\
-This meadow has become\n\
-a battlefield ever since\n\
-the Big Bob-omb got his\n\
-paws on the Power Star.\n\
-Can you recover the Star\n\
-for us? Cross the bridge\n\
-and go left up the path\n\
-to find the Big Bob-omb.\n\
-Please come back to see\n\
-me after you've retrieved\n\
-the Power Star!"))
+How cool! To get back\n\
+up these pesky slopes,\n\
+draw yourself a sick\n\
+hoverboard!\n\
+To summon your ride,\n\
+press L after drawing\n\
+it.\n\
+ "))
 
 DEFINE_DIALOG(DIALOG_002, 1, 4, 95, 200, _("\
 Hey, you! It's dangerous\n\
@@ -138,18 +115,14 @@ Here you go--you've won\n\
 it, fair and square!"))
 
 DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, _("\
-BEWARE OF CHAIN CHOMP\n\
-Extreme Danger!\n\
-Get close and press [C]^\n\
-for a better look.\n\
-Scary, huh?\n\
-See the Red Coin on top\n\
-of the stake?\n\
-\n\
-When you collect eight of\n\
-them, a Power Star will\n\
-appear in the meadow\n\
-across the bridge."))
+How cool! To get back\n\
+up these pesky slopes,\n\
+draw yourself a sick\n\
+hoverboard!\n\
+To summon your ride,\n\
+press L after drawing\n\
+it.\n\
+ "))
 
 DEFINE_DIALOG(DIALOG_009, 1, 5, 30, 200, _("\
 Long time, no see! Wow,\n\
@@ -224,19 +197,28 @@ Do you want to Save?\n\
 //You Bet//Not Now"))
 
 DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, _("\
-You can punch enemies to\n\
-knock them down. Press [A]\n\
-to jump, [B] to punch.\n\
-Press [A] then [B] to Kick.\n\
-To pick something up,\n\
-press [B], too. To throw\n\
-something you're holding,\n\
-press [B] again."))
+What's this? Oh!\n\
+It's a drawing panel!\n\
+Drawing panels let the\n\
+Creator draw something!\n\
+Of course, the drawings\n\
+aren't useless. They'll\n\
+be added to the world in\n\
+some shape or form!\n\
+This drawing panel is\n\
+for a floating cloud\n\
+that you can jump on.\n\
+Get creative!"))
 
-DEFINE_DIALOG(DIALOG_016, 1, 3, 30, 200, _("\
-Hop on the shiny shell and\n\
-ride wherever you want to\n\
-go! Shred those enemies!"))
+DEFINE_DIALOG(DIALOG_016, 1, 4, 30, 200, _("\
+This drawing panel will\n\
+let you create a moving\n\
+platform! Some of them\n\
+are at these wooden\n\
+docks, so wait here\n\
+for one to arrive\n\
+after you draw it!\n\
+Get drawing!"))
 
 DEFINE_DIALOG(DIALOG_017, 1, 4, 30, 200, _("\
 I'm the Big Bob-omb, lord\n\
@@ -270,9 +252,10 @@ I'm sleeping because...\n\
 like being disturbed.\n\
 Please walk quietly."))
 
-DEFINE_DIALOG(DIALOG_019, 1, 2, 30, 200, _("\
-Shhh! Please walk\n\
-quietly in the hallway!"))
+DEFINE_DIALOG(DIALOG_019, 1, 3, 30, 200, _("\
+All done?\n\
+\n\
+//Yes////No"))
 
 DEFINE_DIALOG(DIALOG_020, 1, 6, 95, 150, _("\
 Dear Mario:\n\
@@ -387,92 +370,115 @@ Use the [C] Buttons to look\n\
 around while flying, and\n\
 press [Z] to land."))
 
-DEFINE_DIALOG(DIALOG_033, 1, 6, 30, 200, _("\
-Ciao! You've reached\n\
-Princess Toadstool's\n\
-castle via a warp pipe.\n\
-Using the controller is a\n\
-piece of cake. Press [A] to\n\
-jump and [B] to attack.\n\
-Press [B] to read signs,\n\
-too. Use the Control Stick\n\
-in the center of the\n\
-controller to move Mario\n\
-around. Now, head for\n\
-the castle."))
+DEFINE_DIALOG(DIALOG_033, 1, 2, 30, 200, _("\
+Welcome to Drawing Mode!\n\
+In this mode, you can\n\
+draw on these panels!\n\
+Change the camera if you \n\
+need a different view. \n\
+The controls are as follows:\n\
+The Analog Stick lets\n\
+you move the cursor.\n\
+Press [A] to draw.\n\
+\n\
+Press [B] to switch the\n\
+current Draw Panel.\n\
+Press UP on the dpad to\n\
+change your brush size.\n\
+Press DOWN on the dpad\n\
+to erase or draw.\n\
+Press Left or Right on\n\
+the dpad to change color.\n\
+Press START when you\n\
+finish."))
 
 DEFINE_DIALOG(DIALOG_034, 1, 6, 30, 200, _("\
-Good afternoon. The\n\
-Lakitu Bros., here,\n\
-reporting live from just\n\
-outside the Princess's\n\
-castle.\n\
+Jowee: Mari, where is\n\
+everyone? And is it just\n\
+me or is it dark out\n\
+today? Man I should stop\n\
+wearing these goggles so\n\
+often.\n\
+Mari: It's not you or your\n\
+goggles, Jowee. Look up!\n\
+The sun is missing!\n\
+Everyone is inside because\n\
+they're scared!\n\
 \n\
-Mario has just arrived\n\
-on the scene, and we'll\n\
-be filming the action live\n\
-as he enters the castle\n\
-and pursues the missing\n\
-Power Stars.\n\
-As seasoned cameramen,\n\
-we'll be shooting from the\n\
-recommended angle, but\n\
-you can change the\n\
-camera angle by pressing\n\
-the [C] Buttons.\n\
-If we can't adjust the\n\
-view any further, we'll\n\
-buzz. To take a look at\n\
-the surroundings, stop\n\
-and press [C]^.\n\
+Jowee: Wha??? How could that\n\
+happen? Unless...\n\
+Mari, please don't tell me\n\
+that...\n\
 \n\
-Press [A] to resume play.\n\
-Switch camera modes with\n\
-the [R] Button. Signs along\n\
-the way will review these\n\
-instructions.\n\
 \n\
-For now, reporting live,\n\
-this has been the\n\
-Lakitu Bros."))
+Mari: Yes, I'm afraid that\n\
+the page for the Sun in the\n\
+Book of Life is missing!\n\
+The sun can't exist without\n\
+its page like all of us!\n\
+\n\
+I know what we must do.\n\
+Creator who watches us, \n\
+please! Please draw us\n\
+a hero to return the\n\
+missing page!"))
 
-DEFINE_DIALOG(DIALOG_035, 1, 5, 30, 200, _("\
-There are four camera, or\n\
-『[C],』 Buttons. Press [C]^\n\
-to look around using the\n\
-Control Stick.\n\
+DEFINE_DIALOG(DIALOG_035, 1, 4, 30, 200, _("\
+Jowee: Mari, the Hero \n\
+looks kinda weird.\n\
+And look at how short\n\
+they are!\n\
+Mari: Jowee! Be nice!\n\
+The creator drew them\n\
+after all!\n\
 \n\
-You'll usually see Mario\n\
-through Lakitu's camera.\n\
-It is the camera\n\
-recommended for normal\n\
-play.\n\
-You can change angles by\n\
-pressing [C]>. If you press\n\
-[R], the view switches to\n\
-Mario's camera, which\n\
-is directly behind him.\n\
-Press [R] again to return\n\
-to Lakitu's camera. Press\n\
-[C]| to see Mario from\n\
-afar, using either\n\
-Lakitu's or Mario's view."))
+Jowee: Sorry, you're \n\
+right. Anyways, it's\n\
+good to have you back!\n\
+Can I come with you?\n\
+Mari: Jowee, it's too\n\
+dangerous. Sorry Hero,\n\
+Jowee wouldn't know danger\n\
+if it showed up at his door.\n\
+Jowee: Harsh... \n\
+\n\
+\n\
+\n\
+Mari: Anyways, we need your\n\
+help. The page for the Sun\n\
+in the book of life is\n\
+gone.\n\
+We think that it might\n\
+have been ripped up and\n\
+taken to the Snow Fields\n\
+somewhere.\n\
+Could you look for us?\n\
+It's dangerous for us\n\
+Raposa to be out there.\n\
+\n\
+There should be a gate\n\
+to the Snow Fields in\n\
+the village.\n\
+\n\
+IMPORTANT NOTE:\n\
+Unfortunately due to\n\
+console limits you\n\
+must save state\n\
+to save the game.\n\
+\n\
+\n\
+"))
 
-DEFINE_DIALOG(DIALOG_036, 1, 5, 30, 200, _("\
-OBSERVATION PLATFORM\n\
-Press [C]^ to take a look\n\
-around. Don't miss\n\
-anything!\n\
+DEFINE_DIALOG(DIALOG_036, 1, 3, 30, 200, _("\
+Mari: You did it! The page\n\
+is back!\n\
 \n\
-Press [R] to switch to\n\
-Mario's camera. It\n\
-always follows Mario.\n\
-Press [R] again to switch\n\
-to Lakitu's camera.\n\
-Pause the game and\n\
-switch the mode to 『fix』\n\
-the camera in place while\n\
-holding [R]. Give it a try!"))
+Jowee: Aw man, I still\n\
+wish you had brought\n\
+me along. Good job!\n\
+Mari: Now, to place\n\
+it back in the Book\n\
+of Life!"))
 
 DEFINE_DIALOG(DIALOG_037, 1, 2, 30, 200, _("\
 I win! You lose!\n\

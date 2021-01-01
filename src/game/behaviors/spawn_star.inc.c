@@ -31,6 +31,9 @@ void bhv_collect_star_loop(void) {
     o->oFaceAngleYaw += 0x800;
 
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+        if (gCurrLevelNum == LEVEL_DDD) {
+            gMarioState->cutsceneStep = 5;
+        }
         mark_obj_for_deletion(o);
         o->oInteractStatus = 0;
     }

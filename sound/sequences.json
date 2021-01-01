@@ -54,7 +54,7 @@
         "16_course_start"
     ],
     "0E_event_powerup": [
-        "17"
+        "streamed_audio"
     ],
     "0F_event_metal_cap": [
         "18"
@@ -126,6 +126,21 @@
         "streamed_audio"
     ],
     "24_custom_snow1": [
+        "streamed_audio"
+    ],
+    "25_custom_village_theme": [
+        "streamed_audio"
+    ],
+    "26_custom_snowy_world_2": [
+        "streamed_audio"
+    ],
+    "27_custom_creation_hall": [
+        "streamed_audio"
+    ],
+    "28_custom_outside_house": [
+        "streamed_audio"
+    ],
+    "29_custom_surf": [
         "streamed_audio"
     ]
 }

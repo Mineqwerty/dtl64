@@ -10,7 +10,7 @@ extern Vtx wf_dl_Plane_mesh_vtx_2[1147];
 extern Gfx wf_dl_Plane_mesh_tri_2[];
 extern Vtx wf_dl_Plane_mesh_vtx_3[260];
 extern Gfx wf_dl_Plane_mesh_tri_3[];
-extern Vtx wf_dl_Plane_mesh_vtx_4[87];
+extern Vtx wf_dl_Plane_mesh_vtx_4[90];
 extern Gfx wf_dl_Plane_mesh_tri_4[];
 extern Vtx wf_dl_Plane_mesh_vtx_5[115];
 extern Gfx wf_dl_Plane_mesh_tri_5[];

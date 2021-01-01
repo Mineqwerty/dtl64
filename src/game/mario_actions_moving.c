@@ -351,6 +351,16 @@ void update_shell_speed(struct MarioState *m) {
     f32 maxTargetSpeed;
     f32 targetSpeed;
 
+
+
+    extern const u16 draw_hoverboard_sprite_rgba16[];
+    extern const u16 hoverboard_sprite_rgba16[];
+    u16 *SwitchTexture = segmented_to_virtual(draw_hoverboard_sprite_rgba16);
+    u16 *SpringTexture = segmented_to_virtual(hoverboard_sprite_rgba16);
+
+
+    bcopy(SwitchTexture, SpringTexture, 2*32*32);
+
     if (m->floorHeight < m->waterLevel) {
         m->floorHeight = m->waterLevel;
         m->floor = &gWaterSurfacePseudoFloor;
@@ -383,11 +393,12 @@ void update_shell_speed(struct MarioState *m) {
     if (m->forwardVel > 64.0f) {
         m->forwardVel = 64.0f;
     }
+    
 
     m->faceAngle[1] =
         m->intendedYaw - approach_s32((s16)(m->intendedYaw - m->faceAngle[1]), 0, 0x800, 0x800);
 
-    apply_slope_accel(m);
+    
 }
 
 s32 apply_slope_decel(struct MarioState *m, f32 decelCoef) {
