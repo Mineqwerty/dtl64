@@ -206,6 +206,7 @@ const LevelScript script_func_global_1[] = {
 
     LOAD_MODEL_FROM_GEO(MODEL_JOWEE,                 jowee_geo),
     LOAD_MODEL_FROM_GEO(MODEL_MARI,                 mari_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_WILFRE,                 wilfre_geo),
 
     LOAD_MODEL_FROM_GEO(MODEL_DRAWCLOUD,                 drawcloud_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CLOUD_PLATFORM,                 cloud_platform_geo),

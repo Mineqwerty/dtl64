@@ -249,4 +249,8 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 #include "hoverboard/geo_header.h"
 
+#include "wilfre/geo_header.h"
+
+
+#include "wilfre/anim_header.h"
 #endif

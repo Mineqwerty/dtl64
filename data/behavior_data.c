@@ -1306,7 +1306,7 @@ const BehaviorScript bhvWind[] = {
 const BehaviorScript bhvEndToad[] = {
     BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_ANIMATIONS(oAnimations, jowee_anims), 
+    LOAD_ANIMATIONS(oAnimations, wilfre_anims), 
     ANIMATE(0),
     BEGIN_LOOP(),
         

@@ -102,3 +102,6 @@ UNUSED static const u64 binid_18 = 18;
 #include "bounce_spring/collision.inc.c"
 
 #include "hoverboard/model.inc.c"
+#include "wilfre/model.inc.c"
+#include "wilfre/anims/data.inc.c"
+#include "wilfre/anims/table.inc.c"

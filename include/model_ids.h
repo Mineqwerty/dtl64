@@ -503,6 +503,7 @@
 
 #define MODEL_JOWEE                  0xEF
 #define MODEL_MARI                  0xEE
+#define MODEL_WILFRE                  0xED
 
 #define MODEL_DRAWCLOUD                  0xF7
 #define MODEL_CLOUD_PLATFORM                 0xF8

@@ -44,3 +44,4 @@
 #include "bounce_spring/geo.inc.c"
 #include "draw_hoverboard/geo.inc.c"
 #include "hoverboard/geo.inc.c"
+#include "wilfre/geo.inc.c"
