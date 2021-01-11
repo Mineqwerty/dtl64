@@ -58,7 +58,7 @@ if (gCurrLevelNum == LEVEL_WF || gCurrLevelNum == LEVEL_DDD) {
                 case 10: gMarioState->drawState = 4; spawn_object(o, MODEL_NONE, bhvOpenableGrill);
                 break;
             }
-            
+            return;
         }
     }
 }
@@ -163,10 +163,14 @@ switch (curBParam) {
     break;
     
 }
-    static int Dist = 0;
-print_text_fmt_int(20, 70, "Cellecks %d", cellX);
-print_text_fmt_int(20, 50, "Cellzeh %d", cellZ);
+    
     if (gPlayer1Controller->buttonDown & A_BUTTON || gPlayer2Controller->buttonDown & A_BUTTON) {
+        //cancel for open textbox
+        if (gCurrLevelNum == LEVEL_BOB) {
+if (directions > -1) {
+return;
+}}
+//drawing
        if (brushSize == 1) {
         SwitchTexture[ -cellX + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
        }
@@ -265,7 +269,11 @@ print_text_fmt_int(20, 50, "Cellzeh %d", cellZ);
        }
     }
     if (gPlayer1Controller->buttonPressed & Z_TRIG) {
-        
+        if (gCurrLevelNum == LEVEL_BOB) {
+            //cancel for open textbox
+            if (directions > -1) {
+                return;
+                }}
         flood_fill(cellX, cellZ, drawColor[0,1,2,3], SwitchTexture[ -cellX + rowNum *cellZ], SwitchTexture);
   
     }
