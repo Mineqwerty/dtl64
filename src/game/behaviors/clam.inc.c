@@ -269,6 +269,9 @@ return;
        }
     }
     if (gPlayer1Controller->buttonPressed & Z_TRIG) {
+        if (gPlayer1Controller->buttonPressed & A_BUTTON || gPlayer2Controller->buttonPressed & A_BUTTON) {
+            return;
+        }
         if (gCurrLevelNum == LEVEL_BOB) {
             //cancel for open textbox
             if (directions > -1) {

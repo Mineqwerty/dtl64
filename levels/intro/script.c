@@ -57,6 +57,7 @@ const LevelScript level_intro_entry_1[] = {
 
 const LevelScript level_intro_entry_2[] = {
     INIT_LEVEL(),
+    JUMP(script_intro_L1),
     BLACKOUT(/*active*/ TRUE),
     FIXED_LOAD(/*loadAddr*/ _goddardSegmentStart, /*romStart*/ _goddardSegmentRomStart, /*romEnd*/ _goddardSegmentRomEnd),
     LOAD_MARIO_HEAD(/*loadHeadID*/ REGULAR_FACE),
@@ -165,7 +166,7 @@ const LevelScript script_intro_L4[] = {
 
 const LevelScript script_intro_L5[] = {
     STOP_MUSIC(/*fadeOutTime*/ 0x00BE),
-    TRANSITION(/*transType*/ WARP_TRANSITION_FADE_INTO_COLOR, /*time*/ 16, /*color*/ 0x00, 0x00, 0x00),
+    TRANSITION(/*transType*/ WARP_TRANSITION_FADE_INTO_COLOR, /*time*/ 1, /*color*/ 0x00, 0x00, 0x00),
     SLEEP(/*frames*/ 16),
     CLEAR_LEVEL(),
     SLEEP(/*frames*/ 2),
