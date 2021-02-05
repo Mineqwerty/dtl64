@@ -3,7 +3,11 @@
 int timer = 15;
 
 void bhv_bowser_shock_wave_loop(void) {
+    //CHANGE FOR RELEASE
+    //ease of development stuff
+
    if (gMarioState->cutsceneStep == 0) {
+       /*
        gMarioState->cutsceneStep = 1;
        create_dialog_box(DIALOG_034);
        play_secondary_music(SEQ_STREAMED_OUTSIDE_HOUSE, 0, 255, 100);
@@ -19,12 +23,12 @@ void bhv_bowser_shock_wave_loop(void) {
 
     if (gMarioState->cutsceneStep == 2) {
         gDialogResponse = 0;
-        
+        */
         initiate_warp(LEVEL_BOB, 1, 0x0A, 0);
-        return;
-    }
+       // return;
+  }
 if (gMarioState->cutsceneStep == 3) {
-     if (timer > -1) {
+   /*  if (timer > -1) {
     timer -= 1;
      }
     if (timer == 0) {
@@ -32,10 +36,10 @@ if (gMarioState->cutsceneStep == 3) {
     set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
     }
     if (gDialogResponse == 1) {
-
+*/
     gMarioState->cutsceneStep = 4;
     set_mario_action(gMarioStates, ACT_IDLE, 0);
-    }
+    //}
     
 }
 if (gMarioState->cutsceneStep == 5) {

@@ -481,11 +481,10 @@ it back in the Book\n\
 of Life!"))
 
 DEFINE_DIALOG(DIALOG_037, 1, 2, 30, 200, _("\
-I win! You lose!\n\
-Ha ha ha ha!\n\
-You're no slouch, but I'm\n\
-a better sledder!\n\
-Better luck next time!"))
+You rescued Heather!\n\
+\n\
+Heather: ...kemi kewa!\n\
+"))
 
 DEFINE_DIALOG(DIALOG_038, 1, 3, 95, 200, _("\
 Reacting to the Star\n\

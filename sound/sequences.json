@@ -142,5 +142,11 @@
     ],
     "29_custom_surf": [
         "streamed_audio"
+    ],
+    "2A_custom_raposa_rescued": [
+        "streamed_audio"
+    ],
+    "2B_custom_dark_cave": [
+        "streamed_audio"
     ]
 }

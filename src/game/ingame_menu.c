@@ -2113,7 +2113,7 @@ void change_dialog_camera_angle(void) {
     }
 }
 
-void shade_screen(void) {
+void shade_screen(int shadeAlpha) {
     create_dl_translation_matrix(MENU_MTX_PUSH, GFX_DIMENSIONS_FROM_LEFT_EDGE(0), SCREEN_HEIGHT, 0);
 
     // This is a bit weird. It reuses the dialog text box (width 130, height -80),
@@ -2125,7 +2125,7 @@ void shade_screen(void) {
                            GFX_DIMENSIONS_ASPECT_RATIO * SCREEN_HEIGHT / 130.0f, 3.0f, 1.0f);
 #endif
 
-    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 110);
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, shadeAlpha);
     gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
@@ -2624,7 +2624,7 @@ s16 render_pause_courses_and_castle(void) {
             }
             break;
         case DIALOG_STATE_VERTICAL:
-            shade_screen();
+            shade_screen(110);
             render_pause_my_score_coins();
             render_pause_red_coins();
 
@@ -2654,7 +2654,7 @@ s16 render_pause_courses_and_castle(void) {
             }
             break;
         case DIALOG_STATE_HORIZONTAL:
-            shade_screen();
+            shade_screen(110);
             print_hud_pause_colorful_str();
             render_pause_castle_menu_box(160, 143);
             render_pause_castle_main_strings(104, 60);
@@ -2998,7 +2998,7 @@ s16 render_course_complete_screen(void) {
             }
             break;
         case DIALOG_STATE_VERTICAL:
-            shade_screen();
+            shade_screen(110);
             render_course_complete_lvl_info_and_hud_str();
 #ifdef VERSION_EU
             render_save_confirmation(86, &gDialogLineNum, 20);
@@ -3042,6 +3042,7 @@ s16 render_menus_and_dialogs() {
     s16 mode = 0;
 
     create_dl_ortho_matrix();
+    
 
     if (gMenuMode != -1) {
         switch (gMenuMode) {
@@ -3071,4 +3072,5 @@ s16 render_menus_and_dialogs() {
         gDialogColorFadeTimer = (s16) gDialogColorFadeTimer + 0x1000;
     }
     return mode;
+    
 }

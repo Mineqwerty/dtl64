@@ -1,51 +1,57 @@
-/**
- * Behavior for bhvSslMovingPyramidWall.
- *
- * This controls the moving walls found within Shifting Sand Land's pyramid.
- * Each wall starts at an initial position and moves up or down at a constant
- * speed.
- */
+//raposa in cage
+int rescueState;
 
-/**
- * Initialize the moving wall to be at one of three possible initial starting
- * positions.
- */
 void bhv_ssl_moving_pyramid_wall_init(void) {
 
-    switch (o->oBehParams2ndByte) {
-        case PYRAMID_WALL_BP_POSITION_HIGH:
-            break;
-
-        case PYRAMID_WALL_BP_POSITION_MIDDLE:
-            o->oPosY -= 256.0f;
-            o->oTimer += 50;
-            break;
-
-        case PYRAMID_WALL_BP_POSITION_LOW:
-            o->oPosY -= 512.0f;
-            o->oAction = PYRAMID_WALL_ACT_MOVING_UP;
-            break;
-    }
+    gCurrentObject->respawnInfo = RESPAWN_INFO_TYPE_NULL;
 }
 
-/**
- * Move up or down at a constant velocity for a period of time, then switch to
- * do the other.
- */
-void bhv_ssl_moving_pyramid_wall_loop(void) {
-    switch (o->oAction) {
-        case PYRAMID_WALL_ACT_MOVING_DOWN:
-            o->oVelY = -5.12f;
-            if (o->oTimer == 100)
-                o->oAction = PYRAMID_WALL_ACT_MOVING_UP;
-            break;
 
-        case PYRAMID_WALL_ACT_MOVING_UP:
-            o->oVelY = 5.12f;
-            if (o->oTimer == 100)
-                o->oAction = PYRAMID_WALL_ACT_MOVING_DOWN;
-            break;
+void bhv_ssl_moving_pyramid_wall_loop(void) {
+    if (gCurrentObject->respawnInfo == RESPAWN_INFO_DONT_RESPAWN) {
+        cur_obj_init_animation(1);
+        if (rescueState == 0) {
+            rescueState = 1;
+            set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
+            gMarioObject->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_NONE];
+            switch (o->oBehParams2ndByte) {
+                case 0: create_dialog_box(DIALOG_037);
+                gMarioState->raposaRescued[0] = 1;
+                break;
+            }
+        }
+        if (rescueState == 2) {
+            set_mario_action(gMarioStates, ACT_IDLE, 0);
+            gMarioObject->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];
+            func_80321080(500);
+            if (gDialogResponse == 0) {
+            obj_mark_for_deletion(o);
+            }
+        }
+        if (gDialogResponse == 1) {
+                   if (rescueState == 1) {
+                       rescueState = 2;
+                   }
+               }
+        
+    }
+    else {
+        cur_obj_init_animation(0);
     }
 
-    o->oPosY += o->oVelY;
+
+    
+}
+Gfx *geo_switch_heather_eyes(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx) {
+    struct Object *obj;
+    struct GraphNodeSwitchCase *switchCase;
+        obj = (struct Object *) gCurGraphNodeObject;
+        switchCase = (struct GraphNodeSwitchCase *) node;
+    if (gCurrentObject->respawnInfo == RESPAWN_INFO_DONT_RESPAWN) {
+       switchCase->selectedCase = 2;
+    }
+    else {
+        switchCase->selectedCase = 1;
+    }
+    
 }

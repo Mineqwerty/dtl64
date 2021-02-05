@@ -102,6 +102,10 @@ switch (curBParam) {
     break;
     case 10: maxDistX = 212; maxDistY = 212;
     break;
+    case 11: maxDistX = 212; maxDistY = 212;
+    break;
+    case 12: maxDistX = 212; maxDistY = 212;
+    break;
 }
 
 switch (drawColorNumber) {
@@ -135,7 +139,7 @@ switch (drawColorNumber) {
     break;
     //light blue
     case 7: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 255; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Light Blue");
+    print_text(230, 50, "L Blue");
     break;
     //blue
     case 8: drawColor[0] = 0; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
@@ -155,7 +159,7 @@ switch (drawColorNumber) {
     break;
     //light grey
     case 12: drawColor[0] = 170; drawColor[1] = 170; drawColor[2] = 170; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Light Grey");
+    print_text(230, 50, "L Grey");
     break;
     //grey
     case 13: drawColor[0] = 80; drawColor[1] = 80; drawColor[2] = 80; drawColor[3] = eraseAlpha;
@@ -222,6 +226,14 @@ switch (curBParam) {
     cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
     break;
     case 10:
+    cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
+    break;
+    case 11:
+    cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
+    cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
+    break;
+    case 12:
     cellX = (16*((int)sCursorPos[0] + maxDistX-1) / (maxDistX)) & 0x1F;
     cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
     break;

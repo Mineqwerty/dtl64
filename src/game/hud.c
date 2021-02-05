@@ -450,6 +450,9 @@ void render_hud(void) {
 #else
         create_dl_ortho_matrix();
 #endif
+if (gMarioState->darkScreen == 1) {
+ shade_screen(235);
+}
 
         if (gCurrentArea != NULL && gCurrentArea->camera->mode == CAMERA_MODE_INSIDE_CANNON) {
             render_hud_cannon_reticle();

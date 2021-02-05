@@ -207,6 +207,9 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_JOWEE,                 jowee_geo),
     LOAD_MODEL_FROM_GEO(MODEL_MARI,                 mari_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WILFRE,                 wilfre_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_HEATHER,                 heather_geo),
+
+    LOAD_MODEL_FROM_GEO(MODEL_RAPOSA_CAGE,                 raposa_cage_geo),
 
     LOAD_MODEL_FROM_GEO(MODEL_DRAWCLOUD,                 drawcloud_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CLOUD_PLATFORM,                 cloud_platform_geo),
@@ -215,6 +218,9 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_DRAW_SPRING,                 draw_spring_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOUNCE_SPRING,                 bounce_spring_geo),
     LOAD_MODEL_FROM_GEO(MODEL_DRAW_HOVERBOARD,                 draw_hoverboard_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAW_MOON,                 draw_moon_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DRAW_BOOST_PANEL,                 draw_boost_panel_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BOOST_PANEL,                 boost_panel_geo),
 
 
     RETURN(),

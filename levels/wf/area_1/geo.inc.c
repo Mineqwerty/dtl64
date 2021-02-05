@@ -4,6 +4,7 @@ const GeoLayout wf_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -5063, 100, -5537, wf_dl_Plane_mesh),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -5063, 17319, -5537, wf_dl_Plane_001_mesh),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

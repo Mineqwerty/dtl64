@@ -343,6 +343,9 @@ struct MarioState
     /*0xC4*/ f32 unkC4;
     int drawState;
     int cutsceneStep;
+    u8 raposaRescued[4];
+    int darkScreen;
+
 };
 
 #endif // TYPES_H

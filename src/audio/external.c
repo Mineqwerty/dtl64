@@ -98,9 +98,9 @@ u8 sDialogSpeaker[] = {
     /* 0*/ _,     BOMB,  BOMB,  BOMB,  BOMB,  KOOPA, KOOPA, KOOPA, _,     KOOPA,
     /* 1*/ _,     _,     _,     _,     _,     _,     _,     KBOMB, _,     _,
     /* 2*/ _,     BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1,
-    /* 3*/ _,     _,     _,     _,     _,     _,     _,     DIFF,  _,     _,
+    /* 3*/ _,     _,     _,     _,     _,     _,     _,     _,  _,     _,
     /* 4*/ _,     KOOPA, _,     _,     _,     _,     _,     BOMB,  _,     _,
-    /* 5*/ _,     _,     _,     _,     _,     TUXIE, TUXIE, TUXIE, TUXIE, TUXIE,
+    /* 5*/ _,     _,     _,     _,     _,     _, _, _, _, _,
     /* 6*/ _,     _,     _,     _,     _,     _,     _,     BOWS2, _,     _,
     /* 7*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     UKIKI,
     /* 8*/ UKIKI, _,     _,     _,     _,     BOO,   _,     _,     _,     _,
@@ -108,7 +108,7 @@ u8 sDialogSpeaker[] = {
     /*10*/ UKIKI, UKIKI, _,     _,     _,     BOMB,  BOMB,  BOO,   BOO,   _,
     /*11*/ _,     _,     _,     _,     GRUNT, GRUNT, KBOMB, GRUNT, GRUNT, _,
     /*12*/ _,     _,     _,     _,     _,     _,     _,     _,     KBOMB, _,
-    /*13*/ _,     _,     TUXIE, _,     _,     _,     _,     _,     _,     _,
+    /*13*/ _,     _,     _, _,     _,     _,     _,     _,     _,     _,
     /*14*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*15*/ WIGLR, WIGLR, WIGLR, _,     _,     _,     _,     _,     _,     _,
     /*16*/ _,     YOSHI, _,     _,     _,     _,     _,     _,     WIGLR, _
@@ -301,6 +301,8 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_EVENT_CUTSCENE_ENDING
     65,  // SEQ_MENU_FILE_SELECT
     0,   // SEQ_EVENT_CUTSCENE_LAKITU (not in JP)
+    127,
+    127,
     127,
     127,
     127,

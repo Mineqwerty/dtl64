@@ -105,7 +105,7 @@ struct Object *spawn_object(struct Object *parent, s32 model, const BehaviorScri
 struct Object *try_to_spawn_object(s16 offsetY, f32 scale, struct Object *parent, s32 model, const BehaviorScript *behavior);
 struct Object *spawn_object_with_scale(struct Object *parent, s32 model, const BehaviorScript *behavior, f32 scale);
 struct Object *spawn_object_relative(s16 behaviorParam, s16 relativePosX, s16 relativePosY, s16 relativePosZ,
-                                     struct Object *parent, s32 model, const BehaviorScript *behavior);
+struct Object *parent, s32 model, const BehaviorScript *behavior);
 struct Object *spawn_object_relative_with_scale(s16 behaviorParam, s16 relativePosX, s16 relativePosY,
                                                 s16 relativePosZ, f32 scale, struct Object *parent,
                                                 s32 model, const BehaviorScript *behavior);

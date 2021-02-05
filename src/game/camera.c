@@ -1881,13 +1881,13 @@ s32 update_behind_mario_camera(struct Camera *c, Vec3f focus, Vec3f pos) {
     if (gCurrLevelArea == AREA_WDW_MAIN) {
         yaw = clamp_positions_and_find_yaw(pos, focus, 4508.f, -3739.f, 4508.f, -3739.f);
     }
-    if (gCurrLevelArea == AREA_THI_HUGE) {
+    /*if (gCurrLevelArea == AREA_THI_HUGE) {
         yaw = clamp_positions_and_find_yaw(pos, focus, 8192.f, -8192.f, 8192.f, -8192.f);
     }
     if (gCurrLevelArea == AREA_THI_TINY) {
         yaw = clamp_positions_and_find_yaw(pos, focus, 2458.f, -2458.f, 2458.f, -2458.f);
     }
-
+*/
     return yaw;
 }
 
@@ -4737,13 +4737,13 @@ s32 offset_yaw_outward_radial(struct Camera *c, s16 areaYaw) {
     s16 dYaw;
     switch (gCurrLevelArea) {
         case AREA_TTC:
-            areaCenter[0] = c->areaCenX;
+           /* areaCenter[0] = c->areaCenX;
             areaCenter[1] = sMarioCamState->pos[1];
             areaCenter[2] = c->areaCenZ;
             distFromAreaCenter = calc_abs_dist(areaCenter, sMarioCamState->pos);
             if (800.f > distFromAreaCenter) {
                 yawGoal = 0x3800;
-            }
+            }*/
             break;
         case AREA_SSL_PYRAMID:
             // This mask splits the 360 degrees of yaw into 4 corners. It adds 45 degrees so that the yaw
@@ -6371,6 +6371,12 @@ struct CameraTrigger sCamTTM[] = {
 struct CameraTrigger sCamDDD[] = {
 	NULL_TRIGGER
 };
+struct CameraTrigger sCamTTC[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamPSS[] = {
+	NULL_TRIGGER
+};
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
     NULL,
     #include "levels/level_defines.h"
@@ -6612,7 +6618,7 @@ s16 camera_course_processing(struct Camera *c) {
                 break;
 
             case AREA_TTC:
-                set_mode_if_not_set_by_surface(c, CAMERA_MODE_OUTWARD_RADIAL);
+                //set_mode_if_not_set_by_surface(c, CAMERA_MODE_OUTWARD_RADIAL);
                 break;
 
             case AREA_BOB:
@@ -10806,13 +10812,13 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SSL            | BOB
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SL             | WDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 0, 0), // JRB            | THI
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // SA             | BITS
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // LLL            | DDD
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // WF             | ENDING
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // COURTYARD      | PSS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COURTYARD      | PSS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COTMC          | TOTWC
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // BOWSER_1       | WMOTR
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // Unused         | BOWSER_2

@@ -4359,8 +4359,9 @@ const BehaviorScript bhvThiBowlingBallSpawner[] = {
 };
 
 const BehaviorScript bhvRrCruiserWing[] = {
-    BEGIN(OBJ_LIST_DEFAULT),
+    BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(boost_panel_collision),
     CALL_NATIVE(bhv_rr_cruiser_wing_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_rr_cruiser_wing_loop),
@@ -4368,24 +4369,24 @@ const BehaviorScript bhvRrCruiserWing[] = {
 };
 
 const BehaviorScript bhvSpindel[] = {
-    BEGIN(OBJ_LIST_SURFACE),
+    BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_spindel),
     CALL_NATIVE(bhv_spindel_init),
+    LOAD_ANIMATIONS(oAnimations, heather_anims), 
+    ANIMATE(0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_spindel_loop),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
 const BehaviorScript bhvSslMovingPyramidWall[] = {
-    BEGIN(OBJ_LIST_SURFACE),
+    BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_0702808C),
     CALL_NATIVE(bhv_ssl_moving_pyramid_wall_init),
+    LOAD_ANIMATIONS(oAnimations, heather_anims), 
+    ANIMATE(0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_ssl_moving_pyramid_wall_loop),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -5596,6 +5597,7 @@ const BehaviorScript bhvOctagonalPlatformRotating[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     CALL_NATIVE(bhv_rotating_octagonal_plat_init),
+    LOAD_COLLISION_DATA(raposa_cage_collision),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_rotating_octagonal_plat_loop),
         CALL_NATIVE(load_object_collision_model),

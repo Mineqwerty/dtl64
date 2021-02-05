@@ -53,6 +53,16 @@
             "release_rate": 10,
             "envelope": "envelope",
             "sound": "29_custom_surf"
+        },
+        "inst7": {
+            "release_rate": 10,
+            "envelope": "envelope",
+            "sound": "2A_custom_raposa_rescued"
+        },
+        "inst8": {
+            "release_rate": 10,
+            "envelope": "envelope",
+            "sound": "2B_custom_dark_cave"
         }
     },
     "instrument_list": [
@@ -62,6 +72,8 @@
         "inst3",
         "inst4",
         "inst5",
-        "inst6"
+        "inst6",
+        "inst7",
+        "inst8"
     ]
 }

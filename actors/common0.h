@@ -253,4 +253,22 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 
 #include "wilfre/anim_header.h"
+#include "raposa_cage/geo_header.h"
+
+#include "raposa_cage/collision_header.h"
+
+#include "heather/geo_header.h"
+
+
+#include "heather/anim_header.h"
+#include "draw_moon/geo_header.h"
+
+#include "draw_boost_panel/geo_header.h"
+
+#include "boost_panel/geo_header.h"
+
+#include "boost_panel/collision_header.h"
+
+#include "level_circle/geo_header.h"
+
 #endif

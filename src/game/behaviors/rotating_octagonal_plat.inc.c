@@ -1,17 +1,17 @@
-// rotating_octagonal_plat.inc.c
-
-void const *D_80331A44[] = {
-    bits_seg7_collision_0701AA84,
-    rr_seg7_collision_07029508,
-};
-
-s16 D_80331A4C[] = { 300, -300, 600, -600 };
-
+// raposa cage
+struct Object *cage;
 void bhv_rotating_octagonal_plat_init(void) {
-    o->collisionData = segmented_to_virtual(D_80331A44[(u8)(o->oBehParams >> 16)]);
-    o->oAngleVelYaw = D_80331A4C[(u8)(o->oBehParams >> 24)];
+    switch (o->oBehParams2ndByte) {
+        case 0: cage = spawn_object_relative(0, 0, 40, 0, o, MODEL_HEATHER, bhvSslMovingPyramidWall);
+        break;
+    }
 }
 
 void bhv_rotating_octagonal_plat_loop(void) {
-    o->oFaceAngleYaw += o->oAngleVelYaw;
+    if (cur_obj_was_attacked_or_ground_pounded() != 0) {
+        obj_explode_and_spawn_coins(46.0f, 1);
+        create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
+        cage->respawnInfo = RESPAWN_INFO_DONT_RESPAWN;
+        play_secondary_music(SEQ_STREAMED_RAPOSA_RESCUED, 0, 255, 100);
+    }
 }

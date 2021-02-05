@@ -105,3 +105,13 @@ UNUSED static const u64 binid_18 = 18;
 #include "wilfre/model.inc.c"
 #include "wilfre/anims/data.inc.c"
 #include "wilfre/anims/table.inc.c"
+#include "raposa_cage/model.inc.c"
+#include "raposa_cage/collision.inc.c"
+#include "heather/model.inc.c"
+#include "heather/anims/data.inc.c"
+#include "heather/anims/table.inc.c"
+
+
+#include "boost_panel/model.inc.c"
+#include "boost_panel/collision.inc.c"
+#include "level_circle/model.inc.c"

@@ -172,7 +172,7 @@
 #define MODEL_TTC_ROTATING_TRIANGLE               0x3D        // ttc_geo_0002F8
 #define MODEL_TTC_PIT_BLOCK                       0x3E        // ttc_geo_000310 - has 2 vertical stripes
 #define MODEL_TTC_PIT_BLOCK_UNUSED                0x3F        // ttc_geo_000328 - has 3 vertical stripes, unused
-#define MODEL_TTC_ELEVATOR_PLATFORM               0x40        // ttc_geo_000340
+#define MODEL_TTC_ELEVATOR_PLATFORM               0x45        // ttc_geo_000340
 #define MODEL_TTC_CLOCK_HAND                      0x41        // ttc_geo_000358
 #define MODEL_TTC_SPINNER                         0x42        // ttc_geo_000370
 #define MODEL_TTC_SMALL_GEAR                      0x43        // ttc_geo_000388
@@ -504,6 +504,9 @@
 #define MODEL_JOWEE                  0xEF
 #define MODEL_MARI                  0xEE
 #define MODEL_WILFRE                  0xED
+#define MODEL_HEATHER                 0xEC
+
+#define MODEL_RAPOSA_CAGE            0xE2
 
 #define MODEL_DRAWCLOUD                  0xF7
 #define MODEL_CLOUD_PLATFORM                 0xF8
@@ -512,7 +515,9 @@
 #define MODEL_DRAW_SPRING                 0xFB
 #define MODEL_BOUNCE_SPRING                 0xFC
 #define MODEL_DRAW_HOVERBOARD                 0xFD
-
+#define MODEL_DRAW_MOON                 0xFE
+#define MODEL_DRAW_BOOST_PANEL                 0xFF
+#define MODEL_BOOST_PANEL                0x40
 
 
 

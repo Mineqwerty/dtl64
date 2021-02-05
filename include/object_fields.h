@@ -593,6 +593,7 @@
 #define oinitPosY OBJECT_FIELD_F32 (0x22)
 #define oinitPosZ OBJECT_FIELD_F32 (0x23)
 #define oinitMoving OBJECT_FIELD_F32 (0x24)
+#define opauseTimer OBJECT_FIELD_F32 (0x25)
 
  /* King Bob-omb */
 #define /*0x088*/ oKingBobombUnk88  OBJECT_FIELD_S32(0x00)
