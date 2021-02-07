@@ -1739,6 +1739,8 @@ u16 *MoonTexture = segmented_to_virtual(bbh_skybox_texture_00013);
 bcopy(SwitchTextureMoon, MoonTexture, 2*32*32);
 }
 
+//print_text_fmt_int(100, 100, "FACE ANGLE %d", gMarioState->faceAngle[1]);
+
 extern int freeze;
 if (freeze == 1) { 
     freeze=0;

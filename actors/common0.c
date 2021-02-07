@@ -115,3 +115,6 @@ UNUSED static const u64 binid_18 = 18;
 #include "boost_panel/model.inc.c"
 #include "boost_panel/collision.inc.c"
 #include "level_circle/model.inc.c"
+#include "baki/model.inc.c"
+#include "baki/anims/data.inc.c"
+#include "baki/anims/table.inc.c"

@@ -4,7 +4,6 @@ const GeoLayout ttc_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -5449, 995, 7616, ttc_dl_Cube_002_mesh),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -22036, -3696, -3569, ttc_dl_Plane_mesh),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

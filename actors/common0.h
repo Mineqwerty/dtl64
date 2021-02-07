@@ -271,4 +271,8 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 #include "level_circle/geo_header.h"
 
+#include "baki/geo_header.h"
+
+
+#include "baki/anim_header.h"
 #endif

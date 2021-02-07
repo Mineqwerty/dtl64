@@ -148,5 +148,8 @@
     ],
     "2B_custom_dark_cave": [
         "streamed_audio"
+    ],
+    "2C_custom_level_select": [
+        "streamed_audio"
     ]
 }

@@ -421,8 +421,13 @@ s32 act_reading_npc_dialog(struct MarioState *m) {
 
 // puts Mario in a state where he's waiting for (npc) dialog; doesn't do much
 s32 act_waiting_for_dialog(struct MarioState *m) {
+    if (gCurrLevelNum == LEVEL_PSS){
+        
+    }
+    else {
     set_mario_animation(m, m->heldObj == NULL ? MARIO_ANIM_FIRST_PERSON
                                               : MARIO_ANIM_IDLE_WITH_LIGHT_OBJ);
+    }
     vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
     vec3s_set(m->marioObj->header.gfx.angle, 0, m->faceAngle[1], 0);
     return FALSE;

@@ -21,6 +21,9 @@ void bhv_lll_drawbridge_loop(void) {
 if (gCurrLevelNum == LEVEL_TTC) {
     jump_height = 150.0f;
 }
+else {
+    jump_height = 100.0f;
+}
 
 
 if (spring_jumping == 1) {

@@ -507,6 +507,7 @@
 #define MODEL_HEATHER                 0xEC
 
 #define MODEL_RAPOSA_CAGE            0xE2
+#define MODEL_LEVEL_CIRCLE           0x41
 
 #define MODEL_DRAWCLOUD                  0xF7
 #define MODEL_CLOUD_PLATFORM                 0xF8

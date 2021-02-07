@@ -51,3 +51,4 @@
 #include "draw_boost_panel/geo.inc.c"
 #include "boost_panel/geo.inc.c"
 #include "level_circle/geo.inc.c"
+#include "baki/geo.inc.c"

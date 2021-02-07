@@ -63,6 +63,11 @@
             "release_rate": 10,
             "envelope": "envelope",
             "sound": "2B_custom_dark_cave"
+        },
+        "inst9": {
+            "release_rate": 10,
+            "envelope": "envelope",
+            "sound": "2C_custom_level_select"
         }
     },
     "instrument_list": [
@@ -74,6 +79,7 @@
         "inst5",
         "inst6",
         "inst7",
-        "inst8"
+        "inst8",
+        "inst9"
     ]
 }

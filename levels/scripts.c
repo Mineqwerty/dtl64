@@ -178,7 +178,7 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BREAKABLE_BOX_SMALL,     breakable_box_small_geo),
     LOAD_MODEL_FROM_GEO(MODEL_EXCLAMATION_BOX_OUTLINE, exclamation_box_outline_geo),
     LOAD_MODEL_FROM_GEO(MODEL_EXCLAMATION_BOX,         exclamation_box_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_GOOMBA,                  goomba_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_GOOMBA,                  baki_geo),
     LOAD_MODEL_FROM_DL( MODEL_EXCLAMATION_POINT,       exclamation_box_outline_seg8_dl_08025F08, LAYER_ALPHA),
     LOAD_MODEL_FROM_GEO(MODEL_KOOPA_SHELL,             hoverboard_geo),
     LOAD_MODEL_FROM_GEO(MODEL_METAL_BOX,               metal_box_geo),
@@ -210,6 +210,7 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_HEATHER,                 heather_geo),
 
     LOAD_MODEL_FROM_GEO(MODEL_RAPOSA_CAGE,                 raposa_cage_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_LEVEL_CIRCLE,                 level_circle_geo),
 
     LOAD_MODEL_FROM_GEO(MODEL_DRAWCLOUD,                 drawcloud_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CLOUD_PLATFORM,                 cloud_platform_geo),
