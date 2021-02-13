@@ -7,6 +7,9 @@ void bhv_bowser_shock_wave_loop(void) {
     //ease of development stuff
 
    if (gMarioState->cutsceneStep == 0) {
+       for (int i = 0; i<16; i++) {
+       load_drawing(i);
+       }
        /*
        gMarioState->cutsceneStep = 1;
        create_dialog_box(DIALOG_034);

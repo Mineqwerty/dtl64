@@ -59,6 +59,9 @@ struct DemoInput *gCurrDemoInput = NULL; // demo input sequence
 u16 gDemoInputListID = 0;
 struct DemoInput gRecordedDemoInput = { 0 }; // possibly removed in EU. TODO: Check
 
+s8 gSramProbe;
+
+
 //extern void read_controller_inputs(void);
 //#include "include/timekeeper.inc.c"
 //#include "include/hvqm.inc.c"
@@ -550,9 +553,14 @@ void init_controllers(void) {
     gControllers[0].controllerData = &gControllerPads[0];
     osContInit(&gSIEventMesgQueue, &gControllerBits, &gControllerStatuses[0]);
 
+    #ifdef EEP
     // strangely enough, the EEPROM probe for save data is done in this function.
     // save pak detection?
     gEepromProbe = osEepromProbe(&gSIEventMesgQueue);
+#endif
+
+    gSramProbe = nuPiInitSram();
+
 
     // loop over the 4 ports and link the controller structs to the appropriate
     // status and pad. Interestingly, although there are pointers to 3 controllers,

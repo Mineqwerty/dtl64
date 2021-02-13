@@ -12,7 +12,7 @@ ALIGNED16 u8 gAudioHeap[DOUBLE_SIZE_ON_64_BIT(0x31200)];
 ALIGNED8 u8 gIdleThreadStack[0x800];
 ALIGNED8 u8 gThread3Stack[0x2000];
 ALIGNED8 u8 gThread4Stack[0x2000];
-ALIGNED8 u8 gThread5Stack[0x2000];
+ALIGNED8 u8 gThread5Stack[0x8000];
 ALIGNED8 u8 gThread6Stack[0x2000];
 // 0x400 bytes
 ALIGNED8 u8 gGfxSPTaskStack[SP_DRAM_STACK_SIZE8];

@@ -125,7 +125,7 @@ ifeq ($(NON_MATCHING),1)
 endif
 
 # Save Type
-SAVE  = EEP4K
+SAVE  = SRAM
 
 # EEPROM 4K
 ifeq ($(SAVE),EEP4K) 

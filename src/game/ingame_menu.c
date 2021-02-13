@@ -2410,6 +2410,14 @@ void render_pause_course_options(s16 x, s16 y, s8 *index, s16 yIndex) {
     }
 }
 
+void drawing_triangles(s16 height, int color[]) {
+    create_dl_ortho_matrix();
+    create_dl_translation_matrix(MENU_MTX_PUSH, 222.0f, height, 0);
+gDPSetEnvColor(gDisplayListHead++, color[0], color[1], color[2], 255);
+    gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
 void render_pause_castle_menu_box(s16 x, s16 y) {
     create_dl_translation_matrix(MENU_MTX_PUSH, x - 78, y - 32, 0);
     create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.2f, 0.8f, 1.0f);

@@ -73,4 +73,6 @@ void rendering_init(void);
 void config_gfx_pool(void);
 void display_and_vsync(void);
 
+extern s8 gSramProbe;
+
 #endif // GAME_INIT_H

@@ -11,6 +11,10 @@
 #include "level_table.h"
 #include "course_table.h"
 #include "thread6.h"
+#include "sram.h"
+
+
+#define ALIGN4(val) (((val) + 0x3) & ~0x3)
 
 #define MENU_DATA_MAGIC 0x4849
 #define SAVE_FILE_MAGIC 0x4441
@@ -44,11 +48,7 @@ s8 gLevelToCourseNumTable[] = {
 STATIC_ASSERT(ARRAY_COUNT(gLevelToCourseNumTable) == LEVEL_COUNT - 1,
               "change this array if you are adding levels");
 
-// This was probably used to set progress to 100% for debugging, but
-// it was removed from the release ROM.
-static void stub_save_file_1(void) {
-    UNUSED s32 pad;
-}
+#ifdef EEP
 
 /**
  * Read from EEPROM to a given address.
@@ -97,6 +97,64 @@ static s32 write_eeprom_data(void *buffer, s32 size) {
 
     return status;
 }
+#endif
+
+
+/**
+ * Read from SRAM to a given address.
+ * The SRAM address is computed using the offset of the destination address from gSaveBuffer.
+ * Try at most 4 times, and return 0 on success. On failure, return the status returned from
+ * nuPiReadSram. It also returns 0 if SRAM isn't loaded correctly in the system.
+ */
+static s32 read_eeprom_data(void *buffer, s32 size) {
+    s32 status = 0;
+
+    if (gSramProbe != 0) {
+        s32 triesLeft = 4;
+        u32 offset = (u32)((u8 *) buffer - (u8 *) &gSaveBuffer);
+
+        do {
+#if ENABLE_RUMBLE
+            block_until_rumble_pak_free();
+#endif
+            triesLeft--;
+            status = nuPiReadSram(offset, buffer, ALIGN4(size));
+#if ENABLE_RUMBLE
+            release_rumble_pak_control();
+#endif
+        } while (triesLeft > 0 && status != 0);
+    }
+
+    return status;
+}
+
+/**
+ * Write data to SRAM.
+ * The SRAM address is computed using the offset of the source address from gSaveBuffer.
+ * Try at most 4 times, and return 0 on success. On failure, return the status returned from
+ * nuPiWriteSram. Unlike read_eeprom_data, return 1 if SRAM isn't loaded.
+ */
+static s32 write_eeprom_data(void *buffer, s32 size) {
+    s32 status = 1;
+
+    if (gSramProbe != 0) {
+        s32 triesLeft = 4;
+        u32 offset = (u32)((u8 *) buffer - (u8 *) &gSaveBuffer);
+
+        do {
+#if ENABLE_RUMBLE
+            block_until_rumble_pak_free();
+#endif
+            triesLeft--;
+            status = nuPiWriteSram(offset, buffer, ALIGN4(size));
+#if ENABLE_RUMBLE
+            release_rumble_pak_control();
+#endif
+        } while (triesLeft > 0 && status != 0);
+    }
+
+    return status;
+}
 
 /**
  * Sum the bytes in data to data + size - 2. The last two bytes are ignored
@@ -140,6 +198,7 @@ static void add_save_block_signature(void *buffer, s32 size, u16 magic) {
  * Copy main menu data from one backup slot to the other slot.
  */
 static void restore_main_menu_data(s32 srcSlot) {
+    /*
     s32 destSlot = srcSlot ^ 1;
 
     // Compute checksum on source data
@@ -150,6 +209,7 @@ static void restore_main_menu_data(s32 srcSlot) {
 
     // Write destination data to EEPROM
     write_eeprom_data(&gSaveBuffer.menuData[destSlot], sizeof(gSaveBuffer.menuData[destSlot]));
+    */
 }
 
 static void save_main_menu_data(void) {
@@ -226,6 +286,7 @@ static void touch_high_score_ages(s32 fileIndex) {
  * Copy save file data from one backup slot to the other slot.
  */
 static void restore_save_file_data(s32 fileIndex, s32 srcSlot) {
+    /*
     s32 destSlot = srcSlot ^ 1;
 
     // Compute checksum on source data
@@ -239,6 +300,7 @@ static void restore_save_file_data(s32 fileIndex, s32 srcSlot) {
     // Write destination data to EEPROM
     write_eeprom_data(&gSaveBuffer.files[fileIndex][destSlot],
                       sizeof(gSaveBuffer.files[fileIndex][destSlot]));
+                      */
 }
 
 void save_file_do_save(s32 fileIndex) {
@@ -248,8 +310,10 @@ void save_file_do_save(s32 fileIndex) {
                                  sizeof(gSaveBuffer.files[fileIndex][0]), SAVE_FILE_MAGIC);
 
         // Copy to backup slot
+        /*
         bcopy(&gSaveBuffer.files[fileIndex][0], &gSaveBuffer.files[fileIndex][1],
               sizeof(gSaveBuffer.files[fileIndex][1]));
+              */
 
         // Write to EEPROM
         write_eeprom_data(gSaveBuffer.files[fileIndex], sizeof(gSaveBuffer.files[fileIndex]));
@@ -322,7 +386,7 @@ void save_file_load_all(void) {
         }
     }
 
-    stub_save_file_1();
+    
 }
 
 /**
@@ -531,6 +595,112 @@ void save_file_set_cap_pos(s16 x, s16 y, s16 z) {
     saveFile->capArea = gCurrAreaIndex;
     vec3s_set(saveFile->capPos, x, y, z);
     save_file_set_flags(SAVE_FLAG_CAP_ON_GROUND);
+}
+
+void save_draw_state() {
+    struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+
+    saveFile->drawstate = gMarioState->drawState;
+    gSaveFileModified = TRUE;
+    save_file_do_save(gCurrSaveFileNum - 1);
+}
+
+void save_drawing(u16 *texture, int textureID) {
+    struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+    switch (textureID) {
+        
+        case 0: bcopy(texture, saveFile->save_drawing_head, 2*32*32);
+        break;
+        
+        case 1: bcopy(texture, saveFile->save_drawing_body, 2*48*32);
+        break;
+        case 2: bcopy(texture, saveFile->save_drawing_r_arm, 2*48*16);
+        break;
+        case 3: bcopy(texture, saveFile->save_drawing_l_arm, 2*48*16);
+        break;
+        case 4: bcopy(texture, saveFile->save_drawing_r_leg, 2*48*16);
+        break;
+        case 5: bcopy(texture, saveFile->save_drawing_l_leg, 2*48*16);
+        break;
+        
+        case 7: bcopy(texture, saveFile->save_drawing_cloud, 2*32*32);
+        break;
+        
+        case 8: bcopy(texture, saveFile->save_drawing_moving_platform, 2*32*32);
+        break;
+        case 9: bcopy(texture, saveFile->save_drawing_spring, 2*32*32);
+        break;
+        case 10: bcopy(texture, saveFile->save_drawing_hoverboard, 2*32*32);
+        break;
+        case 11: bcopy(texture, saveFile->save_drawing_moon, 2*32*32);
+        break;
+        case 12: bcopy(texture, saveFile->save_drawing_boost_panel, 2*32*32);
+        break;
+
+
+    }
+        if (saveFile->drawingsAltered[textureID] == 0) {
+        saveFile->drawingsAltered[textureID] = 1;
+        }
+        gSaveFileModified = TRUE;
+        save_file_do_save(gCurrSaveFileNum - 1);
+        print_text(100, 100, "SAVED");
+}
+
+
+void load_drawing(int textureID) {
+    struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+    if (saveFile->drawingsAltered[textureID] == 1) {
+        //the wall
+extern const u16 drawtime_sprite_rgba16[];
+extern const u16 drawtime64_sprite64_rgba16[];
+extern const u16 drawrightarm_spritelimb_rgba16[];
+extern const u16 drawleftarm_spritelimb_rgba16[];
+extern const u16 drawrightleg_spritelimb_rgba16[];
+extern const u16 drawleftleg_spritelimb_rgba16[];
+extern const u16 drawcloud_sprite_rgba16[];
+extern const u16 draw_moving_platform_sprite_rgba16[];
+extern const u16 draw_spring_sprite_rgba16[];
+extern const u16 draw_hoverboard_sprite_rgba16[];
+extern const u16 draw_moon_sprite_rgba16[];
+extern const u16 draw_boost_panel_sprite_rgba16[];
+    
+    gMarioState->drawState = saveFile->drawstate;
+    
+    switch (textureID) {
+        
+            case 0: bcopy(saveFile->save_drawing_head, segmented_to_virtual(drawtime_sprite_rgba16), 2*32*32); 
+            break;
+            
+            case 1: bcopy(saveFile->save_drawing_body, segmented_to_virtual(drawtime64_sprite64_rgba16), 2*48*32); 
+            break;
+            case 2: bcopy(saveFile->save_drawing_r_arm, segmented_to_virtual(drawrightarm_spritelimb_rgba16), 2*48*16); 
+            break;
+            case 3: bcopy(saveFile->save_drawing_l_arm, segmented_to_virtual(drawleftarm_spritelimb_rgba16), 2*48*16); 
+            break;
+            case 4: bcopy(saveFile->save_drawing_r_leg, segmented_to_virtual(drawrightleg_spritelimb_rgba16), 2*48*16); 
+            break;
+            case 5: bcopy(saveFile->save_drawing_l_leg, segmented_to_virtual(drawleftleg_spritelimb_rgba16), 2*48*16); 
+            break;
+            
+            case 7: bcopy(saveFile->save_drawing_cloud, segmented_to_virtual(drawcloud_sprite_rgba16), 2*32*32); 
+            break;
+            
+            case 8: bcopy(saveFile->save_drawing_moving_platform, segmented_to_virtual(draw_moving_platform_sprite_rgba16), 2*32*32); 
+            break;
+            case 9: bcopy(saveFile->save_drawing_spring, segmented_to_virtual(draw_spring_sprite_rgba16), 2*32*32); 
+            break;
+            case 10: bcopy(saveFile->save_drawing_hoverboard, segmented_to_virtual(draw_hoverboard_sprite_rgba16), 2*32*32); 
+            break;
+            case 11: bcopy(saveFile->save_drawing_moon, segmented_to_virtual(draw_moon_sprite_rgba16), 2*32*32); 
+            break;
+            case 12: bcopy(saveFile->save_drawing_boost_panel, segmented_to_virtual(draw_boost_panel_sprite_rgba16), 2*32*32); 
+            break;
+
+
+    }
+    }
+    print_text(100, 100, "LOADED");
 }
 
 s32 save_file_get_cap_pos(Vec3s capPos) {

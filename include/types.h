@@ -345,7 +345,8 @@ struct MarioState
     int cutsceneStep;
     u8 raposaRescued[4];
     int darkScreen;
-
+    u8 triColor[3];
+    f32 triPos;
 };
 
 #endif // TYPES_H

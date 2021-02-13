@@ -26,6 +26,8 @@ extern int maxDistY;
 extern int curBParam = 0;
 int rowNum = 32;
 int vertLimit = 32;
+int textFreeze = 0;
+u16 *SwitchTexture;
 
 void clam_act_0(void) {
    
@@ -36,21 +38,30 @@ void clam_act_1(void) {
 }
 
 void bhv_clam_loop(void) {
+    
+                    //save_file_set_star_flags(gCurrSaveFileNum - 1, COURSE_BOB-1, 2);
+                    //save_file_do_save(gCurrSaveFileNum - 1);
+
 if (gCurrLevelNum == LEVEL_WF || gCurrLevelNum == LEVEL_DDD || gCurrLevelNum == LEVEL_TTC) {
     if (o->oDistanceToMario < 160.0f) {
         curBParam = o->oBehParams2ndByte;
         if (gPlayer1Controller->buttonPressed & START_BUTTON) {
             create_dialog_box_with_response(DIALOG_019);
+            textFreeze = 1;
         }
 
 
         if (gDialogResponse == 1) {
+
+            save_drawing(SwitchTexture, curBParam);
+            textFreeze = 1;
             freeze = 2;
             cursorspawn = 0;
             curBParam = 0;
             func_80321080(500);
             cursorDelete = 1;
             mark_obj_for_deletion(o);
+            if (o->oBehParams2ndByte - 6 > gMarioState->drawState) {
             switch (o->oBehParams2ndByte) {
                 case 7: gMarioState->drawState = 1;
                 break;
@@ -65,7 +76,12 @@ if (gCurrLevelNum == LEVEL_WF || gCurrLevelNum == LEVEL_DDD || gCurrLevelNum == 
                 case 12: gMarioState->drawState = 6;
                 break;
             }
+        save_draw_state();
+            }
             return;
+        }
+        else if (gDialogResponse == 2)  {
+            textFreeze = 0;
         }
     }
     
@@ -111,7 +127,7 @@ if (gCurrLevelNum == LEVEL_TTC) {
   
        
 
-
+    textFreeze = 0;
     freeze = 1;
     gMarioState->pos[0] = o->oPosX;
     gMarioState->pos[1] = o->oPosY;
@@ -144,24 +160,39 @@ if (directions == 0) {
 
 if (gPlayer1Controller->buttonPressed & START_BUTTON) {
             create_dialog_box_with_response(DIALOG_019);
+            textFreeze = 1;
         }
 
 
         if (gDialogResponse == 1) {
+            //save all textures
+            save_drawing(segmented_to_virtual(drawtime_sprite_rgba16), 0);
+            save_drawing(segmented_to_virtual(drawtime64_sprite64_rgba16), 1);
+            save_drawing(segmented_to_virtual(drawrightarm_spritelimb_rgba16), 2);
+            save_drawing(segmented_to_virtual(drawrightleg_spritelimb_rgba16), 3);
+            save_drawing(segmented_to_virtual(drawleftarm_spritelimb_rgba16), 4);
+            save_drawing(segmented_to_virtual(drawleftleg_spritelimb_rgba16), 5);
+
+    
+             //general
+             textFreeze = 1;
             freeze = 2;
             cursorspawn=0;
-    sCursorPos[0] = 0.0f;
-     sCursorPos[1] = 0.0f;
-     gMarioState->cutsceneStep = 3;
-initiate_warp(LEVEL_TTM, 1, 0x0A, 0);
-gDialogResponse = 0;
+            sCursorPos[0] = 0.0f;
+            sCursorPos[1] = 0.0f;
+            gMarioState->cutsceneStep = 3;
+            initiate_warp(LEVEL_TTM, 1, 0x0A, 0);
+            gDialogResponse = 0;
 return;
+        }
+        else if (gDialogResponse == 2) {
+            textFreeze = 0;
         }
         }
 
 
     extern s16 cellX, cellZ;
-u16 *SwitchTexture = segmented_to_virtual(drawtime_sprite_rgba16);
+
 switch (curBParam) {
     case 0: SwitchTexture = segmented_to_virtual(drawtime_sprite_rgba16);
     break;
@@ -189,13 +220,19 @@ switch (curBParam) {
     break;
     
 }
+
     
+
     if (gPlayer1Controller->buttonDown & A_BUTTON || gPlayer2Controller->buttonDown & A_BUTTON) {
         //cancel for open textbox
         if (gCurrLevelNum == LEVEL_BOB) {
 if (directions > -1) {
 return;
 }}
+
+if (textFreeze == 1) {
+    return;
+}
 //drawing
        if (brushSize == 1) {
         SwitchTexture[ -cellX + rowNum *(cellZ+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
@@ -322,16 +359,16 @@ void flood_fill(s16 pos_x, s16 pos_z, int target_color[], u32 color, u16 *Switch
 if(SwitchTexture[ -pos_x + rowNum *(pos_z+1)] == color) {
     SwitchTexture[ -pos_x + rowNum *(pos_z+1)] = GPACK_RGBA5551(drawColor[0], drawColor[1], drawColor[2], drawColor[3]);
 
-    if (pos_x > cellX+5.0f) {
+    if (pos_x > cellX+10.0f) {
         return;
     }
-    if (pos_x < cellX-5.0f) {
+    if (pos_x < cellX-10.0f) {
         return;
     }
-    if (pos_z > cellZ+5.0f) {
+    if (pos_z > cellZ+10.0f) {
         return;
     }
-    if (pos_z < cellZ-5.0f) {
+    if (pos_z < cellZ-10.0f) {
         return;
     }
 

@@ -84,6 +84,7 @@ if (movingSpace == -1) {
     
     set_mario_anim_with_accel(gMarioStates, MARIO_ANIM_RUNNING, 300000.0f);
     
+    
     gMarioState->faceAngle[1] = -16384.0f;
     if (gMarioState->pos[0] < o->oPosX) {
         gMarioState->pos[0] = o->oPosX;

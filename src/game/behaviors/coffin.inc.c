@@ -1,19 +1,22 @@
 #include "vars.h"
 #include "game/segment2.h"
 #include "game/ingame_menu.h"
-
+#include "src/buffers/framebuffers.h"
 f32 sCursorPos[] = {0, 0};
 f32 sCursorAccel[] = {0, 0};
 extern int maxDistX = 212;
 extern int maxDistY = 212;
 extern s16 cellX, cellZ;
-extern int drawColor[] = {0, 0, 0, 1};
+extern int drawColor[] = {0, 0, 0, 255};
 int drawColorNumber = 0;
 int eraseAlpha = 255;
 extern int brushSize = 1;
 extern int curBParam;
 extern int cursorspawn;
 extern int cursorDelete;
+int colorMode = 0;
+int modifyColor = 0;
+f32 colorPickerPos[] = {160.0f, 120.0f};
 
 void bhv_coffin_spawner_loop(void) {
    
@@ -29,17 +32,28 @@ void coffin_act_idle(void) {
  * that action.
  */
 void bhv_coffin_loop(void) {
-
-if (gPlayer1Controller->buttonPressed & R_JPAD) {
-    drawColorNumber += 1;
-    if (drawColorNumber > 13) {
-        drawColorNumber = 0;
+    if (colorMode==0) {
+select_color_simple();
+print_text(230, 110, "SIMPLE");
     }
-}
-if (gPlayer1Controller->buttonPressed & L_JPAD) {
-    drawColorNumber -= 1;
-    if (drawColorNumber < 0) {
-        drawColorNumber = 13;
+    else if (colorMode == 1) {
+select_color_advanced();
+print_text(200, 110, "ADVANCED");
+    }
+    else if (colorMode == 2) {
+color_picker();
+print_text(180, 110, "SELECT COLOR");
+
+    }
+if (gPlayer1Controller->buttonPressed & L_TRIG) {
+    if (colorMode == 0){
+        colorMode = 1;
+    }
+    else if (colorMode == 1){
+        colorMode = 2;
+    }
+    else {
+        colorMode = 0;
     }
 }
 if (gPlayer1Controller->buttonPressed & U_JPAD) {
@@ -48,7 +62,7 @@ if (gPlayer1Controller->buttonPressed & U_JPAD) {
         brushSize = 1;
     }
 }
-if (gPlayer1Controller->buttonPressed & D_JPAD) {
+if (gPlayer1Controller->buttonPressed & B_BUTTON) {
     eraseAlpha += 255;
     if (eraseAlpha > 255) {
         eraseAlpha = 0;
@@ -60,12 +74,13 @@ if (cursorDelete == 1) {
     cursorspawn = 0;
     sCursorPos[0] = 0.0f;
      sCursorPos[1] = 0.0f;
+     gMarioState->triPos = 0.0f;
      mark_obj_for_deletion(o);
      return;
 
 }
 
-if (gPlayer1Controller->buttonPressed & B_BUTTON) {
+if (gPlayer1Controller->buttonPressed & R_TRIG) {
     if (gCurrLevelNum == LEVEL_BOB) {
     curBParam+=1;
     if (curBParam == 6) {
@@ -108,70 +123,6 @@ switch (curBParam) {
     break;
 }
 
-switch (drawColorNumber) {
-    //black
-    case 0: drawColor[0] = 0; drawColor[1] = 0; drawColor[2] = 0; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Black");
-    break;
-    //white
-    case 1: drawColor[0] = 255; drawColor[1] = 255; drawColor[2] = 255; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "White");
-    break;
-    //red
-    case 2: drawColor[0] = 255; drawColor[1] = 0; drawColor[2] = 0; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Red");
-    break;
-    //orange
-    case 3: drawColor[0] = 255; drawColor[1] = 128; drawColor[2] = 0; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Orange");
-    break;
-    //yellow
-    case 4: drawColor[0] = 255; drawColor[1] = 255; drawColor[2] = 0; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Yellow");
-    break;
-    //green
-    case 5: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 0; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Green");
-    break;
-    //cyan
-    case 6: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 170; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Cyan");
-    break;
-    //light blue
-    case 7: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 255; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "L Blue");
-    break;
-    //blue
-    case 8: drawColor[0] = 0; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Blue");
-    break;
-    //purple
-    case 9: drawColor[0] = 128; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Purple");
-    break;
-    //pink
-    case 10: drawColor[0] = 255; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Pink");
-    break;
-    //brown
-    case 11: drawColor[0] = 66; drawColor[1] = 38; drawColor[2] = 18; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Brown");
-    break;
-    //light grey
-    case 12: drawColor[0] = 170; drawColor[1] = 170; drawColor[2] = 170; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "L Grey");
-    break;
-    //grey
-    case 13: drawColor[0] = 80; drawColor[1] = 80; drawColor[2] = 80; drawColor[3] = eraseAlpha;
-    print_text(230, 50, "Grey");
-    break;
-
-}
-
-create_dl_translation_matrix(MENU_MTX_PUSH, 222.0f, 50.0f, 0);
-gDPSetEnvColor(gDisplayListHead++, drawColor[0], drawColor[1], drawColor[2], eraseAlpha);
-    gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
-    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
    
     s16 rawStickX = gPlayer1Controller->rawStickX;
@@ -238,6 +189,7 @@ switch (curBParam) {
     cellZ = (16*((int)sCursorPos[1] + maxDistY-1) / (maxDistY)) & 0x1F;
     break;
 }
+if (colorMode < 2){
     print_text_fmt_int(100, 50, "Brush %d", brushSize);
     if (eraseAlpha == 255) {
         print_text(100, 70, "Draw");
@@ -273,13 +225,185 @@ if (sCursorPos[0] > maxDistX) {
 
     o->oPosX += sCursorAccel[0];
     o->oPosY += sCursorAccel[1];
+}
+    gMarioState->triColor[0] = drawColor[0];
+    gMarioState->triColor[1] = drawColor[1];
+    gMarioState->triColor[2] = drawColor[2];
+
+}
+
+void select_color_simple() {
+
+if (gPlayer1Controller->buttonPressed & R_JPAD) {
+    drawColorNumber += 1;
+    if (drawColorNumber > 13) {
+        drawColorNumber = 0;
+    }
+}
+if (gPlayer1Controller->buttonPressed & L_JPAD) {
+    drawColorNumber -= 1;
+    if (drawColorNumber < 0) {
+        drawColorNumber = 13;
+    }
+}
+
+switch (drawColorNumber) {
+    //black
+    case 0: drawColor[0] = 0; drawColor[1] = 0; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Black");
+    break;
+    //white
+    case 1: drawColor[0] = 255; drawColor[1] = 255; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "White");
+    break;
+    //red
+    case 2: drawColor[0] = 255; drawColor[1] = 0; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Red");
+    break;
+    //orange
+    case 3: drawColor[0] = 255; drawColor[1] = 128; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Orange");
+    break;
+    //yellow
+    case 4: drawColor[0] = 255; drawColor[1] = 255; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Yellow");
+    break;
+    //green
+    case 5: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 0; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Green");
+    break;
+    //cyan
+    case 6: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 170; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Cyan");
+    break;
+    //light blue
+    case 7: drawColor[0] = 0; drawColor[1] = 255; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "L Blue");
+    break;
+    //blue
+    case 8: drawColor[0] = 0; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Blue");
+    break;
+    //purple
+    case 9: drawColor[0] = 128; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Purple");
+    break;
+    //pink
+    case 10: drawColor[0] = 255; drawColor[1] = 0; drawColor[2] = 255; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Pink");
+    break;
+    //brown
+    case 11: drawColor[0] = 66; drawColor[1] = 38; drawColor[2] = 18; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Brown");
+    break;
+    //light grey
+    case 12: drawColor[0] = 170; drawColor[1] = 170; drawColor[2] = 170; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "L Grey");
+    break;
+    //grey
+    case 13: drawColor[0] = 80; drawColor[1] = 80; drawColor[2] = 80; drawColor[3] = eraseAlpha;
+    print_text(230, 50, "Grey");
+    break;
+
+}
+
+    gMarioState->triPos = 50.0f;
+}
+
+void select_color_advanced() {
+    print_text_fmt_int(230, 80, "R %d", drawColor[0]);
+    print_text_fmt_int(230, 50, "G %d", drawColor[1]);
+    print_text_fmt_int(230, 30, "B %d", drawColor[2]);
+
+    switch (modifyColor) {
+        case 0: gMarioState->triPos = 80.0f;
+    break;
+    case 1: gMarioState->triPos = 50.0f;
+    break;
+    case 2: gMarioState->triPos = 30.0f;
+    break;
+    }
+
+if (gPlayer1Controller->buttonDown & R_JPAD) {
+    drawColor[modifyColor] += 2;
+    if (drawColor[modifyColor] > 255) {
+        drawColor[modifyColor] = 255;
+    }
+}
+if (gPlayer1Controller->buttonDown & L_JPAD) {
+    drawColor[modifyColor] -= 2;
+    if (drawColor[modifyColor] < 0) {
+        drawColor[modifyColor] = 0;
+    }
+}
+if (gPlayer1Controller->buttonPressed & D_JPAD) {
+    modifyColor+=1;
+    if (modifyColor > 2) {
+        modifyColor = 0;
+    }
+}
+
+}
+
+void color_picker() {
+s16 rawStickX = gPlayer1Controller->rawStickX;
+    s16 rawStickY = gPlayer1Controller->rawStickY;
+    s16 mouseRawStickX = gPlayer2Controller->rawStickX;
+    s16 mouseRawStickY = gPlayer2Controller->rawStickY;
     
 
+    // Handle deadzone
+    if (rawStickY+mouseRawStickY > -2 && rawStickY+mouseRawStickY < 2) {
+        rawStickY = 0;
+    }
+    if (rawStickX+mouseRawStickX > -2 && rawStickX+mouseRawStickX < 2) {
+        rawStickX = 0;
+    }
 
-    // Stop cursor from going offscreen
+colorPickerPos[0] += (rawStickX + mouseRawStickX) / 12;
+    colorPickerPos[1] += (rawStickY + mouseRawStickY) / 12;
+
+if (colorPickerPos[0] > 320.0f) {
+        colorPickerPos[0] = 320.0f;
+    }
+    if (colorPickerPos[0] < 0) {
+        colorPickerPos[0] = 0;
+    }
+
+    if (colorPickerPos[1] > 240) {
+        colorPickerPos[1] = 240;
+    }
+    if (colorPickerPos[1] < 0) {
+        colorPickerPos[1] = 0;
+    }
+
+
+create_dl_translation_matrix(MENU_MTX_PUSH, colorPickerPos[0], colorPickerPos[1], 0);
+
+    gDPSetEnvColor(gDisplayListHead++, 50, 50, 50, 180);
+    create_dl_translation_matrix(MENU_MTX_PUSH, -20.0f, -8.0f, 0);
+    gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
     
 
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
 
+
+int screenX = colorPickerPos[0];
+int screenY = colorPickerPos[1];
+
+
+
+
+
+if (gPlayer1Controller->buttonPressed & A_BUTTON || gPlayer2Controller->buttonPressed & A_BUTTON) {
+    drawColor[0] = (gFrameBuffers[3][screenX + SCREEN_WIDTH * screenY] & 0xf800) >>8;
+    drawColor[1] = (gFrameBuffers[3][screenX + SCREEN_WIDTH * screenY] & 0x7c0) >>3;
+    drawColor[2] = (gFrameBuffers[3][screenX + SCREEN_WIDTH * screenY] & 0x3e) <<2;
+    
+colorMode = 1;
+}
 
 }

@@ -450,6 +450,13 @@ void render_hud(void) {
 #else
         create_dl_ortho_matrix();
 #endif
+if (gMarioState->triPos > 0.0f) {
+create_dl_translation_matrix(MENU_MTX_PUSH, 222.0f, gMarioState->triPos, 0);
+gDPSetEnvColor(gDisplayListHead++, gMarioState->triColor[0], gMarioState->triColor[1], gMarioState->triColor[2], 255);
+    gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
 if (gMarioState->darkScreen == 1) {
  shade_screen(235);
 }

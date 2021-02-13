@@ -9,7 +9,7 @@
 #include "course_table.h"
 
 #define EEPROM_SIZE 0x200
-#define NUM_SAVE_FILES 4
+#define NUM_SAVE_FILES 1
 
 struct SaveBlockSignature
 {
@@ -34,6 +34,31 @@ struct SaveFile
     u8 courseStars[COURSE_COUNT];
 
     u8 courseCoinScores[COURSE_STAGES_COUNT];
+
+
+    u8 drawingsAltered[16];
+    int drawstate;
+    
+     u16 save_drawing_head[32 * 32];
+    
+    u16 save_drawing_body[48 * 32];
+   u16 save_drawing_r_leg[48 * 16];
+    u16 save_drawing_l_arm[48 * 16];
+    u16 save_drawing_l_leg[48 * 16];
+    u16 save_drawing_r_arm[48 * 16];
+    
+    
+    u16 save_drawing_cloud[32 * 32];
+    
+    u16 save_drawing_moving_platform[32 * 32];
+    
+    u16 save_drawing_spring[32 * 32];
+    u16 save_drawing_hoverboard[32 * 32];
+    u16 save_drawing_moon[32 * 32];
+    u16 save_drawing_boost_panel[32 * 32];
+    /*
+    */
+    
 
     struct SaveBlockSignature signature;
 };
@@ -61,7 +86,8 @@ struct MainMenuSaveData
 #endif
 
     // Pad to match the EEPROM size of 0x200 (10 bytes on JP/US, 8 bytes on EU)
-    u8 filler[EEPROM_SIZE / 2 - SUBTRAHEND - NUM_SAVE_FILES * (4 + sizeof(struct SaveFile))];
+    u8 filler[1];
+    //EEPROM_SIZE / 2 - SUBTRAHEND - NUM_SAVE_FILES * (4 + sizeof(struct SaveFile))
 
     struct SaveBlockSignature signature;
 };
@@ -69,9 +95,9 @@ struct MainMenuSaveData
 struct SaveBuffer
 {
     // Each of the four save files has two copies. If one is bad, the other is used as a backup.
-    struct SaveFile files[NUM_SAVE_FILES][2];
+    struct SaveFile files[NUM_SAVE_FILES][1];
     // The main menu data has two copies. If one is bad, the other is used as a backup.
-    struct MainMenuSaveData menuData[2];
+    struct MainMenuSaveData menuData[1];
 };
 
 extern u8 gLastCompletedCourseNum;
@@ -129,6 +155,9 @@ extern struct WarpCheckpoint gWarpCheckpoint;
 extern s8 gMainMenuDataModified;
 extern s8 gSaveFileModified;
 
+void save_draw_state();
+void load_drawing(int textureID);
+void save_drawing(u16 *texture, int textureID);
 void save_file_do_save(s32 fileIndex);
 void save_file_erase(s32 fileIndex);
 BAD_RETURN(s32) save_file_copy(s32 srcFileIndex, s32 destFileIndex);
