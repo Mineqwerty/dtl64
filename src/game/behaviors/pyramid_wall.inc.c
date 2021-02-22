@@ -1,9 +1,25 @@
 //raposa in cage
+
+#include "actors/common0.h"
+
 int rescueState;
 
 void bhv_ssl_moving_pyramid_wall_init(void) {
 
     gCurrentObject->respawnInfo = RESPAWN_INFO_TYPE_NULL;
+
+    switch (o->oBehParams2ndByte) {
+        case 0: gCurrentObject->oAnimations = heather_anims;
+        cur_obj_init_animation(0);
+        break;
+        case 1: gCurrentObject->oAnimations = samuel_anims;
+        cur_obj_init_animation(0);
+        break;
+        case 2: gCurrentObject->oAnimations = count_choco_anims;
+        cur_obj_init_animation(0);
+        break;
+
+    }
 }
 
 
@@ -18,6 +34,12 @@ void bhv_ssl_moving_pyramid_wall_loop(void) {
                 case 0: create_dialog_box(DIALOG_037);
                 gMarioState->raposaRescued[0] = 1;
                 break;
+                case 1: create_dialog_box(DIALOG_038);
+                gMarioState->raposaRescued[1] = 1;
+                break;
+                case 2: create_dialog_box(DIALOG_039);
+                gMarioState->raposaRescued[2] = 1;
+                break;
             }
         }
         if (rescueState == 2) {
@@ -25,6 +47,7 @@ void bhv_ssl_moving_pyramid_wall_loop(void) {
             gMarioObject->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];
             func_80321080(500);
             if (gDialogResponse == 0) {
+                rescueState = 0;
             obj_mark_for_deletion(o);
             }
         }
@@ -43,6 +66,19 @@ void bhv_ssl_moving_pyramid_wall_loop(void) {
     
 }
 Gfx *geo_switch_heather_eyes(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx) {
+    struct Object *obj;
+    struct GraphNodeSwitchCase *switchCase;
+        obj = (struct Object *) gCurGraphNodeObject;
+        switchCase = (struct GraphNodeSwitchCase *) node;
+    if (gCurrentObject->respawnInfo == RESPAWN_INFO_DONT_RESPAWN) {
+       switchCase->selectedCase = 2;
+    }
+    else {
+        switchCase->selectedCase = 1;
+    }
+    
+}
+Gfx *geo_switch_choco_mouth(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx) {
     struct Object *obj;
     struct GraphNodeSwitchCase *switchCase;
         obj = (struct Object *) gCurGraphNodeObject;

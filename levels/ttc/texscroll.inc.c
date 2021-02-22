@@ -1,6 +1,6 @@
 void scroll_ttc_dl_Plane_mesh_vtx_0() {
 	int i = 0;
-	int count = 678;
+	int count = 456;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 

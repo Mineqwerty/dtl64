@@ -747,6 +747,8 @@ const BehaviorScript bhvKickableBoard[] = {
     BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(moving_platform_collision),
     OR_INT(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oCollisionDistance, 1000),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_kickable_board_loop),
     END_LOOP(),
@@ -1670,10 +1672,9 @@ const BehaviorScript bhvAnotherTiltingPlatform[] = {
 };
 
 const BehaviorScript bhvSquarishPathMoving[] = {
-    BEGIN(OBJ_LIST_SURFACE),
+    BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_COLLISION_DATA(bitdw_seg7_collision_moving_pyramid),
-    SET_HOME(),
+    CALL_NATIVE(cutscene_raposa_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_squarish_path_moving_loop),
     END_LOOP(),
@@ -2213,6 +2214,8 @@ const BehaviorScript bhvClockHourHand[] = {
     // Clock hand - common:
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     LOAD_COLLISION_DATA(cloud_platform_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oCollisionDistance, 1000),
     CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_rotating_clock_arm_loop),
@@ -4232,6 +4235,8 @@ const BehaviorScript bhvLllDrawbridge[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(bounce_spring_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oCollisionDistance, 1000),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_lll_drawbridge_loop),
     END_LOOP(),
@@ -4371,9 +4376,8 @@ const BehaviorScript bhvRrCruiserWing[] = {
 const BehaviorScript bhvSpindel[] = {
     BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oDrawingDistance, 20000),
     CALL_NATIVE(bhv_spindel_init),
-    LOAD_ANIMATIONS(oAnimations, heather_anims), 
-    ANIMATE(0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_spindel_loop),
     END_LOOP(),
@@ -4382,9 +4386,8 @@ const BehaviorScript bhvSpindel[] = {
 const BehaviorScript bhvSslMovingPyramidWall[] = {
     BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oDrawingDistance, 20000),
     CALL_NATIVE(bhv_ssl_moving_pyramid_wall_init),
-    LOAD_ANIMATIONS(oAnimations, heather_anims), 
-    ANIMATE(0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_ssl_moving_pyramid_wall_loop),
     END_LOOP(),
@@ -5542,13 +5545,11 @@ const BehaviorScript bhvTTC2DRotator[] = {
 };
 
 const BehaviorScript bhvTTCSpinner[] = {
-    BEGIN(OBJ_LIST_SURFACE),
-    LOAD_COLLISION_DATA(ttc_seg7_collision_rotating_clock_platform2),
+    BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_FLOAT(oCollisionDistance, 450),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_ttc_spinner_update),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -5595,7 +5596,9 @@ const BehaviorScript bhvSlidingPlatform2[] = {
 
 const BehaviorScript bhvOctagonalPlatformRotating[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oCollisionDistance, 1000),
     CALL_NATIVE(bhv_rotating_octagonal_plat_init),
     LOAD_COLLISION_DATA(raposa_cage_collision),
     BEGIN_LOOP(),
@@ -5974,14 +5977,12 @@ const BehaviorScript bhvSkeeterWave[] = {
 };
 
 const BehaviorScript bhvSwingPlatform[] = {
-    BEGIN(OBJ_LIST_SURFACE),
-    LOAD_COLLISION_DATA(rr_seg7_collision_pendulum),
+    BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_FLOAT(oCollisionDistance, 2000),
     CALL_NATIVE(bhv_swing_platform_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_swing_platform_update),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -6105,4 +6106,11 @@ const BehaviorScript bhvIntroScene[] = {
     END_LOOP(),
 };
 
-
+const BehaviorScript bhvCheckpointLevel[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_checkpoint_level_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_checkpoint_level_loop),
+    END_LOOP(),
+};

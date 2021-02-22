@@ -130,6 +130,7 @@ void bhv_small_water_wave_loop(void);
 void bhv_yellow_coin_init(void);
 void bhv_yellow_coin_loop(void);
 void bhv_squarish_path_moving_loop(void);
+void cutscene_raposa_init(void);
 void bhv_heave_ho_loop(void);
 void bhv_heave_ho_throw_mario_loop(void);
 void bhv_ccm_touched_star_spawn_loop(void);
@@ -551,6 +552,8 @@ void bhv_intro_scene_loop(void);
 void bhv_dust_smoke_loop(void);
 void bhv_yoshi_loop(void);
 void bhv_volcano_trap_loop(void);
+void bhv_checkpoint_level_loop(void);
+void bhv_checkpoint_level_init(void);
 
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
 
@@ -573,6 +576,8 @@ Gfx *geo_snufit_scale_body(s32 callContext, struct GraphNode *node, UNUSED Mat4 
 Gfx *geo_scale_bowser_key(s32 run, struct GraphNode *node, UNUSED f32 mtx[4][4]);
 
 Gfx *geo_switch_heather_eyes(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx);
+
+Gfx *geo_switch_choco_mouth(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 // Water splash
 extern struct WaterDropletParams gShallowWaterSplashDropletParams;

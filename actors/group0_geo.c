@@ -17,3 +17,5 @@
 #include "sparkle_animation/geo.inc.c"
 #include "mario/geo.inc.c"
 
+
+#include "book_of_life_page/geo.inc.c"

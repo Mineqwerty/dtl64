@@ -275,4 +275,20 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 
 #include "baki/anim_header.h"
+#include "samuel/geo_header.h"
+
+
+#include "samuel/anim_header.h"
+#include "laser_pusher/geo_header.h"
+
+#include "laser_wave/geo_header.h"
+
+#include "count_choco/geo_header.h"
+
+
+#include "count_choco/anim_header.h"
+#include "isaac/geo_header.h"
+
+
+#include "isaac/anim_header.h"
 #endif

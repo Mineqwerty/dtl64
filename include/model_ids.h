@@ -158,25 +158,25 @@
 #define MODEL_JRB_FLOATING_PLATFORM               0x3F        // jrb_geo_000948
 
 // thi
-#define MODEL_THI_HUGE_ISLAND_TOP                 0x36        // thi_geo_0005B0
-#define MODEL_THI_TINY_ISLAND_TOP                 0x37        // thi_geo_0005C8
+#define MODEL_THI_HUGE_ISLAND_TOP                 0x53        // thi_geo_0005B0
+#define MODEL_THI_TINY_ISLAND_TOP                 0x53        // thi_geo_0005C8
 
 // ttc
-#define MODEL_TTC_ROTATING_CUBE                   0x36        // ttc_geo_000240
-#define MODEL_TTC_ROTATING_PRISM                  0x37        // ttc_geo_000258
-#define MODEL_TTC_PENDULUM                        0x38        // ttc_geo_000270
-#define MODEL_TTC_LARGE_TREADMILL                 0x39        // ttc_geo_000288
-#define MODEL_TTC_SMALL_TREADMILL                 0x3A        // ttc_geo_0002A8
-#define MODEL_TTC_PUSH_BLOCK                      0x3B        // ttc_geo_0002C8
-#define MODEL_TTC_ROTATING_HEXAGON                0x3C        // ttc_geo_0002E0
-#define MODEL_TTC_ROTATING_TRIANGLE               0x3D        // ttc_geo_0002F8
-#define MODEL_TTC_PIT_BLOCK                       0x3E        // ttc_geo_000310 - has 2 vertical stripes
-#define MODEL_TTC_PIT_BLOCK_UNUSED                0x3F        // ttc_geo_000328 - has 3 vertical stripes, unused
-#define MODEL_TTC_ELEVATOR_PLATFORM               0x45        // ttc_geo_000340
-#define MODEL_TTC_CLOCK_HAND                      0x41        // ttc_geo_000358
-#define MODEL_TTC_SPINNER                         0x42        // ttc_geo_000370
-#define MODEL_TTC_SMALL_GEAR                      0x43        // ttc_geo_000388
-#define MODEL_TTC_LARGE_GEAR                      0x44        // ttc_geo_0003A0
+#define MODEL_TTC_ROTATING_CUBE                   0x53        // ttc_geo_000240
+#define MODEL_TTC_ROTATING_PRISM                  0x53        // ttc_geo_000258
+#define MODEL_TTC_PENDULUM                        0x53        // ttc_geo_000270
+#define MODEL_TTC_LARGE_TREADMILL                 0x53        // ttc_geo_000288
+#define MODEL_TTC_SMALL_TREADMILL                 0x53        // ttc_geo_0002A8
+#define MODEL_TTC_PUSH_BLOCK                      0x53        // ttc_geo_0002C8
+#define MODEL_TTC_ROTATING_HEXAGON                0x53        // ttc_geo_0002E0
+#define MODEL_TTC_ROTATING_TRIANGLE               0x53        // ttc_geo_0002F8
+#define MODEL_TTC_PIT_BLOCK                       0x53        // ttc_geo_000310 - has 2 vertical stripes
+#define MODEL_TTC_PIT_BLOCK_UNUSED                0x53        // ttc_geo_000328 - has 3 vertical stripes, unused
+#define MODEL_TTC_ELEVATOR_PLATFORM               0x53        // ttc_geo_000340
+#define MODEL_TTC_CLOCK_HAND                      0x53        // ttc_geo_000358
+#define MODEL_TTC_SPINNER                         0x53        // ttc_geo_000370
+#define MODEL_TTC_SMALL_GEAR                      0x53        // ttc_geo_000388
+#define MODEL_TTC_LARGE_GEAR                      0x53        // ttc_geo_0003A0
 
 // rr
 #define MODEL_RR_SLIDING_PLATFORM                 0x36        // rr_geo_0008C0
@@ -279,9 +279,9 @@
 #define MODEL_LLL_VOLCANO_FALLING_TRAP            0x53        // lll_geo_000EA8
 
 // ddd
-#define MODEL_DDD_BOWSER_SUB_DOOR                 0x36        // ddd_geo_000478
-#define MODEL_DDD_BOWSER_SUB                      0x37        // ddd_geo_0004A0
-#define MODEL_DDD_POLE                            0x38        // ddd_geo_000450
+#define MODEL_DDD_BOWSER_SUB_DOOR                 0x53        // ddd_geo_000478
+#define MODEL_DDD_BOWSER_SUB                      0x53        // ddd_geo_0004A0
+#define MODEL_DDD_POLE                            0x53        // ddd_geo_000450
 
 // wf
 #define MODEL_WF_BREAKABLE_WALL_RIGHT             0x36        // wf_geo_000B78
@@ -323,12 +323,12 @@
 #define MODEL_BOWSER_3_FALLING_PLATFORM_10        0x3F        // bowser_3_geo_000368
 
 // ttm
-#define MODEL_TTM_ROLLING_LOG                     0x35        // ttm_geo_000730
-#define MODEL_TTM_STAR_CAGE                       0x36        // ttm_geo_000710
-#define MODEL_TTM_BLUE_SMILEY                     0x37        // ttm_geo_000D14
-#define MODEL_TTM_YELLOW_SMILEY                   0x38        // ttm_geo_000D4C
-#define MODEL_TTM_STAR_SMILEY                     0x39        // ttm_geo_000D84
-#define MODEL_TTM_MOON_SMILEY                     0x3A        // ttm_geo_000DBC
+#define MODEL_TTM_ROLLING_LOG                     0x53        // ttm_geo_000730
+#define MODEL_TTM_STAR_CAGE                       0x53        // ttm_geo_000710
+#define MODEL_TTM_BLUE_SMILEY                     0x53        // ttm_geo_000D14
+#define MODEL_TTM_YELLOW_SMILEY                   0x53        // ttm_geo_000D4C
+#define MODEL_TTM_STAR_SMILEY                     0x53        // ttm_geo_000D84
+#define MODEL_TTM_MOON_SMILEY                     0x53        // ttm_geo_000DBC
 
 // actor model IDs
 
@@ -505,9 +505,14 @@
 #define MODEL_MARI                  0xEE
 #define MODEL_WILFRE                  0xED
 #define MODEL_HEATHER                 0xEC
+#define MODEL_SAMUEL                 0x36
+#define MODEL_COUNT_CHOCO                 0x37
+#define MODEL_ISAAC                  0x38
 
 #define MODEL_RAPOSA_CAGE            0xE2
 #define MODEL_LEVEL_CIRCLE           0x41
+#define MODEL_LASER_PUSHER           0x42
+#define MODEL_LASER_WAVE           0x43
 
 #define MODEL_DRAWCLOUD                  0xF7
 #define MODEL_CLOUD_PLATFORM                 0xF8

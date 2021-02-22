@@ -1,5 +1,5 @@
 // spawn_default_star.c.inc
-
+#include "actors/group0.h"
 static struct ObjectHitbox sCollectStarHitbox = {
     /* interactType:      */ INTERACT_STAR_OR_KEY,
     /* downOffset:        */ 0,
@@ -28,8 +28,9 @@ void bhv_collect_star_init(void) {
 }
 
 void bhv_collect_star_loop(void) {
-    o->oFaceAngleYaw += 0x800;
-
+    o->oFaceAngleYaw += 0x400;
+gCurrentObject->oAnimations = book_of_life_page_anims;
+        cur_obj_init_animation(0);
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
         if (gCurrLevelNum == LEVEL_DDD) {
             gMarioState->cutsceneStep = 5;

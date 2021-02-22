@@ -1,8 +1,10 @@
 // hidden_star.c.inc
-
+struct Object *stah;
 void bhv_hidden_star_init(void) {
     s16 sp36;
     struct Object *sp30;
+    
+stah = spawn_object_abs_with_rot(o, 0, MODEL_STAR, bhvRrCruiserWing, o->oPosX, o->oPosY + 30, o->oPosZ, 0, 0, 0);
 
     sp36 = count_objects_with_behavior(bhvHiddenStarTrigger);
     if (sp36 == 0) {
@@ -24,6 +26,7 @@ void bhv_hidden_star_loop(void) {
 
         case 1:
             if (o->oTimer > 2) {
+                mark_obj_for_deletion(stah);
                 spawn_red_coin_cutscene_star(o->oPosX, o->oPosY, o->oPosZ);
                 spawn_mist_particles();
                 o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
@@ -35,6 +38,7 @@ void bhv_hidden_star_loop(void) {
 /* TODO: this is likely not a checkpoint but a Secret */
 void bhv_hidden_star_trigger_loop(void) {
     struct Object *hiddenStar;
+    o->oFaceAngleYaw += 150.0f;
     if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
         hiddenStar = cur_obj_nearest_object_with_behavior(bhvHiddenStar);
         if (hiddenStar != NULL) {

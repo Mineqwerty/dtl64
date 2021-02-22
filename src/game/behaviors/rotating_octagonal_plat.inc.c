@@ -2,7 +2,23 @@
 struct Object *cage;
 void bhv_rotating_octagonal_plat_init(void) {
     switch (o->oBehParams2ndByte) {
-        case 0: cage = spawn_object_relative(0, 0, 40, 0, o, MODEL_HEATHER, bhvSslMovingPyramidWall);
+        case 0: if (gMarioState->raposaRescued[0] == 1) {
+            obj_mark_for_deletion(o);
+            return;
+        }
+        cage = spawn_object_relative(0, 0, 40, 0, o, MODEL_HEATHER, bhvSslMovingPyramidWall);
+        break;
+        case 1: if (gMarioState->raposaRescued[1] == 1) {
+            obj_mark_for_deletion(o);
+            return;
+        }
+        cage = spawn_object_relative(1, 0, 5, 0, o, MODEL_SAMUEL, bhvSslMovingPyramidWall);
+        break;
+        case 2: if (gMarioState->raposaRescued[2] == 1) {
+            obj_mark_for_deletion(o);
+            return;
+        }
+        cage = spawn_object_relative(2, 0, 5, 0, o, MODEL_COUNT_CHOCO, bhvSslMovingPyramidWall);
         break;
     }
 }

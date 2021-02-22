@@ -59,6 +59,7 @@ if (gCurrLevelNum == LEVEL_WF || gCurrLevelNum == LEVEL_DDD || gCurrLevelNum == 
             cursorspawn = 0;
             curBParam = 0;
             func_80321080(500);
+            gCamera->cutscene = 0;
             cursorDelete = 1;
             mark_obj_for_deletion(o);
             if (o->oBehParams2ndByte - 6 > gMarioState->drawState) {
@@ -132,14 +133,17 @@ if (gCurrLevelNum == LEVEL_TTC) {
     gMarioState->pos[0] = o->oPosX;
     gMarioState->pos[1] = o->oPosY;
     gMarioState->pos[2] = o->oPosZ;
-   gCamera->mode = CAMERA_MODE_BEHIND_MARIO;
+    gCamera->mode = CAMERA_MODE_BEHIND_MARIO;
+   gCamera->cutscene = 1;
+
 
    play_secondary_music(SEQ_STREAMED_STREAMED_DRAWING_THEME, 0, 255, 100);
    cursorspawn = 1;
     }
 
-    
-
+    if (gCurrLevelNum == LEVEL_TTC) {
+gMarioState->darkScreen = 0;
+    }
 if (gCurrLevelNum == LEVEL_BOB) {
 
 if (directions > 0) {
@@ -178,6 +182,7 @@ if (gPlayer1Controller->buttonPressed & START_BUTTON) {
              textFreeze = 1;
             freeze = 2;
             cursorspawn=0;
+            gMarioState->triPos = 0.0f;
             sCursorPos[0] = 0.0f;
             sCursorPos[1] = 0.0f;
             gMarioState->cutsceneStep = 3;

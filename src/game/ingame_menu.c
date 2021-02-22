@@ -2076,24 +2076,24 @@ void print_peach_letter_message(void) {
  * Formed by four triangles.
  */
 void render_hud_cannon_reticle(void) {
-    create_dl_translation_matrix(MENU_MTX_PUSH, 160.0f, 120.0f, 0);
+    create_dl_translation_matrix(MENU_MTX_PUSH, gMarioState->colorPickerPos[0], gMarioState->colorPickerPos[1], 0);
 
     gDPSetEnvColor(gDisplayListHead++, 50, 50, 50, 180);
-    create_dl_translation_matrix(MENU_MTX_PUSH, -20.0f, -8.0f, 0);
+    create_dl_translation_matrix(MENU_MTX_PUSH, -14.0f, -8.0f, 0);
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
-    create_dl_translation_matrix(MENU_MTX_PUSH, 20.0f, 8.0f, 0);
+    create_dl_translation_matrix(MENU_MTX_PUSH, 14.0f, 8.0f, 0);
     create_dl_rotation_matrix(MENU_MTX_NOPUSH, 180.0f, 0, 0, 1.0f);
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
-    create_dl_translation_matrix(MENU_MTX_PUSH, 8.0f, -20.0f, 0);
+    create_dl_translation_matrix(MENU_MTX_PUSH, 8.0f, -14.0f, 0);
     create_dl_rotation_matrix(MENU_MTX_NOPUSH, DEFAULT_DIALOG_BOX_ANGLE, 0, 0, 1.0f);
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
-    create_dl_translation_matrix(MENU_MTX_PUSH, -8.0f, 20.0f, 0);
+    create_dl_translation_matrix(MENU_MTX_PUSH, -8.0f, 14.0f, 0);
     create_dl_rotation_matrix(MENU_MTX_NOPUSH, -DEFAULT_DIALOG_BOX_ANGLE, 0, 0, 1.0f);
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
@@ -2114,12 +2114,12 @@ void change_dialog_camera_angle(void) {
 }
 
 void shade_screen(int shadeAlpha) {
-    create_dl_translation_matrix(MENU_MTX_PUSH, GFX_DIMENSIONS_FROM_LEFT_EDGE(0), SCREEN_HEIGHT, 0);
+    create_dl_translation_matrix(MENU_MTX_PUSH, -120.0f, SCREEN_HEIGHT, 0);
 
     // This is a bit weird. It reuses the dialog text box (width 130, height -80),
     // so scale to at least fit the screen.
 #ifndef WIDESCREEN
-    create_dl_scale_matrix(MENU_MTX_NOPUSH, 2.6f, 3.4f, 1.0f);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 4.0f, 3.4f, 1.0f);
 #else
     create_dl_scale_matrix(MENU_MTX_NOPUSH,
                            GFX_DIMENSIONS_ASPECT_RATIO * SCREEN_HEIGHT / 130.0f, 3.0f, 1.0f);

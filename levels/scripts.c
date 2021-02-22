@@ -74,7 +74,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_WATER_SPLASH,            water_splash_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WAVE_TRAIL,              wave_trail_geo),
     LOAD_MODEL_FROM_GEO(MODEL_YELLOW_COIN,             yellow_coin_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_STAR,                    star_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_STAR,                    book_of_life_page_geo),
     LOAD_MODEL_FROM_GEO(MODEL_TRANSPARENT_STAR,        transparent_star_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WOODEN_SIGNPOST,         wooden_signpost_geo),
     LOAD_MODEL_FROM_DL( MODEL_WHITE_PARTICLE_SMALL,    white_particle_small_dl,     LAYER_ALPHA),
@@ -208,9 +208,14 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_MARI,                 mari_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WILFRE,                 wilfre_geo),
     LOAD_MODEL_FROM_GEO(MODEL_HEATHER,                 heather_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_SAMUEL,                 samuel_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_COUNT_CHOCO,                 count_choco_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_ISAAC,                 isaac_geo),
 
     LOAD_MODEL_FROM_GEO(MODEL_RAPOSA_CAGE,                 raposa_cage_geo),
     LOAD_MODEL_FROM_GEO(MODEL_LEVEL_CIRCLE,                 level_circle_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_LASER_PUSHER,                 laser_pusher_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_LASER_WAVE,                 laser_wave_geo),
 
     LOAD_MODEL_FROM_GEO(MODEL_DRAWCLOUD,                 drawcloud_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CLOUD_PLATFORM,                 cloud_platform_geo),

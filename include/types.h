@@ -347,6 +347,7 @@ struct MarioState
     int darkScreen;
     u8 triColor[3];
     f32 triPos;
+    f32 colorPickerPos[1];
 };
 
 #endif // TYPES_H

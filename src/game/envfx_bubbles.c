@@ -118,6 +118,7 @@ void envfx_set_lava_bubble_position(s32 index, Vec3s centerPos) {
     (gEnvFxBuffer + index)->xPos = random_float() * 6000.0f - 3000.0f + centerX;
     (gEnvFxBuffer + index)->zPos = random_float() * 6000.0f - 3000.0f + centerZ;
 
+    /*
     if ((gEnvFxBuffer + index)->xPos > 8000) {
         (gEnvFxBuffer + index)->xPos = 16000 - (gEnvFxBuffer + index)->xPos;
     }
@@ -130,7 +131,7 @@ void envfx_set_lava_bubble_position(s32 index, Vec3s centerPos) {
     }
     if ((gEnvFxBuffer + index)->zPos < -8000) {
         (gEnvFxBuffer + index)->zPos = -16000 - (gEnvFxBuffer + index)->zPos;
-    }
+    }*/
 
     floorY =
         find_floor((gEnvFxBuffer + index)->xPos, centerY + 500, (gEnvFxBuffer + index)->zPos, &surface);

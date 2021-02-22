@@ -1,56 +1,25 @@
 // shock_wave.c.inc
 
-int timer = 15;
+f32 D_8032F420[] = { 1.9f, 2.4f, 4.0f, 4.8f };
 
 void bhv_bowser_shock_wave_loop(void) {
-    //CHANGE FOR RELEASE
-    //ease of development stuff
-
-   if (gMarioState->cutsceneStep == 0) {
-       for (int i = 0; i<16; i++) {
-       load_drawing(i);
-       }
-       /*
-       gMarioState->cutsceneStep = 1;
-       create_dialog_box(DIALOG_034);
-       play_secondary_music(SEQ_STREAMED_OUTSIDE_HOUSE, 0, 255, 100);
-   }
-
-
-   if (gMarioState->cutsceneStep == 1) {
-       warp_camera(0, 0, 300);
-    if (gDialogResponse == 1) {
-       gMarioState->cutsceneStep = 2;
-   }
+    f32 sp2C, sp28, sp24, sp20;
+    s16 sp1E = 100;
+    o->oBowserShockWaveUnkF4 = o->oTimer * 10;
+    cur_obj_scale(o->oBowserShockWaveUnkF4);
+    if (gGlobalTimer % 3)
+        o->oOpacity -= 1;
+    if (o->oTimer > sp1E)
+        o->oOpacity -= 5;
+    if (o->oOpacity <= 0)
+        obj_mark_for_deletion(o);
+    if (o->oTimer < sp1E && mario_is_in_air_action() == 0) {
+        sp2C = o->oBowserShockWaveUnkF4 * D_8032F420[0];
+        sp28 = o->oBowserShockWaveUnkF4 * D_8032F420[1];
+        sp24 = o->oBowserShockWaveUnkF4 * D_8032F420[2];
+        sp20 = o->oBowserShockWaveUnkF4 * D_8032F420[3];
+        if ((sp2C < o->oDistanceToMario && o->oDistanceToMario < sp28)
+            || (sp24 < o->oDistanceToMario && o->oDistanceToMario < sp20))
+            gMarioObject->oInteractStatus |= INT_STATUS_HIT_BY_SHOCKWAVE;
     }
-
-    if (gMarioState->cutsceneStep == 2) {
-        gDialogResponse = 0;
-        */
-        initiate_warp(LEVEL_BOB, 1, 0x0A, 0);
-       // return;
-  }
-if (gMarioState->cutsceneStep == 3) {
-   /*  if (timer > -1) {
-    timer -= 1;
-     }
-    if (timer == 0) {
-    create_dialog_box(DIALOG_035);
-    set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
-    }
-    if (gDialogResponse == 1) {
-*/
-    gMarioState->cutsceneStep = 4;
-    set_mario_action(gMarioStates, ACT_IDLE, 0);
-    //}
-    
-}
-if (gMarioState->cutsceneStep == 5) {
-    create_dialog_box(DIALOG_036);
-    if (gDialogResponse == 1) {
-        play_secondary_music(SEQ_STREAMED_CREATION_HALL, 0, 255, 100);
-        initiate_warp(LEVEL_ENDING, 1, 0x0A, 0);
-    }
-}
-
 }

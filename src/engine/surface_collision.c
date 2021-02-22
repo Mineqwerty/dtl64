@@ -8,7 +8,7 @@
 #include "surface_collision.h"
 #include "surface_load.h"
 
-#define DEATH_PLANE_HEIGHT -0x2000
+#define DEATH_PLANE_HEIGHT -0x500
 
 static struct Surface sDeathPlane = {
     .type = SURFACE_DEATH_PLANE,

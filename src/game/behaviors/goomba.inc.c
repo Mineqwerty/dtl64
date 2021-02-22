@@ -121,6 +121,17 @@ void bhv_goomba_init(void) {
     o->oDamageOrCoinValue = sGoombaProperties[o->oGoombaSize].damage;
 
     o->oGravity = -8.0f / 3.0f * o->oGoombaScale;
+
+    if (gCurrLevelNum == LEVEL_DDD) {
+            if (gMarioState->drawState < 4) {
+                cur_obj_become_intangible();
+                o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_NONE];
+            }
+            if (gMarioState->drawState > 3) {
+                cur_obj_become_tangible();
+                o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_GOOMBA];
+            }
+        }
 }
 
 /**
@@ -286,6 +297,17 @@ void bhv_goomba_update(void) {
             animSpeed = 1.0f;
         }
         cur_obj_init_animation_with_accel_and_sound(0, animSpeed);
+
+        if (gCurrLevelNum == LEVEL_DDD) {
+            if (gMarioState->drawState < 4) {
+                cur_obj_become_intangible();
+                o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_NONE];
+            }
+            if (gMarioState->drawState > 3) {
+                cur_obj_become_tangible();
+                o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_GOOMBA];
+            }
+        }
 
         switch (o->oAction) {
             case GOOMBA_ACT_WALK:

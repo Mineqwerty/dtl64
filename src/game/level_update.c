@@ -368,6 +368,23 @@ void init_mario_after_warp(void) {
     u32 marioSpawnType = get_mario_spawn_type(spawnNode->object);
 
     if (gMarioState->action != ACT_UNINITIALIZED) {
+        if (gCurrLevelNum == LEVEL_DDD) {
+            if (gMarioState->drawState > 3) {
+                spawnNode->object->oPosX = -17103;  
+                spawnNode->object->oPosY = -3987;
+                spawnNode->object->oPosZ = -22870;
+                
+            }
+        }
+        if (gCurrLevelNum == LEVEL_TTC) {
+            if (gMarioState->drawState > 5) {
+                spawnNode->object->oPosX = -4875;  
+                spawnNode->object->oPosY = 2693;
+                spawnNode->object->oPosZ = -6341;
+                
+            }
+        }
+        
         gPlayerSpawnInfos[0].startPos[0] = (s16) spawnNode->object->oPosX;
         gPlayerSpawnInfos[0].startPos[1] = (s16) spawnNode->object->oPosY;
         gPlayerSpawnInfos[0].startPos[2] = (s16) spawnNode->object->oPosZ;
@@ -375,6 +392,7 @@ void init_mario_after_warp(void) {
         gPlayerSpawnInfos[0].startAngle[0] = 0;
         gPlayerSpawnInfos[0].startAngle[1] = spawnNode->object->oMoveAngleYaw;
         gPlayerSpawnInfos[0].startAngle[2] = 0;
+        
 
         if (marioSpawnType == MARIO_SPAWN_DOOR_WARP) {
             init_door_warp(&gPlayerSpawnInfos[0], sWarpDest.arg);

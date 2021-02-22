@@ -22,6 +22,8 @@ extern Vtx ttm_dl_Plane_mesh_vtx_8[22];
 extern Gfx ttm_dl_Plane_mesh_tri_8[];
 extern Vtx ttm_dl_Plane_mesh_vtx_9[2304];
 extern Gfx ttm_dl_Plane_mesh_tri_9[];
+extern Vtx ttm_dl_Plane_mesh_vtx_10[9];
+extern Gfx ttm_dl_Plane_mesh_tri_10[];
 
 extern Gfx ttm_dl_Plane_mesh[];
 extern Gfx ttm_dl_material_revert_render_settings[];

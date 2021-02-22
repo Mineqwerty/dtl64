@@ -52,3 +52,8 @@
 #include "boost_panel/geo.inc.c"
 #include "level_circle/geo.inc.c"
 #include "baki/geo.inc.c"
+#include "samuel/geo.inc.c"
+#include "laser_pusher/geo.inc.c"
+#include "laser_wave/geo.inc.c"
+#include "count_choco/geo.inc.c"
+#include "isaac/geo.inc.c"

@@ -461,20 +461,20 @@ if (gMarioState->darkScreen == 1) {
  shade_screen(235);
 }
 
-        if (gCurrentArea != NULL && gCurrentArea->camera->mode == CAMERA_MODE_INSIDE_CANNON) {
+        if (gMarioState->triPos == -20.0f) {
             render_hud_cannon_reticle();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
-            render_hud_mario_lives();
+            //render_hud_mario_lives();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
-            render_hud_coins();
+            //render_hud_coins();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_STAR_COUNT) {
-            render_hud_stars();
+            //render_hud_stars();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_KEYS) {

@@ -16,7 +16,7 @@ extern int cursorspawn;
 extern int cursorDelete;
 int colorMode = 0;
 int modifyColor = 0;
-f32 colorPickerPos[] = {160.0f, 120.0f};
+
 
 void bhv_coffin_spawner_loop(void) {
    
@@ -38,11 +38,11 @@ print_text(230, 110, "SIMPLE");
     }
     else if (colorMode == 1) {
 select_color_advanced();
-print_text(200, 110, "ADVANCED");
+print_text(230, 110, "RGB");
     }
     else if (colorMode == 2) {
 color_picker();
-print_text(180, 110, "SELECT COLOR");
+print_text(100, 210, "SELECT COLOR");
 
     }
 if (gPlayer1Controller->buttonPressed & L_TRIG) {
@@ -130,7 +130,16 @@ switch (curBParam) {
     s16 mouseRawStickX = gPlayer2Controller->rawStickX;
     s16 mouseRawStickY = gPlayer2Controller->rawStickY;
     
-warp_camera(0, 0, 300);
+    //camera
+        gLakituState.goalPos[2] = gMarioState->pos[2] + 900.0f;
+        gLakituState.goalPos[1] = gMarioState->pos[1] + maxDistY;
+         gLakituState.goalPos[0] = gMarioState->pos[0];
+         
+         gLakituState.goalFocus[0] = gMarioState->pos[0];
+         gLakituState.goalFocus[1] = gMarioState->pos[1] + maxDistY;
+         gLakituState.goalFocus[2] = gMarioState->pos[2]; 
+
+
     // Handle deadzone
     if (rawStickY+mouseRawStickY > -2 && rawStickY+mouseRawStickY < 2) {
         rawStickY = 0;
@@ -190,12 +199,12 @@ switch (curBParam) {
     break;
 }
 if (colorMode < 2){
-    print_text_fmt_int(100, 50, "Brush %d", brushSize);
+    print_text_fmt_int(50, 50, "Brush %d", brushSize);
     if (eraseAlpha == 255) {
-        print_text(100, 70, "Draw");
+        print_text(50, 70, "Draw");
     }
     else if (eraseAlpha == 0) {
-        print_text(100, 70, "Erase");
+        print_text(50, 70, "Erase");
     }
 
     // Move cursor
@@ -351,7 +360,7 @@ s16 rawStickX = gPlayer1Controller->rawStickX;
     s16 mouseRawStickX = gPlayer2Controller->rawStickX;
     s16 mouseRawStickY = gPlayer2Controller->rawStickY;
     
-
+gMarioState->triPos = -20.0f;
     // Handle deadzone
     if (rawStickY+mouseRawStickY > -2 && rawStickY+mouseRawStickY < 2) {
         rawStickY = 0;
@@ -360,48 +369,39 @@ s16 rawStickX = gPlayer1Controller->rawStickX;
         rawStickX = 0;
     }
 
-colorPickerPos[0] += (rawStickX + mouseRawStickX) / 12;
-    colorPickerPos[1] += (rawStickY + mouseRawStickY) / 12;
+gMarioState->colorPickerPos[0] += (rawStickX + mouseRawStickX) / 12;
+    gMarioState->colorPickerPos[1] += (rawStickY + mouseRawStickY) / 12;
 
-if (colorPickerPos[0] > 320.0f) {
-        colorPickerPos[0] = 320.0f;
+if (gMarioState->colorPickerPos[0] > SCREEN_WIDTH) {
+        gMarioState->colorPickerPos[0] = SCREEN_WIDTH;
     }
-    if (colorPickerPos[0] < 0) {
-        colorPickerPos[0] = 0;
-    }
-
-    if (colorPickerPos[1] > 240) {
-        colorPickerPos[1] = 240;
-    }
-    if (colorPickerPos[1] < 0) {
-        colorPickerPos[1] = 0;
+    if (gMarioState->colorPickerPos[0] < 0) {
+        gMarioState->colorPickerPos[0] = 0;
     }
 
-
-create_dl_translation_matrix(MENU_MTX_PUSH, colorPickerPos[0], colorPickerPos[1], 0);
-
-    gDPSetEnvColor(gDisplayListHead++, 50, 50, 50, 180);
-    create_dl_translation_matrix(MENU_MTX_PUSH, -20.0f, -8.0f, 0);
-    gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
-    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
-
-    
-
-    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    if (gMarioState->colorPickerPos[1] > 240) {
+        gMarioState->colorPickerPos[1] = 240;
+    }
+    if (gMarioState->colorPickerPos[1] < 0) {
+        gMarioState->colorPickerPos[1] = 0;
+    }
 
 
 
-int screenX = colorPickerPos[0];
-int screenY = colorPickerPos[1];
 
+
+
+int screenX = gMarioState->colorPickerPos[0];
+int screenY = gMarioState->colorPickerPos[1];
+extern u16 frameBufferIndex;
 
 
 
 
 if (gPlayer1Controller->buttonPressed & A_BUTTON || gPlayer2Controller->buttonPressed & A_BUTTON) {
-    drawColor[0] = (gFrameBuffers[3][screenX + SCREEN_WIDTH * screenY] & 0xf800) >>8;
-    drawColor[1] = (gFrameBuffers[3][screenX + SCREEN_WIDTH * screenY] & 0x7c0) >>3;
-    drawColor[2] = (gFrameBuffers[3][screenX + SCREEN_WIDTH * screenY] & 0x3e) <<2;
+    drawColor[0] = (gFrameBuffers[(frameBufferIndex + 1) % 3][screenX + SCREEN_WIDTH * (240-screenY)] & 0xf800) >>8;
+    drawColor[1] = (gFrameBuffers[(frameBufferIndex + 1) % 3][screenX + SCREEN_WIDTH * (240-screenY)] & 0x7c0) >>3;
+    drawColor[2] = (gFrameBuffers[(frameBufferIndex + 1) % 3][screenX + SCREEN_WIDTH * (240-screenY)] & 0x3e) <<2;
     
 colorMode = 1;
 }

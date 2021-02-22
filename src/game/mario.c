@@ -1732,11 +1732,13 @@ bcopy(SwitchTextureLLeg, MarioTexLLeg, 2*48*16);
 bcopy(SwitchTextureRLeg, MarioTexRLeg, 2*48*16);
 
 if (gCurrLevelNum == LEVEL_TTC) {
+    
 extern const u16 draw_moon_sprite_rgba16[];
 extern const u16 bbh_skybox_texture_00013[];
 u16 *SwitchTextureMoon = segmented_to_virtual(draw_moon_sprite_rgba16);
 u16 *MoonTexture = segmented_to_virtual(bbh_skybox_texture_00013);
 bcopy(SwitchTextureMoon, MoonTexture, 2*32*32);
+
 }
 else {
     gMarioState->darkScreen = 0;
