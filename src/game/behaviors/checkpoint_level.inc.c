@@ -1,39 +1,47 @@
-int oldDrawState = 0;
-
+#include "s2dex/init.h"
+#include "s2dex/s2d_draw.h"
+#include "s2dex/s2d_print.h"
+#include "gfx_dimensions.h"
+#include "text_data.h"
+int pos = 0;
+int curLine = 0;
+extern char *textString[];
+extern char *textName[];
 void bhv_checkpoint_level_init(void) {
-    /*
-    oldDrawState = gMarioStates->drawState;
-        if (gMarioStates->drawState > 3) {
-        spawn_object_relative(0, -4035, -1491, -24378, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 3251, 2060, -23856, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 14735, -2073, -19189, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 16173, -2076, -17011, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 17940, -1692, -14435, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 23703, 144, -7033, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 24621, 896, -5398, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 25593, 1994, -2741, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 18441, 5843, 8389, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 9978, 545, 7995, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 5325, -1027, 5279, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 3407, -103, 5325, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, -4052, -1148, 5320, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, -5527, -385, 5244, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, -11472, -759, 8842, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, -2064, -741, -19755, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 3832, 803, -14215, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 10113, 2825, -4668, o, MODEL_GOOMBA, bhvGoomba);
-        spawn_object_relative(0, 11531, 2819, 2795, o, MODEL_GOOMBA, bhvGoomba);
-        }
+    
 
-*/
 }
 
 void bhv_checkpoint_level_loop(void) {
- 
-    if (gMarioState->drawState > 3) {
-        if (oldDrawState != gMarioStates->drawState) {
-            bhv_checkpoint_level_init();
+ if (gMarioState->cutsceneActive > 0) {
+        s2d_init();
+
+        
+        set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
+    gMarioState->pos[1] = gMarioState->floorHeight;
+	uObjMtx *buffer;
+	// substitute with a different alloc function as neccesary
+	buffer = alloc_display_list(0x200 * sizeof(uObjMtx));
+    draw_text_box(80, 150, buffer, 0);
+	s2d_type_print(80, 150, textString[gMarioState->cutsceneActive], buffer, &pos);
+    int len = s2d_strlen(textString[gMarioState->cutsceneActive]);
+    if (pos < len-13) {
+    pos++;
+    play_sound(SOUND_OBJ_UKIKI_CHATTER_IDLE, gDefaultSoundArgs);
+    }
+    if (pos >= len-13 && gPlayer1Controller->buttonPressed & A_BUTTON) {
+        pos = 0;
+        curLine += 1;
+        gMarioState->cutsceneActive += 1;
+        if (curLine+1 > gMarioState->dialogueLines) {
+            gMarioState->cutsceneActive = 0;
+            curLine = 0;
+            gMarioState->action = ACT_IDLE;
         }
     }
-
+	// reloads the original microcode; only needed once after all prints
+	s2d_stop();
+        print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(20), 110, textName[gMarioState->cutsceneActive]);
+        
+ }
 }

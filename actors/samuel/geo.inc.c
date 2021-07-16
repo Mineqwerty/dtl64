@@ -3,7 +3,7 @@
 const GeoLayout samuel_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_ANIMATED_PART(LAYER_OPAQUE, -2, 36, 5, samuel_body_mesh),
+		GEO_ANIMATED_PART(LAYER_OPAQUE, -2, 2, 5, samuel_body_mesh),
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_OPAQUE, samuel_arm_left_skinned),
 			GEO_TRANSLATE_ROTATE(LAYER_OPAQUE, -36, 41, -2, 33, 16, 117),

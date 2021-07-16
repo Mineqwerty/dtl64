@@ -73,7 +73,7 @@ const GeoLayout heather_switch_opt2[] = {
 const GeoLayout heather_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, heather_body_mesh),
+		GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 2, 0, heather_body_mesh),
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_OPAQUE, heather_arm_left_skinned),
 			GEO_TRANSLATE_ROTATE(LAYER_OPAQUE, -27, 46, -2, 36, 6, 99),

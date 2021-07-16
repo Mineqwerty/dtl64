@@ -604,7 +604,14 @@ void save_draw_state() {
     gSaveFileModified = TRUE;
     save_file_do_save(gCurrSaveFileNum - 1);
 }
-
+void save_cutscene_id() {
+    struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+    for (int i = 0; i<16; i++) {
+    saveFile->cutsceneIDSave[i] = gMarioState->cutscenePlayerID[i];
+    }
+    gSaveFileModified = TRUE;
+    save_file_do_save(gCurrSaveFileNum - 1);
+}
 void save_drawing(u16 *texture, int textureID) {
     struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
     switch (textureID) {
@@ -644,12 +651,13 @@ void save_drawing(u16 *texture, int textureID) {
         }
         gSaveFileModified = TRUE;
         save_file_do_save(gCurrSaveFileNum - 1);
-        print_text(100, 100, "SAVED");
+        //print_text(100, 100, "SAVED");
 }
 
 
 void load_drawing(int textureID) {
     struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+    gMarioState->cutscenePlayerID[textureID] = saveFile->cutsceneIDSave[textureID];
     if (saveFile->drawingsAltered[textureID] == 1) {
         //the wall
 extern const u16 drawtime_sprite_rgba16[];
@@ -700,7 +708,7 @@ extern const u16 draw_boost_panel_sprite_rgba16[];
 
     }
     }
-    print_text(100, 100, "LOADED");
+    //print_text(100, 100, "LOADED");
 }
 
 s32 save_file_get_cap_pos(Vec3s capPos) {

@@ -1204,8 +1204,8 @@ s32 init_level(void) {
                     if (save_file_exists(gCurrSaveFileNum - 1)) {
                         set_mario_action(gMarioState, ACT_IDLE, 0);
                     } else {
-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
-                        val4 = 1;
+                        //set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
+                        //val4 = 1;
                     }
                 }
             }

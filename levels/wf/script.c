@@ -67,7 +67,7 @@ const LevelScript level_wf_entry[] = {
 
 	AREA(1, wf_area_1),
 		WARP_NODE(0x0A, LEVEL_WF, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF0, LEVEL_DDD, 0x01, 0x0A, WARP_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_TTM, 0x01, 0x0A, WARP_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_WF, 0x01, 0x50, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x50, LEVEL_WF, 0x01, 0x50, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_STAR, -18624, 603, -14682, 0, 0, 0, 0x00000000, bhvStar),
@@ -135,7 +135,7 @@ const LevelScript level_wf_entry[] = {
 		OBJECT(MODEL_CLOUD_PLATFORM, 7011, 4166, 16065, 0, -90, 0, 0x00000000, bhvClockHourHand),
 		OBJECT(MODEL_NONE, -23376, 68, -28045, 0, 0, 0, 0x00500000, bhvDeathWarp),
 		OBJECT(MODEL_NONE, -23530, 30, -27662, 0, 0, 0, 0x00F10000, bhvPaintingDeathWarp),
-		OBJECT(MODEL_NONE, -26322, 21, -26975, 0, 90, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_NONE, -25622, -138, -27757, 0, 90, 0, 0x000A0000, bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 0, -22525, 141, -27817),
 		TERRAIN(wf_area_1_collision),
 		MACRO_OBJECTS(wf_area_1_macro_objs),

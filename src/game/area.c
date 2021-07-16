@@ -22,6 +22,9 @@
 #include "save_file.h"
 #include "level_table.h"
 
+
+
+
 struct SpawnInfo gPlayerSpawnInfos[1];
 struct GraphNode *D_8033A160[0x100];
 struct Area gAreaData[8];
@@ -368,7 +371,11 @@ void render_game(void) {
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, BORDER_HEIGHT, SCREEN_WIDTH,
                       SCREEN_HEIGHT - BORDER_HEIGHT);
         render_hud();
-
+        if (gMarioState && gMarioObject) {
+        if (gMarioState->cutsceneActive > 0) {
+            bhv_checkpoint_level_loop();
+        }
+        }
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         render_text_labels();
         do_cutscene_handler();

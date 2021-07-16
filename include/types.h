@@ -348,6 +348,11 @@ struct MarioState
     u8 triColor[3];
     f32 triPos;
     f32 colorPickerPos[1];
+    int cutsceneActive;
+    u8 cutscenePlayerID[16];
+    int dialogueLines;
+    u8 levelsCompleted[3];
+    int gameInitialized;
 };
 
 #endif // TYPES_H

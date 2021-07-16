@@ -42,7 +42,7 @@ void bhv_ssl_moving_pyramid_wall_loop(void) {
                 break;
             }
         }
-        if (rescueState == 2) {
+        if (rescueState == 3) {
             set_mario_action(gMarioStates, ACT_IDLE, 0);
             gMarioObject->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];
             func_80321080(500);
@@ -53,10 +53,28 @@ void bhv_ssl_moving_pyramid_wall_loop(void) {
         }
         if (gDialogResponse == 1) {
                    if (rescueState == 1) {
+                       switch (o->oBehParams2ndByte) {
+                           case 0:
+                           gMarioState->cutsceneActive = 3;
+                gMarioState->dialogueLines = 1;
+                           break;
+                           case 1:
+                           gMarioState->cutsceneActive = 4;
+                gMarioState->dialogueLines = 1;
+                           break;
+                           case 2:
+                           gMarioState->cutsceneActive = 7;
+                gMarioState->dialogueLines = 1;
+                           break;
+                       }
                        rescueState = 2;
                    }
                }
-        
+        if (rescueState == 2) {
+            if (gMarioState->cutsceneActive == 0) {
+                rescueState = 3;
+            }
+        }
     }
     else {
         cur_obj_init_animation(0);

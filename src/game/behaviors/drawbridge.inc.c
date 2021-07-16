@@ -76,11 +76,12 @@ if (camera_manip == 1) {
 
     }
     gCamera->cutscene = 1;
-}
+
 if (gMarioState->action == ACT_IDLE || gMarioState->action == ACT_WALKING) {
     gCamera->cutscene = 0;
     camera_manip = 0;
     set_camera_mode(gCamera, CAMERA_MODE_FREE_ROAM, 1);
+}
 }
 
 if (gMarioObject->platform == o) {

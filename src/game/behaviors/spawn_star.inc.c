@@ -32,8 +32,13 @@ void bhv_collect_star_loop(void) {
 gCurrentObject->oAnimations = book_of_life_page_anims;
         cur_obj_init_animation(0);
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
-        if (gCurrLevelNum == LEVEL_DDD) {
-            gMarioState->cutsceneStep = 5;
+        switch (gCurrLevelNum) {
+            case LEVEL_WF:
+            gMarioState->levelsCompleted[0] = 1;
+            break;
+            case LEVEL_DDD:
+            gMarioState->levelsCompleted[1] = 1;
+            break;
         }
         mark_obj_for_deletion(o);
         o->oInteractStatus = 0;

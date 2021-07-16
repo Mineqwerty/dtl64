@@ -11,6 +11,7 @@
 #include "engine/behavior_script.h"
 #include "audio/external.h"
 #include "obj_behaviors.h"
+#include "src/game/level_update.h"
 
 /**
  * This file contains the function that handles 'environment effects',
@@ -493,6 +494,10 @@ Gfx *envfx_update_particles(s32 mode, Vec3s marioPos, Vec3s camTo, Vec3s camFrom
     Gfx *gfx;
 
     if (get_dialog_id() != -1) {
+        return NULL;
+    }
+
+    if (gMarioState->cutsceneActive > 0) {
         return NULL;
     }
 

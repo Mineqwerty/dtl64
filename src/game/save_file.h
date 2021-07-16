@@ -56,6 +56,8 @@ struct SaveFile
     u16 save_drawing_hoverboard[32 * 32];
     u16 save_drawing_moon[32 * 32];
     u16 save_drawing_boost_panel[32 * 32];
+
+    u8 cutsceneIDSave[16];
     /*
     */
     
@@ -155,6 +157,7 @@ extern struct WarpCheckpoint gWarpCheckpoint;
 extern s8 gMainMenuDataModified;
 extern s8 gSaveFileModified;
 
+void save_cutscene_id();
 void save_draw_state();
 void load_drawing(int textureID);
 void save_drawing(u16 *texture, int textureID);

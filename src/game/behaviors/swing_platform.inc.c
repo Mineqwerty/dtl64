@@ -28,8 +28,9 @@ void bhv_swing_platform_update(void) {
     if (gMarioState->cutsceneStep == 2) {
         gDialogResponse = 0;
         */
-        initiate_warp(LEVEL_BOB, 1, 0x0A, 0);
+       // initiate_warp(LEVEL_BOB, 1, 0x0A, 0);
        // return;
+       gMarioState->gameInitialized = 1;
   }
 if (gMarioState->cutsceneStep == 3) {
    /*  if (timer > -1) {

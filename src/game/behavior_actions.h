@@ -579,6 +579,10 @@ Gfx *geo_switch_heather_eyes(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 Gfx *geo_switch_choco_mouth(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx);
 
+Gfx *geo_switch_jowee_eyes(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx);
+
+Gfx *geo_switch_mari_face(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx);
+
 // Water splash
 extern struct WaterDropletParams gShallowWaterSplashDropletParams;
 extern struct WaterDropletParams gShallowWaterWaveDropletParams;

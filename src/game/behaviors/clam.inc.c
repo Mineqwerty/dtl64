@@ -145,7 +145,7 @@ if (gCurrLevelNum == LEVEL_TTC) {
 gMarioState->darkScreen = 0;
     }
 if (gCurrLevelNum == LEVEL_BOB) {
-
+gCamera->cutscene = 1;
 if (directions > 0) {
            directions -= 1;
            if (directions == 0) {

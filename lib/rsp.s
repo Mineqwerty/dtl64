@@ -141,12 +141,12 @@ glabel gspL3DZEX2_PosLight_fifoTextEnd
 .endif
 
 /* S2DEX2 Text */
-.ifdef S2DEX_GBI_2
+
 .balign 16
 glabel gspS2DEX2_fifoTextStart
     .incbin "lib/PR/s2dex2/S2DEX2.bin"
 glabel gspS2DEX2_fifoTextEnd
-.endif
+
 
 /* DATA SECTION START */
 
@@ -284,9 +284,9 @@ glabel gspL3DZEX2_PosLight_fifoDataEnd
 .endif
 
 /* S2DEX2 Data */
-.ifdef S2DEX_GBI_2
+
 .balign 16
 glabel gspS2DEX2_fifoDataStart
     .incbin "lib/PR/s2dex2/S2DEX2_data.bin"
 glabel gspS2DEX2_fifoDataEnd
-.endif
+

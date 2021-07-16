@@ -138,6 +138,11 @@ SECTIONS
       BUILD_DIR/lib/rsp.o(.rodata*);
       lib/PR/hvqm/hvqm2sp1.o(.rodata*);
       lib/PR/hvqm/hvqm2sp2.o(.rodata*);
+
+      BUILD_DIR/s2dex*.o(.text*);
+BUILD_DIR/s2dex*.o(.data);
+BUILD_DIR/s2dex*.o(.rodata*);
+
    }
    END_SEG(main)
    BEGIN_NOLOAD(main)
@@ -151,6 +156,9 @@ SECTIONS
       */libultra_rom.a:*.o(.sbss*);
 
       . = ALIGN(0x8);
+
+      /* add the below to the main noload segment */
+BUILD_DIR/s2dex*.o(.bss);
    }
    END_NOLOAD(main)
    _mainSegmentNoloadSizeLo = SIZEOF (.main.noload) & 0xffff;
