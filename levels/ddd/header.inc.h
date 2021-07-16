@@ -82,6 +82,8 @@ extern Vtx ddd_dl_Cube_038_mesh_vtx_0[176];
 extern Gfx ddd_dl_Cube_038_mesh_tri_0[];
 extern Vtx ddd_dl_Cube_039_mesh_vtx_0[40];
 extern Gfx ddd_dl_Cube_039_mesh_tri_0[];
+extern Vtx ddd_dl_Cube_040_mesh_vtx_0[46];
+extern Gfx ddd_dl_Cube_040_mesh_tri_0[];
 extern Vtx ddd_dl_Plane_mesh_vtx_0[347];
 extern Gfx ddd_dl_Plane_mesh_tri_0[];
 extern Vtx ddd_dl_Plane_mesh_vtx_1[320];
@@ -139,6 +141,7 @@ extern Gfx ddd_dl_Cube_036_mesh[];
 extern Gfx ddd_dl_Cube_037_mesh[];
 extern Gfx ddd_dl_Cube_038_mesh[];
 extern Gfx ddd_dl_Cube_039_mesh[];
+extern Gfx ddd_dl_Cube_040_mesh[];
 extern Gfx ddd_dl_Plane_mesh[];
 extern Gfx ddd_dl_material_revert_render_settings[];
 

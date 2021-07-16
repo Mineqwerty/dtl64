@@ -2241,8 +2241,8 @@ void render_pause_my_score_coins(void) {
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
 
     if (courseIndex < COURSE_STAGES_COUNT) {
-        print_hud_my_score_coins(1, gCurrSaveFileNum - 1, courseIndex, 178, 103);
-        print_hud_my_score_stars(gCurrSaveFileNum - 1, courseIndex, 118, 103);
+        //print_hud_my_score_coins(1, gCurrSaveFileNum - 1, courseIndex, 178, 103);
+        //print_hud_my_score_stars(gCurrSaveFileNum - 1, courseIndex, 118, 103);
     }
 
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
@@ -2251,34 +2251,34 @@ void render_pause_my_score_coins(void) {
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
 
     if (courseIndex < COURSE_STAGES_COUNT && save_file_get_course_star_count(gCurrSaveFileNum - 1, courseIndex) != 0) {
-        print_generic_string(MYSCORE_X, 121, textMyScore);
+        //print_generic_string(MYSCORE_X, 121, textMyScore);
     }
 
     courseName = segmented_to_virtual(courseNameTbl[courseIndex]);
 
     if (courseIndex < COURSE_STAGES_COUNT) {
 #ifdef VERSION_EU
-        print_generic_string(48, 157, gTextCourseArr[gInGameLanguage]);
+        //print_generic_string(48, 157, gTextCourseArr[gInGameLanguage]);
 #else
-        print_generic_string(63, 157, textCourse);
+        //print_generic_string(63, 157, textCourse);
 #endif
         int_to_str(gCurrCourseNum, strCourseNum);
 #ifdef VERSION_EU
-        print_generic_string(get_string_width(gTextCourseArr[gInGameLanguage]) + 51, 157, strCourseNum);
+        //print_generic_string(get_string_width(gTextCourseArr[gInGameLanguage]) + 51, 157, strCourseNum);
 #else
-        print_generic_string(CRS_NUM_X1, 157, strCourseNum);
+        //print_generic_string(CRS_NUM_X1, 157, strCourseNum);
 #endif
 
         actName = segmented_to_virtual(actNameTbl[(gCurrCourseNum - 1) * 6 + gDialogCourseActNum - 1]);
 
         if (starFlags & (1 << (gDialogCourseActNum - 1))) {
-            print_generic_string(TXT_STAR_X, 140, textStar);
+            //print_generic_string(TXT_STAR_X, 140, textStar);
         } else {
-            print_generic_string(TXT_STAR_X, 140, textUnfilledStar);
+            //print_generic_string(TXT_STAR_X, 140, textUnfilledStar);
         }
-        print_generic_string(ACT_NAME_X, 140, actName);
+        //print_generic_string(ACT_NAME_X, 140, actName);
 #ifndef VERSION_JP
-        print_generic_string(LVL_NAME_X, 157, &courseName[3]);
+        //print_generic_string(LVL_NAME_X, 157, &courseName[3]);
 #endif
     }
 #ifndef VERSION_JP
@@ -2483,7 +2483,7 @@ void render_pause_castle_course_stars(s16 x, s16 y, s16 fileNum, s16 courseNum) 
 
     if (starFlags & 0x40) {
         starCount--;
-        print_generic_string(x + 89, y - 5, textStar);
+        //print_generic_string(x + 89, y - 5, textStar);
     }
 
     while (hasStar != starCount) {
@@ -2506,7 +2506,7 @@ void render_pause_castle_course_stars(s16 x, s16 y, s16 fileNum, s16 courseNum) 
 
     str[nextStar * 2] = DIALOG_CHAR_TERMINATOR;
 
-    print_generic_string(x + 14, y + 13, str);
+    //print_generic_string(x + 14, y + 13, str);
 }
 
 void render_pause_castle_main_strings(s16 x, s16 y) {
@@ -2573,28 +2573,28 @@ void render_pause_castle_main_strings(s16 x, s16 y) {
     if (gDialogLineNum < COURSE_STAGES_COUNT) {
         courseName = segmented_to_virtual(courseNameTbl[gDialogLineNum]);
         render_pause_castle_course_stars(x, y, gCurrSaveFileNum - 1, gDialogLineNum);
-        print_generic_string(x + 34, y - 5, textCoin);
+        //print_generic_string(x + 34, y - 5, textCoin);
 #ifdef VERSION_EU
-        print_generic_string(x + 44, y - 5, textX);
+        //print_generic_string(x + 44, y - 5, textX);
 #endif
         int_to_str(save_file_get_course_coin_score(gCurrSaveFileNum - 1, gDialogLineNum), strVal);
-        print_generic_string(x + 54, y - 5, strVal);
+        //print_generic_string(x + 54, y - 5, strVal);
 #ifdef VERSION_EU
-        print_generic_string(x - 17, y + 30, courseName);
+        //print_generic_string(x - 17, y + 30, courseName);
 #endif
     } else {
         u8 textStarX[] = { TEXT_STAR_X };
         courseName = segmented_to_virtual(courseNameTbl[COURSE_MAX]);
-        print_generic_string(x + 40, y + 13, textStarX);
+        //print_generic_string(x + 40, y + 13, textStarX);
         int_to_str(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_BONUS_STAGES - 1, COURSE_MAX - 1), strVal);
-        print_generic_string(x + 60, y + 13, strVal);
+        //print_generic_string(x + 60, y + 13, strVal);
 #ifdef VERSION_EU
         print_generic_string(get_str_x_pos_from_center(x + 51, courseName, 10.0f), y + 30, courseName);
 #endif
     }
 
 #ifndef VERSION_EU
-    print_generic_string(x - 9, y + 30, courseName);
+    //print_generic_string(x - 9, y + 30, courseName);
 #endif
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);

@@ -13,3 +13,6 @@
 #include "bowser/geo.inc.c"
 #include "bomb/geo.inc.c"
 #include "impact_smoke/geo.inc.c"
+
+#include "wilfre_bullet/geo.inc.c"
+#include "wilfre_spike/geo.inc.c"

@@ -168,6 +168,7 @@
 /* 1-Up Hidden */
 #define /*0x0F4*/ o1UpHiddenUnkF4 OBJECT_FIELD_S32(0x1B)
 
+#define /*0x0F4*/ o1UpLifeTimer OBJECT_FIELD_S32(0x1B)
 /* Activated Back and Forth Platform */
 #define /*0x0F4*/ oActivatedBackAndForthPlatformMaxOffset    OBJECT_FIELD_F32(0x1B)
 #define /*0x0F8*/ oActivatedBackAndForthPlatformOffset       OBJECT_FIELD_F32(0x1C)

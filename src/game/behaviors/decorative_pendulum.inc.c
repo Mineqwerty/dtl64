@@ -29,19 +29,23 @@ void bhv_decorative_pendulum_loop(void) {
                 break;
                 case 2: initiate_warp(LEVEL_TTC, 1, 0x0A, 0);
                 break;
+                case 3: initiate_warp(LEVEL_LLL, 1, 0x0A, 0);
+                break;
             }
         }
 s16 rawStickX = gPlayer1Controller->rawStickX;
 
-    if (rawStickX > 80.0f && movingSpace == 0) {
+    if (rawStickX > 0.0f && movingSpace == 0) {
         if (o->oBehParams2ndByte < 3) {
+            if (gMarioState->cutscenePlayerID[(curBParamLevel + 1) * 2] == 1) {
             curBParamLevel += 1;
             movingSpace = 1;
+            }
             return;
         }
     }
 
-    if (rawStickX < -80.0f && movingSpace == 0) {
+    if (rawStickX < 0.0f && movingSpace == 0) {
         if (o->oBehParams2ndByte > 0) {
             curBParamLevel -= 1;
             movingSpace = -1;
@@ -93,7 +97,7 @@ if (movingSpace == -1) {
     
 }
 if (movingSpace == 0) {
-    set_mario_animation(gMarioStates, MARIO_ANIM_IDLE_HEAD_CENTER);
+    set_mario_animation(gMarioStates, MARIO_ANIM_IDLE_IN_QUICKSAND);
     gMarioState->faceAngle[1] = 0.0f;
 }
 

@@ -1693,6 +1693,7 @@ void func_sh_8025574C(void) {
 /**
  * Main function for executing Mario's behavior.
  */
+int row = 0;
 s32 execute_mario_action(UNUSED struct Object *o) {
     s32 inLoop = TRUE;
 extern const u16 mario_sprite64_rgba16[];
@@ -1733,15 +1734,29 @@ bcopy(SwitchTextureRLeg, MarioTexRLeg, 2*48*16);
 
 
 
-
 if (gCurrLevelNum == LEVEL_TTC) {
-    /*
+    
 extern const u16 draw_moon_sprite_rgba16[];
 extern const u16 bbh_skybox_texture_00013[];
-u16 *SwitchTextureMoon = segmented_to_virtual(draw_moon_sprite_rgba16);
 u16 *MoonTexture = segmented_to_virtual(bbh_skybox_texture_00013);
-bcopy(SwitchTextureMoon, MoonTexture, 2*32*32);
-*/
+if (gMarioState->moonFlipped == 0)  {
+    u16 *input = segmented_to_virtual(draw_moon_sprite_rgba16);
+    u16 *output = &MoonTexture[32 * 32 - 1];
+    u16 *end = &input[32 * 32];
+    while (input < end)
+    {
+        *output = *input;
+        input++;
+        output--;
+    }
+    gMarioState->moonFlipped = 1;
+    
+}
+
+if (gMarioState->pos[1] < -2000.0f) {
+    gMarioState->pos[1] = gMarioState->floorHeight;
+}
+
 }
 else {
     gMarioState->darkScreen = 0;

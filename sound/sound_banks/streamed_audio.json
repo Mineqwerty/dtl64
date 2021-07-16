@@ -68,6 +68,26 @@
             "release_rate": 10,
             "envelope": "envelope",
             "sound": "2C_custom_level_select"
+        },
+        "inst10": {
+            "release_rate": 10,
+            "envelope": "envelope",
+            "sound": "2D_custom_salem"
+        },
+        "inst11": {
+            "release_rate": 10,
+            "envelope": "envelope",
+            "sound": "2E_custom_shadow_showdown"
+        },
+        "inst12": {
+            "release_rate": 10,
+            "envelope": "envelope",
+            "sound": "2F_custom_ooh_wilfre"
+        },
+        "inst13": {
+            "release_rate": 10,
+            "envelope": "envelope",
+            "sound": "30_custom_title"
         }
     },
     "instrument_list": [
@@ -80,6 +100,10 @@
         "inst6",
         "inst7",
         "inst8",
-        "inst9"
+        "inst9",
+        "inst10",
+        "inst11",
+        "inst12",
+        "inst13"
     ]
 }

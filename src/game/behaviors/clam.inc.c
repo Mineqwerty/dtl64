@@ -29,6 +29,17 @@ int vertLimit = 32;
 int textFreeze = 0;
 u16 *SwitchTexture;
 
+void init_drawing_system(void) {
+    gMarioState->moonFlipped = 0;
+    gMarioState->copyDrawings[0] = 0;
+    gMarioState->copyDrawings[1] = 0;
+    gMarioState->copyDrawings[2] = 0;
+    gMarioState->copyDrawings[3] = 0;
+    gMarioState->copyDrawings[4] = 0;
+    gMarioState->copyDrawings[5] = 0;
+    gMarioState->copyDrawings[6] = 0;
+}
+
 void clam_act_0(void) {
    
 }
@@ -43,7 +54,31 @@ void bhv_clam_loop(void) {
                     //save_file_do_save(gCurrSaveFileNum - 1);
 
 if (gCurrLevelNum == LEVEL_WF || gCurrLevelNum == LEVEL_DDD || gCurrLevelNum == LEVEL_TTC) {
-    if (o->oDistanceToMario < 160.0f) {
+    if (o->oDistanceToMario < 160.0f && o->oDistanceToMario > 80.0f) {
+        gMarioState->action = ACT_WAITING_FOR_DIALOG;
+        switch (o->oBehParams2ndByte) {
+            case 7: create_dialog_box(DIALOG_015);
+            break;
+            case 8: create_dialog_box(DIALOG_016);
+            break;
+            case 9: create_dialog_box(DIALOG_000);
+            break;
+            case 10: create_dialog_box(DIALOG_008);
+            break;
+            case 11: create_dialog_box(DIALOG_018);
+            break;
+            case 12: create_dialog_box(DIALOG_061);
+            break;
+        }
+        if (gDialogResponse == 1) {
+            gMarioState->pos[0] = o->oPosX;
+    gMarioState->pos[1] = o->oPosY;
+    gMarioState->pos[2] = o->oPosZ;
+    gDialogResponse = 0;
+        }
+
+    }
+    if (o->oDistanceToMario < 80.0f) {
         curBParam = o->oBehParams2ndByte;
         if (gPlayer1Controller->buttonPressed & START_BUTTON) {
             create_dialog_box_with_response(DIALOG_019);
@@ -62,19 +97,27 @@ if (gCurrLevelNum == LEVEL_WF || gCurrLevelNum == LEVEL_DDD || gCurrLevelNum == 
             gCamera->cutscene = 0;
             cursorDelete = 1;
             mark_obj_for_deletion(o);
+            gMarioState->moonFlipped = 0;
+    gMarioState->copyDrawings[0] = 0;
+    gMarioState->copyDrawings[1] = 0;
+    gMarioState->copyDrawings[2] = 0;
+    gMarioState->copyDrawings[3] = 0;
+    gMarioState->copyDrawings[4] = 0;
+    gMarioState->copyDrawings[5] = 0;
+    gMarioState->copyDrawings[6] = 0;
             if (o->oBehParams2ndByte - 6 > gMarioState->drawState) {
             switch (o->oBehParams2ndByte) {
-                case 7: gMarioState->drawState = 1;
+                case 7: gMarioState->drawState = 1; 
                 break;
-                case 8: gMarioState->drawState = 2;
+                case 8: gMarioState->drawState = 2; 
                 break;
                 case 9: gMarioState->drawState = 3;
                 break;
-                case 10: gMarioState->drawState = 4; spawn_object(o, MODEL_NONE, bhvOpenableGrill);
+                case 10: gMarioState->drawState = 4; spawn_object(o, MODEL_NONE, bhvOpenableGrill); 
                 break;
                 case 11: gMarioState->drawState = 5; gMarioState->darkScreen = 0;
                 break;
-                case 12: gMarioState->drawState = 6;
+                case 12: gMarioState->drawState = 6; 
                 break;
             }
         save_draw_state();
@@ -134,7 +177,7 @@ if (gCurrLevelNum == LEVEL_TTC) {
     gMarioState->pos[1] = o->oPosY;
     gMarioState->pos[2] = o->oPosZ;
     gCamera->mode = CAMERA_MODE_BEHIND_MARIO;
-   gCamera->cutscene = 1;
+   gCamera->cutscene = 2;
 
 
    play_secondary_music(SEQ_STREAMED_STREAMED_DRAWING_THEME, 0, 255, 100);
@@ -145,19 +188,21 @@ if (gCurrLevelNum == LEVEL_TTC) {
 gMarioState->darkScreen = 0;
     }
 if (gCurrLevelNum == LEVEL_BOB) {
-gCamera->cutscene = 1;
+gCamera->cutscene = 2;
 if (directions > 0) {
            directions -= 1;
            if (directions == 0) {
                //CHANGE FOR RELEASE
-               //create_dialog_box(DIALOG_033);
+               textFreeze = 1;
+               create_dialog_box(DIALOG_033);
                directions = -1;
            }
    }
-if (directions == 0) {
+if (directions == -1) {
                if (gDialogResponse == 1) {
                    gDialogResponse = 0;
-                   directions = -1;
+                   directions = -2;
+                   textFreeze = 0;
                }
            }
 

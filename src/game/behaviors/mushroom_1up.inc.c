@@ -1,16 +1,20 @@
 // mushroom_1up.c.inc
-
+int LifeTimer;
 void bhv_1up_interact(void) {
     UNUSED s32 sp1C;
 
     if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
-        play_sound(SOUND_GENERAL_COLLECT_1UP, gDefaultSoundArgs);
-        gMarioState->numLives++;
+        if (gMarioState->action != ACT_BACKWARD_GROUND_KB) {
+        cur_obj_play_sound_2(SOUND_OBJ_BOWSER_DEFEATED);
+        set_mario_action(gMarioStates, ACT_BACKWARD_GROUND_KB, 0);
+        gMarioState->health -= 0x0100;
+        }
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 }
 
 void bhv_1up_common_init(void) {
+    LifeTimer = 0;
     o->oMoveAnglePitch = -0x4000;
     o->oGravity = 3.0f;
     o->oFriction = 1.0f;
@@ -46,11 +50,20 @@ void pole_1up_move_towards_mario(void) {
     f32 sp30 = gMarioObject->header.gfx.pos[1] + 120.0f - o->oPosY;
     f32 sp2C = gMarioObject->header.gfx.pos[2] - o->oPosZ;
     s16 sp2A = atan2s(sqrtf(sqr(sp34) + sqr(sp2C)), sp30);
-
+    
     obj_turn_toward_object(o, gMarioObject, 16, 0x1000);
     o->oMoveAnglePitch = approach_s16_symmetric(o->oMoveAnglePitch, sp2A, 0x1000);
-    o->oVelY = sins(o->oMoveAnglePitch) * 30.0f;
+    o->oVelY = sins(o->oMoveAnglePitch) * 7.0f;
     o->oForwardVel = coss(o->oMoveAnglePitch) * 30.0f;
+    o->oPosY -= LifeTimer/8;
+    LifeTimer += 1;
+    if (LifeTimer > 599) {
+        mark_obj_for_deletion(o);
+        
+    }
+    if (LifeTimer > 620) {
+       LifeTimer = 0; 
+    }
     bhv_1up_interact();
 }
 
@@ -74,7 +87,7 @@ void bhv_1up_walking_loop(void) {
                 spawn_object(o, MODEL_NONE, bhvSparkleSpawn);
 
             if (o->oTimer == 0)
-                play_sound(SOUND_GENERAL2_1UP_APPEAR, gDefaultSoundArgs);
+                play_sound(SOUND_OBJ_BOWSER_INHALING, gDefaultSoundArgs);
 
             one_up_loop_in_air();
 
@@ -269,7 +282,7 @@ void bhv_1up_hidden_in_pole_loop(void) {
                 o->oVelY = 40.0f;
                 o->oAction = 3;
                 o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
-                play_sound(SOUND_GENERAL2_1UP_APPEAR, gDefaultSoundArgs);
+                play_sound(SOUND_OBJ_BOWSER_INHALING, gDefaultSoundArgs);
             }
             break;
 

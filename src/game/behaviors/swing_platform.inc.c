@@ -6,8 +6,8 @@ void bhv_swing_platform_init(void) {
 void bhv_swing_platform_update(void) {
     //CHANGE FOR RELEASE
     //ease of development stuff
-
-   if (gMarioState->cutsceneStep == 0) {
+if (gMarioState && gMarioObject) {
+   if (gMarioState->gameInitialized == 0) {
        for (int i = 0; i<16; i++) {
        load_drawing(i);
        }
@@ -32,6 +32,7 @@ void bhv_swing_platform_update(void) {
        // return;
        gMarioState->gameInitialized = 1;
   }
+}
 if (gMarioState->cutsceneStep == 3) {
    /*  if (timer > -1) {
     timer -= 1;
@@ -47,11 +48,5 @@ if (gMarioState->cutsceneStep == 3) {
     //}
     
 }
-if (gMarioState->cutsceneStep == 5) {
-    create_dialog_box(DIALOG_036);
-    if (gDialogResponse == 1) {
-        play_secondary_music(SEQ_STREAMED_CREATION_HALL, 0, 255, 100);
-        initiate_warp(LEVEL_ENDING, 1, 0x0A, 0);
-    }
-}
+
 }

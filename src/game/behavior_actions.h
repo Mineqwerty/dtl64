@@ -554,6 +554,10 @@ void bhv_yoshi_loop(void);
 void bhv_volcano_trap_loop(void);
 void bhv_checkpoint_level_loop(void);
 void bhv_checkpoint_level_init(void);
+void wilfre_init(void);
+void bhv_wilfre_bullet_init(void);
+void wilfre_cutscene_beginning(void);
+void init_drawing_system(void);
 
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
 

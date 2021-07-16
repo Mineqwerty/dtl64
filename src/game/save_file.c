@@ -608,6 +608,9 @@ void save_cutscene_id() {
     struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
     for (int i = 0; i<16; i++) {
     saveFile->cutsceneIDSave[i] = gMarioState->cutscenePlayerID[i];
+    saveFile->raposaRescuedSave[i] = gMarioState->raposaRescued[i];
+    //saveFile->levelsCompletedSave[i] = gMarioState->levelsCompleted[i];
+    
     }
     gSaveFileModified = TRUE;
     save_file_do_save(gCurrSaveFileNum - 1);
@@ -658,6 +661,10 @@ void save_drawing(u16 *texture, int textureID) {
 void load_drawing(int textureID) {
     struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
     gMarioState->cutscenePlayerID[textureID] = saveFile->cutsceneIDSave[textureID];
+    
+    gMarioState->raposaRescued[textureID] = saveFile->raposaRescuedSave[textureID];
+    //gMarioState->levelsCompleted[textureID] = saveFile->levelsCompletedSave[textureID];
+    
     if (saveFile->drawingsAltered[textureID] == 1) {
         //the wall
 extern const u16 drawtime_sprite_rgba16[];

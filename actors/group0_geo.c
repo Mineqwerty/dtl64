@@ -19,3 +19,4 @@
 
 
 #include "book_of_life_page/geo.inc.c"
+#include "book_of_life_gone/geo.inc.c"

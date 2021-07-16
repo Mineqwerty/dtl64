@@ -35,22 +35,10 @@ it.\n\
  "))
 
 DEFINE_DIALOG(DIALOG_002, 1, 4, 95, 200, _("\
-Hey, you! It's dangerous\n\
-ahead, so listen up! Take\n\
-my advice.\n\
+Would you like to\n\
+edit your hero?\n\
 \n\
-Cross the two\n\
-bridges ahead, then\n\
-watch for falling\n\
-water bombs.\n\
-The Big Bob-omb at the\n\
-top of the mountain is\n\
-very powerful--don't let\n\
-him grab you!\n\
-We're Bob-omb Buddies,\n\
-and we're on your side.\n\
-You can talk to us\n\
-whenever you'd like to!"))
+//Yes////No"))
 
 DEFINE_DIALOG(DIALOG_003, 1, 5, 95, 200, _("\
 Thank you, Mario! The Big\n\
@@ -247,10 +235,10 @@ this royal turf? I think\n\
 that you cannot!"))
 
 DEFINE_DIALOG(DIALOG_018, 1, 4, 30, 200, _("\
-I'm sleeping because...\n\
-...I'm sleepy. I don't\n\
-like being disturbed.\n\
-Please walk quietly."))
+It sure is dark...\n\
+Draw a moon to light\n\
+up the night sky!\n\
+Look up when finished!"))
 
 DEFINE_DIALOG(DIALOG_019, 1, 3, 30, 200, _("\
 All done?\n\
@@ -381,14 +369,16 @@ The Analog Stick lets\n\
 you move the cursor.\n\
 Press [A] to draw.\n\
 \n\
-Press [B] to switch the\n\
-current Draw Panel.\n\
-Press UP on the dpad to\n\
+Press [B] to switch\n\
+between erase or draw.\n\
+Press Up on the dpad to\n\
 change your brush size.\n\
-Press DOWN on the dpad\n\
-to erase or draw.\n\
 Press Left or Right on\n\
 the dpad to change color.\n\
+Press L to change the\n\
+color selection mode.\n\
+R is to switch the\n\
+current Draw Panel.\n\
 Press START when you\n\
 finish."))
 
@@ -493,9 +483,8 @@ You rescued Count Choco!\n\
 "))
 
 DEFINE_DIALOG(DIALOG_040, 1, 3, 30, 200, _("\
-Warning!\n\
-Cold, Cold Crevasse\n\
-Below!"))
+You rescued Mike!\n\
+"))
 
 DEFINE_DIALOG(DIALOG_041, 1, 3, 30, 200, _("\
 I win! You lose!\n\
@@ -753,10 +742,10 @@ the edge of the water to\n\
 jump out."))
 
 DEFINE_DIALOG(DIALOG_061, 1, 4, 30, 200, _("\
-BRRR! Frostbite Danger!\n\
-Do not swim here.\n\
-I'm serious.\n\
-/--The Penguin"))
+These gaps are large!\n\
+Draw a Boost Panel to\n\
+launch yourself\n\
+over them."))
 
 DEFINE_DIALOG(DIALOG_062, 1, 3, 30, 200, _("\
 Hidden inside the green\n\

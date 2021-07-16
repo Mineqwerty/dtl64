@@ -58,6 +58,8 @@ struct SaveFile
     u16 save_drawing_boost_panel[32 * 32];
 
     u8 cutsceneIDSave[16];
+    u8 raposaRescuedSave[16];
+    u8 levelsCompletedSave[4];
     /*
     */
     

@@ -1183,6 +1183,18 @@ void mode_8_directions_camera(struct Camera *c) {
         s8DirModeYawOffset -= DEGREES(45);
         play_sound_cbutton_side();
     }
+    else if (gPlayer1Controller->buttonPressed & U_JPAD) {
+        s8DirModeYawOffset = -gMarioState->faceAngle[1]-0x8000;
+    }
+    else if (gPlayer1Controller->buttonDown & L_JPAD) {
+        s8DirModeYawOffset -= DEGREES(2);
+    }
+    else if (gPlayer1Controller->buttonDown & R_JPAD) {
+        s8DirModeYawOffset += DEGREES(2);
+    }
+    else if (gPlayer1Controller->buttonPressed & D_JPAD) {
+        s8DirModeYawOffset = s8DirModeYawOffset&0xE000;
+    }
 
     lakitu_zoom(400.f, 0x900);
     c->nextYaw = update_8_directions_camera(c, c->focus, pos);
@@ -2852,8 +2864,7 @@ void set_camera_mode(struct Camera *c, s16 mode, s16 frames) {
     struct LinearTransitionPoint *start = &sModeInfo.transitionStart;
     struct LinearTransitionPoint *end = &sModeInfo.transitionEnd;
 
-    if (mode == CAMERA_MODE_WATER_SURFACE && gCurrLevelArea == AREA_TTM_OUTSIDE) {
-    } else {
+    
         // Clear movement flags that would affect the transition
         gCameraMovementFlags &= (u16)~(CAM_MOVE_RESTRICT | CAM_MOVE_ROTATE);
         gCameraMovementFlags |= CAM_MOVING_INTO_MODE;
@@ -2895,7 +2906,7 @@ void set_camera_mode(struct Camera *c, s16 mode, s16 frames) {
         vec3f_get_dist_and_angle(start->focus, start->pos, &start->dist, &start->pitch, &start->yaw);
         vec3f_get_dist_and_angle(end->focus, end->pos, &end->dist, &end->pitch, &end->yaw);
     }
-}
+
 
 /**
  * Updates Lakitu's position/focus and applies camera shakes.
@@ -3050,7 +3061,7 @@ void update_camera(struct Camera *c) {
     c->mode = gLakituState.mode;
     c->defMode = gLakituState.defMode;
 
-    camera_course_processing(c);
+    //camera_course_processing(c);
     stub_camera_3(c);
     sCButtonsPressed = find_c_buttons_pressed(sCButtonsPressed, gPlayer1Controller->buttonPressed,
                                               gPlayer1Controller->buttonDown);
@@ -3327,17 +3338,6 @@ void init_camera(struct Camera *c) {
 
     // Set the camera's starting position or start a cutscene for certain levels
     switch (gCurrLevelNum) {
-        case LEVEL_BOWSER_1:
-#ifndef VERSION_JP
-            if (gCurrDemoInput == NULL) {
-                start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
-            } else if (gSecondCameraFocus != NULL) {
-                gSecondCameraFocus->oBowserUnk88 = 2;
-            }
-#else
-            start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
-#endif
-            break;
         case LEVEL_BOWSER_2:
             start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
             break;
@@ -3400,7 +3400,7 @@ void init_camera(struct Camera *c) {
             gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;
             break;
         case AREA_TTM_OUTSIDE:
-            gLakituState.mode = CAMERA_MODE_RADIAL;
+            
             break;
     }
 
@@ -6196,13 +6196,7 @@ struct CameraTrigger sCamSSL[] = {
  * the end of the ride.
  */
 struct CameraTrigger sCamRR[] = {
-    { 1, cam_rr_exit_building_side, -4197, 3819, -3087, 1769, 1490, 342, 0 },
-    { 1, cam_rr_enter_building_side, -4197, 3819, -3771, 769, 490, 342, 0 },
-    { 1, cam_rr_enter_building_window, -5603, 4834, -5209, 300, 600, 591, 0 },
-    { 1, cam_rr_enter_building, -2609, 3730, -5463, 300, 650, 577, 0 },
-    { 1, cam_rr_exit_building_top, -4196, 7343, -5155, 4500, 1000, 4500, 0 },
-    { 1, cam_rr_enter_building, -4196, 6043, -5155, 500, 300, 500, 0 },
-    NULL_TRIGGER,
+	NULL_TRIGGER
 };
 
 /**
@@ -6375,6 +6369,12 @@ struct CameraTrigger sCamTTC[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamPSS[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamLLL[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamBowser_1[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
@@ -10347,7 +10347,7 @@ BAD_RETURN(s32) cutscene_door_mode(struct Camera *c) {
     UNUSED u32 pad[2];
 
     reset_pan_distance(c);
-    camera_course_processing(c);
+    //camera_course_processing(c);
 
     if (c->mode == CAMERA_MODE_FIXED) {
         c->nextYaw = update_fixed_camera(c, c->focus, c->pos);

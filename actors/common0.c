@@ -130,3 +130,8 @@ UNUSED static const u64 binid_18 = 18;
 #include "isaac/model.inc.c"
 #include "isaac/anims/data.inc.c"
 #include "isaac/anims/table.inc.c"
+#include "mike/model.inc.c"
+#include "mike/anims/data.inc.c"
+#include "mike/anims/table.inc.c"
+#include "eternal_flame/model.inc.c"
+#include "eternal_flame/collision.inc.c"

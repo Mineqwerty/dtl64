@@ -34,11 +34,11 @@ void coffin_act_idle(void) {
 void bhv_coffin_loop(void) {
     if (colorMode==0) {
 select_color_simple();
-print_text(230, 110, "SIMPLE");
+print_text(230, 110, ", BASIC");
     }
     else if (colorMode == 1) {
 select_color_advanced();
-print_text(230, 110, "RGB");
+print_text(230, 110, ", RGB");
     }
     else if (colorMode == 2) {
 color_picker();
@@ -201,10 +201,10 @@ switch (curBParam) {
 if (colorMode < 2){
     print_text_fmt_int(50, 50, "Brush %d", brushSize);
     if (eraseAlpha == 255) {
-        print_text(50, 70, "Draw");
+        print_text(50, 70, "* Draw");
     }
     else if (eraseAlpha == 0) {
-        print_text(50, 70, "Erase");
+        print_text(50, 70, "* Erase");
     }
 
     // Move cursor
@@ -351,6 +351,7 @@ if (gPlayer1Controller->buttonPressed & D_JPAD) {
         modifyColor = 0;
     }
 }
+drawColor[3] = eraseAlpha;
 
 }
 

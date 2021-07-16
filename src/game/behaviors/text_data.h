@@ -1,6 +1,6 @@
 char *textString[] = {
     //0
-"HOW",
+" ",
 COLOR "92 46 0 0" "Count Choco hasn't come by\n"
                 "for his daily " COLOR "255 0 0 0" "tomato juice" COLOR "92 46 0 0" "...\n"
                 "Where could he be?",
@@ -187,7 +187,154 @@ COLOR "92 46 0 0" "Count Choco hasn't come by\n"
 
                 COLOR "92 46 0 0" "Of course... it is\n"
                 "the least I can do.\n"
-                "Thank you..."
+                "Thank you...",
+//after level 3
+                COLOR "92 46 0 0" "So, did ya get the\n"
+                "last page? Awesome!",
+
+                COLOR "92 46 0 0" "Thank you so much\n"
+                "Hero! We would be nowhere\n"
+                "without you!",
+
+                COLOR "92 46 0 0" "However your work is\n"
+                "not quite done yet.",
+//55
+                COLOR "92 46 0 0" "I went around to make\n"
+                "sure everyone was ok, and\n"
+                "some raposa were missing!",
+
+                COLOR "92 46 0 0" "Including everyone you\n"
+                "may have rescued, it was\n"
+                "Heather, Samuel, Count Choco,",
+
+                COLOR "92 46 0 0" "...and Mike.",
+
+                COLOR "92 46 0 0" "Oh, poor Mike. He\n"
+                "always has a hard time with\n"
+                "jokes about his ears...",
+
+                COLOR "92 46 0 0" "I can't imagine this\n"
+                "is making him very happy\n"
+                "either.",
+//60
+                COLOR "92 46 0 0" "I worry for him\n"
+                "sometimes... Hero, could\n"
+                "you look for him?",
+
+                COLOR "92 46 0 0" "I have a bad\n"
+                "feeling about where he\n"
+                "was taken...",
+//Count Choco rescued
+                COLOR "92 46 0 0" "Hey, it's Count Choco!\n",
+
+                COLOR "92 46 0 0" "Vlahaha! Hero rescue \n"
+                "me! Now I go look for\n"
+                "Shopkeep!",
+
+                COLOR "92 46 0 0" "Isaac? He's right \n"
+                "over there.",
+//65
+                COLOR "92 46 0 0" "Vlaaa! Vank you!",
+
+                COLOR "92 46 0 0" "Hmph. It seems as \n"
+                "though the pesky raposa\n"
+                "are resisting me.",
+
+                COLOR "92 46 0 0" "As much as they wish\n"
+                "to deny it, they cannot\n"
+                "rid of me.",
+
+                COLOR "92 46 0 0" "Wouldn't you agree, \n"
+                "Hero? So pitiful it is.",
+
+                COLOR "92 46 0 0" "They can hardly fight\n"
+                "back themselves, so they\n"
+                "enlist the help of you.",
+//70
+                COLOR "92 46 0 0" "So dependant on the\n"
+                "Creator they are... not\n"
+                "an ounce of free thought.",
+
+                COLOR "92 46 0 0" "Instead of solving\n"
+                "their problems of life, they\n"
+                "make the Creator do it.",
+
+                COLOR "92 46 0 0" "And when the Creator\n"
+                "had abandoned them, they\n"
+                "withered.",
+
+                COLOR "92 46 0 0" "But enough talk of \n"
+                "the past. I know why you're\n"
+                "here.",
+
+                COLOR "92 46 0 0" "You can not have him.\n"
+                "This is for the greater good\n"
+                "of the world!",
+//75
+                COLOR "92 46 0 0" "I suppose though, a\n"
+                "mindless construct like you\n"
+                "wouldn't care.",
+
+                COLOR "92 46 0 0" "You're only set out\n"
+                "to do what you were told.\n"
+                "Very well then...",
+
+                COLOR "92 46 0 0" "You will not take\n"
+                "Mike!",
+
+                COLOR "92 46 0 0" "Ow ow ow! Grr...\n"
+                "This isn't the end! The\n"
+                "perfect storm is brewing...\n",
+
+                COLOR "92 46 0 0" "Take the non-raposa.\n"
+                "I will have my vision seen \n"
+                "to in other ways...",
+//80
+                COLOR "92 46 0 0" "Let's get out of\n"
+                "here...",
+
+                COLOR "92 46 0 0" "Mike! You're ok!",
+
+                COLOR "92 46 0 0" "Yeah... Wilfre\n"
+                "captured me. But the Hero\n"
+                "rescued me.",
+
+                COLOR "92 46 0 0" "Wilfre!?",
+
+                COLOR "92 46 0 0" "Oh, I'm a \n"
+                "terrible mayor... I was in\n"
+                "denial...",
+
+                COLOR "92 46 0 0" "Mari, it's ok.\n"
+                "I didn't want to believe\n"
+                "Wilfre was back either.",
+
+                COLOR "92 46 0 0" "But the more\n"
+                "important part is that he's\n"
+                "defeated, hopefully for good.",
+
+                COLOR "92 46 0 0" "Yeah... you're\n"
+                "right. It could have been\n"
+                "a lot worse.",
+
+                COLOR "92 46 0 0" "Worse!? I was\n"
+                "scared to death there!",
+
+                COLOR "92 46 0 0" "Heh, well it's\n"
+                "all ok now.",
+
+                COLOR "92 46 0 0" "All thanks to\n"
+                "the Hero! Hey, let's have\n"
+                "a celebration for them!",
+
+                COLOR "92 46 0 0" "You know, after all\n"
+                "that stress, I'm willing\n"
+                "to agree.",
+
+                COLOR "92 46 0 0" "All right! Now THAT'S\n"
+                "a plan!"
+
+
 
 
 };
@@ -245,5 +392,47 @@ char *textName[] = {
     "+OWEE",
     "SAMUEL",
     "+OWEE",
-    "SAMUEL"
+    "SAMUEL",
+    "+OWEE",
+    "MARI",
+    "MARI",
+    "MARI",
+    "MARI",
+    "MARI",
+    "+OWEE",
+    "+OWEE",
+    "MARI",
+    "MARI",
+    "+OWEE",
+    "COUNT CHOCO",
+    "MARI",
+    "COUNT CHOCO",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "WILFRE",
+    "MIKE",
+    "MARI",
+    "MIKE",
+    "+OWEE",
+    "MARI",
+    "+OWEE",
+    "+OWEE",
+    "MARI",
+    "MIKE",
+    "+OWEE",
+    "+OWEE",
+    "MARI",
+    "+OWEE"
+
 };

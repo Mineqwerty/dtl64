@@ -10,6 +10,7 @@ void bhv_lll_drawbridge_spawner_loop(void) {
 }
 
 void bhv_lll_drawbridge_loop(void) {
+    if (gMarioState->copyDrawings[2] == 0) {
     extern const u16 draw_spring_sprite_rgba16[];
     extern const u16 bounce_spring_sprite_rgba16[];
     u16 *SwitchTexture = segmented_to_virtual(draw_spring_sprite_rgba16);
@@ -17,7 +18,8 @@ void bhv_lll_drawbridge_loop(void) {
 
 
     bcopy(SwitchTexture, SpringTexture, 2*32*32);
-
+    gMarioState->copyDrawings[2] = 1;
+    }
 
 
     if (gMarioState->drawState > 2) {
@@ -80,7 +82,7 @@ if (camera_manip == 1) {
 if (gMarioState->action == ACT_IDLE || gMarioState->action == ACT_WALKING) {
     gCamera->cutscene = 0;
     camera_manip = 0;
-    set_camera_mode(gCamera, CAMERA_MODE_FREE_ROAM, 1);
+    set_camera_mode(gCamera, CAMERA_MODE_8_DIRECTIONS, 1);
 }
 }
 

@@ -5,13 +5,16 @@ void bhv_rr_cruiser_wing_init(void) {
 }
 
 void bhv_rr_cruiser_wing_loop(void) {
+    if (gMarioState->copyDrawings[5] == 0) {
     extern const u16 draw_boost_panel_sprite_rgba16[];
     extern const u16 boost_panel_sprite_rgba16[];
     u16 *SwitchTexture = segmented_to_virtual(draw_boost_panel_sprite_rgba16);
     u16 *PanelTexture = segmented_to_virtual(boost_panel_sprite_rgba16);
+    gMarioState->copyDrawings[5] = 1;
     
 
     bcopy(SwitchTexture, PanelTexture, 2*32*32);
+    }
     if (gMarioState->drawState > 5) {
         load_object_collision_model();
     }

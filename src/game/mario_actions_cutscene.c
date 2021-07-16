@@ -607,7 +607,7 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                     if (gCurrLevelNum == LEVEL_BOWSER_1 || gCurrLevelNum == LEVEL_BOWSER_2) {
                         play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(15, SEQ_EVENT_CUTSCENE_COLLECT_KEY), 0);
                     } else {
-                        play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(15, SEQ_EVENT_CUTSCENE_COLLECT_STAR), 0);
+                        play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(15, SEQ_STREAMED_RAPOSA_RESCUED), 0);
                     }
                 }
                 break;
@@ -650,7 +650,7 @@ s32 act_star_dance(struct MarioState *m) {
                                                : MARIO_ANIM_STAR_DANCE);
     general_star_dance_handler(m, 0);
     if (m->actionState != 2 && m->actionTimer >= 40) {
-        m->marioBodyState->handState = MARIO_HAND_PEACE_SIGN;
+        //m->marioBodyState->handState = MARIO_HAND_PEACE_SIGN;
     }
     stop_and_set_height_to_floor(m);
     return FALSE;

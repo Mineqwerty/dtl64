@@ -75,7 +75,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_WAVE_TRAIL,              wave_trail_geo),
     LOAD_MODEL_FROM_GEO(MODEL_YELLOW_COIN,             yellow_coin_geo),
     LOAD_MODEL_FROM_GEO(MODEL_STAR,                    book_of_life_page_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_TRANSPARENT_STAR,        transparent_star_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_TRANSPARENT_STAR,        book_of_life_gone_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WOODEN_SIGNPOST,         wooden_signpost_geo),
     LOAD_MODEL_FROM_DL( MODEL_WHITE_PARTICLE_SMALL,    white_particle_small_dl,     LAYER_ALPHA),
     LOAD_MODEL_FROM_GEO(MODEL_RED_FLAME,               red_flame_geo),
@@ -211,11 +211,13 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_SAMUEL,                 samuel_geo),
     LOAD_MODEL_FROM_GEO(MODEL_COUNT_CHOCO,                 count_choco_geo),
     LOAD_MODEL_FROM_GEO(MODEL_ISAAC,                 isaac_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_MIKE,                 mike_geo),
 
     LOAD_MODEL_FROM_GEO(MODEL_RAPOSA_CAGE,                 raposa_cage_geo),
     LOAD_MODEL_FROM_GEO(MODEL_LEVEL_CIRCLE,                 level_circle_geo),
     LOAD_MODEL_FROM_GEO(MODEL_LASER_PUSHER,                 laser_pusher_geo),
     LOAD_MODEL_FROM_GEO(MODEL_LASER_WAVE,                 laser_wave_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_ETERNAL_FLAME,                 eternal_flame_geo),
 
     LOAD_MODEL_FROM_GEO(MODEL_DRAWCLOUD,                 drawcloud_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CLOUD_PLATFORM,                 cloud_platform_geo),
@@ -335,6 +337,8 @@ const LevelScript script_func_global_13[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_FLAMES,           bowser_flames_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_WAVE,             invisible_bowser_accessory_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER2,                 bowser2_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_WILFRE_BULLET,            wilfre_bullet_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_WILFRE_SPIKE,            wilfre_spike_geo),
     RETURN(),
 };
 

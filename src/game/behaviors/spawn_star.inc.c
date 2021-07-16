@@ -39,7 +39,11 @@ gCurrentObject->oAnimations = book_of_life_page_anims;
             case LEVEL_DDD:
             gMarioState->levelsCompleted[1] = 1;
             break;
+            case LEVEL_TTC:
+            gMarioState->levelsCompleted[2] = 1;
+            break;
         }
+        
         mark_obj_for_deletion(o);
         o->oInteractStatus = 0;
     }
@@ -110,7 +114,20 @@ void bhv_star_spawn_loop(void) {
                 o->activeFlags &= ~ACTIVE_FLAG_INITIATED_TIME_STOP;
             }
 
-            if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+            gCurrentObject->oAnimations = book_of_life_page_anims;
+        cur_obj_init_animation(0);
+    if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+        switch (gCurrLevelNum) {
+            case LEVEL_WF:
+            gMarioState->levelsCompleted[0] = 1;
+            break;
+            case LEVEL_DDD:
+            gMarioState->levelsCompleted[1] = 1;
+            break;
+            case LEVEL_TTC:
+            gMarioState->levelsCompleted[2] = 1;
+            break;
+        }
                 mark_obj_for_deletion(o);
                 o->oInteractStatus = 0;
             }

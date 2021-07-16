@@ -755,14 +755,15 @@ const BehaviorScript bhvKickableBoard[] = {
 };
 
 const BehaviorScript bhvTowerDoor[] = {
-    BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(wf_seg7_collision_tower_door),
-    SET_HITBOX(/*Radius*/ 100, /*Height*/ 100),
-    SET_INT(oIntangibleTimer, 0),
+    BEGIN(OBJ_LIST_GENACTOR),
+    SET_INT(oInteractType, INTERACT_DOOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_ACTIVE_FROM_AFAR)),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 120, /*Height*/ 150, /*Downwards offset*/ 0),
+    
+    CALL_NATIVE(bhv_wilfre_bullet_init),
     BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_tower_door_loop),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -1326,11 +1327,10 @@ const BehaviorScript bhvEndPeach[] = {
 };
 
 const BehaviorScript bhvUnusedParticleSpawn[] = {
-    BEGIN(OBJ_LIST_GENACTOR),
+    BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 1000, /*Friction*/ 1000, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
     SET_INT(oIntangibleTimer, 0),
-    SET_HITBOX(/*Radius*/ 40, /*Height*/ 40),
+    LOAD_COLLISION_DATA(eternal_flame_collision),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_unused_particle_spawn_loop),
     END_LOOP(),
@@ -4812,6 +4812,8 @@ const BehaviorScript bhvHidden1upInPoleTrigger[] = {
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_HITBOX(/*Radius*/ 100, /*Height*/ 100),
     SET_INT(oIntangibleTimer, 0),
+    SET_INTERACT_TYPE(INTERACT_DAMAGE),
+    SET_INT(oDamageOrCoinValue, 2),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_1up_hidden_in_pole_trigger_loop),
     END_LOOP(),
@@ -4860,13 +4862,14 @@ const BehaviorScript bhvBreakableBoxSmall[] = {
 };
 
 const BehaviorScript bhvSlidingSnowMound[] = {
-    BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_COLLISION_DATA(sl_seg7_collision_sliding_snow_mound),
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_MOVE_XZ_USING_FVEL),
     SET_HOME(),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 80, /*Height*/ 120, /*Downwards offset*/ 0),
+    CALL_NATIVE(wilfre_init),
     BEGIN_LOOP(),
+    SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_sliding_snow_mound_loop),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -5951,6 +5954,7 @@ const BehaviorScript bhvClamShell[] = {
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     DROP_TO_FLOOR(),
     LOAD_ANIMATIONS(oAnimations, clam_shell_seg5_anims_05001744),
+    CALL_NATIVE(init_drawing_system),
     SET_FLOAT(oGraphYOffset, 10),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_clam_loop),

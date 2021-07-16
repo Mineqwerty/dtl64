@@ -417,6 +417,9 @@
 #define MODEL_BOWSER_FLAMES               0x67        // bowser_flames_geo
 #define MODEL_BOWSER_WAVE                 0x68        // invisible_bowser_accessory_geo
 #define MODEL_BOWSER2                     0x69        // bowser2_geo - 2nd geo loaded is bowser_geo_000770, starts with node command, only difference
+#define MODEL_WILFRE_BULLET               0x6A
+#define MODEL_WILFRE_SPIKE               0x6B
+
 
 // group 13
 #define MODEL_BUB                         0x64        // cheep_cheep_geo
@@ -508,6 +511,7 @@
 #define MODEL_SAMUEL                 0x36
 #define MODEL_COUNT_CHOCO                 0x37
 #define MODEL_ISAAC                  0x38
+#define MODEL_MIKE                  0x39
 
 #define MODEL_RAPOSA_CAGE            0xE2
 #define MODEL_LEVEL_CIRCLE           0x41
@@ -524,6 +528,7 @@
 #define MODEL_DRAW_MOON                 0xFE
 #define MODEL_DRAW_BOOST_PANEL                 0xFF
 #define MODEL_BOOST_PANEL                0x40
+#define MODEL_ETERNAL_FLAME                0x44
 
 
 

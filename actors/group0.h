@@ -348,4 +348,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 
 #include "book_of_life_page/anim_header.h"
+#include "book_of_life_gone/geo_header.h"
+
 #endif

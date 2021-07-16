@@ -291,4 +291,12 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 
 #include "isaac/anim_header.h"
+#include "mike/geo_header.h"
+
+
+#include "mike/anim_header.h"
+#include "eternal_flame/geo_header.h"
+
+#include "eternal_flame/collision_header.h"
+
 #endif

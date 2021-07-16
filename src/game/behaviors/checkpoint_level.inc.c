@@ -14,9 +14,10 @@ void bhv_checkpoint_level_init(void) {
 
 void bhv_checkpoint_level_loop(void) {
  if (gMarioState->cutsceneActive > 0) {
-        s2d_init();
-
-        
+         s2d_init();
+if (gMarioState->cutsceneActive == 66) {
+        play_secondary_music(SEQ_STREAMED_OOH_WILFRE, 0, 255, 100);
+}
         set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
     gMarioState->pos[1] = gMarioState->floorHeight;
 	uObjMtx *buffer;
@@ -25,6 +26,7 @@ void bhv_checkpoint_level_loop(void) {
     draw_text_box(80, 150, buffer, 0);
 	s2d_type_print(80, 150, textString[gMarioState->cutsceneActive], buffer, &pos);
     int len = s2d_strlen(textString[gMarioState->cutsceneActive]);
+    print_text(30, 110, textName[gMarioState->cutsceneActive]);
     if (pos < len-13) {
     pos++;
     play_sound(SOUND_OBJ_UKIKI_CHATTER_IDLE, gDefaultSoundArgs);
@@ -41,7 +43,7 @@ void bhv_checkpoint_level_loop(void) {
     }
 	// reloads the original microcode; only needed once after all prints
 	s2d_stop();
-        print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(20), 110, textName[gMarioState->cutsceneActive]);
+        
         
  }
 }

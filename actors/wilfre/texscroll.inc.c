@@ -484,7 +484,7 @@ void scroll_wilfre_foot_right_skinned_vtx_0() {
 }
 void scroll_wilfre_head_mesh_vtx_0() {
 	int i = 0;
-	int count = 300;
+	int count = 296;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 

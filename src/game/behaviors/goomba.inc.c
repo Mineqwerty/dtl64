@@ -276,8 +276,11 @@ void huge_goomba_weakly_attacked(void) {
  * Update function for goomba.
  */
 void bhv_goomba_update(void) {
+    if (gCurrLevelNum == LEVEL_DDD) {
+            if (gMarioState->drawState < 4) {
     // PARTIAL_UPDATE
-
+    return;
+            }}
     f32 animSpeed;
 
     if (obj_update_standard_actions(o->oGoombaScale)) {
@@ -337,3 +340,4 @@ void bhv_goomba_update(void) {
         o->oAnimState = TRUE;
     }
 }
+    

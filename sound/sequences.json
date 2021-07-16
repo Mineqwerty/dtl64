@@ -151,5 +151,17 @@
     ],
     "2C_custom_level_select": [
         "streamed_audio"
+    ],
+    "2D_custom_salem": [
+        "streamed_audio"
+    ],
+    "2E_custom_shadow_showdown": [
+        "streamed_audio"
+    ],
+    "2F_custom_ooh_wilfre": [
+        "streamed_audio"
+    ],
+    "30_custom_title": [
+        "streamed_audio"
     ]
 }

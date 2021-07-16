@@ -57,3 +57,5 @@
 #include "laser_wave/geo.inc.c"
 #include "count_choco/geo.inc.c"
 #include "isaac/geo.inc.c"
+#include "mike/geo.inc.c"
+#include "eternal_flame/geo.inc.c"

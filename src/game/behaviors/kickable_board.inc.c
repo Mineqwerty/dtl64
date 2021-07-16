@@ -6,6 +6,7 @@
 int despawnTimer = 300;
 int YdespawnTimer = 300;
 int XdespawnTimer = 300;
+int cutscene_raise;
 s32 check_mario_attacking(UNUSED s32 sp18) {
     
 }
@@ -30,6 +31,8 @@ void bhv_kickable_board_loop(void) {
         break;
         case 5: o->omaxDispX = 5000.0f; o->omaxDispY = 0.0f; o->omaxDispZ = 0.0f; o->omovX = 0.0; o->omovY = 0.0; o->omovZ = 0.0;
         break;
+        case 6: o->omaxDispX = 0.0f; o->omaxDispY = 0.0f; o->omaxDispZ = -5000.0f; o->omovX = 0.0; o->omovY = 0.0; o->omovZ = 0.0;
+        break;
     }
     o->oinitPosX = o->oPosX;
     o->oinitPosY = o->oPosY;
@@ -37,7 +40,7 @@ void bhv_kickable_board_loop(void) {
     o->oinitMoving = 1.0f;
   }
 
-
+if (gMarioState->copyDrawings[1] == 0) {
     extern const u16 draw_moving_platform_sprite_rgba16[];
     extern const u16 moving_platform_sprite_rgba16[];
     u16 *SwitchTexture = segmented_to_virtual(draw_moving_platform_sprite_rgba16);
@@ -45,13 +48,15 @@ void bhv_kickable_board_loop(void) {
     
 
     bcopy(SwitchTexture, PlatformTexture, 2*32*32);
+    gMarioState->copyDrawings[1] = 1;
+}
     if (gMarioState->drawState > 1) {
         load_object_collision_model();
     }
     
     if (o->oBehParams2ndByte == 3) {
         if (gMarioObject->platform == o && ((o->oPosZ - o->oinitPosZ) > o->omaxDispZ)) {
-            o->omovZ = -3.0f;
+            o->omovZ = -6.0f;
             despawnTimer = 300;
         }
         else {
@@ -86,7 +91,7 @@ void bhv_kickable_board_loop(void) {
     }
     if (o->oBehParams2ndByte == 5) {
         if (gMarioObject->platform == o && ((o->oPosX - o->oinitPosX) < o->omaxDispX)) {
-            o->omovX = -2.0f;
+            o->omovX = -5.0f;
             XdespawnTimer = 300;
         }
         else {
@@ -100,6 +105,45 @@ void bhv_kickable_board_loop(void) {
                 
             }
         }
+    }
+    if (o->oBehParams2ndByte == 6) {
+        if (gMarioObject->platform == o && ((o->oPosZ - o->oinitPosZ) > o->omaxDispZ)) {
+            o->omovZ = -2.0f;
+            XdespawnTimer = 500;
+        }
+        else if ((o->oPosZ - o->oinitPosZ) < o->omaxDispZ) {
+            o->oPosX =o->oinitPosX;
+                o->oPosY =o->oinitPosY;
+                o->oPosZ =o->oinitPosZ;
+                o->omovZ = 0.0f;
+        } 
+        else {
+            
+            XdespawnTimer-=1;
+            if (XdespawnTimer < 1) {
+                o->oPosX =o->oinitPosX;
+                o->oPosY =o->oinitPosY;
+                o->oPosZ =o->oinitPosZ;
+                XdespawnTimer = 300;
+                o->omovZ = 0.0f;
+                
+            }
+        }
+    }
+    if (o->oBehParams2ndByte == 7) {
+if (gMarioObject->platform == o) {
+    cutscene_raise = 1;
+}
+if (cutscene_raise == 1) {
+    gCamera->cutscene = 1;
+    set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
+    o->omovY = 1.0f;
+    if (o->oPosY > (o->oinitPosY + 1000)) {
+        initiate_warp(LEVEL_BOWSER_1, 1, 0x0A, 0);
+        cutscene_raise = 0;
+    }
+}
+
     }
     
 if (o->opauseTimer < 2.0f) {

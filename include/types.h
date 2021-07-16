@@ -343,16 +343,18 @@ struct MarioState
     /*0xC4*/ f32 unkC4;
     int drawState;
     int cutsceneStep;
-    u8 raposaRescued[4];
+    u8 raposaRescued[16];
     int darkScreen;
     u8 triColor[3];
     f32 triPos;
-    f32 colorPickerPos[1];
+    s16 colorPickerPos[1];
     int cutsceneActive;
     u8 cutscenePlayerID[16];
     int dialogueLines;
-    u8 levelsCompleted[3];
+    u8 levelsCompleted[4];
     int gameInitialized;
+    int moonFlipped;
+    u8 copyDrawings[6];
 };
 
 #endif // TYPES_H

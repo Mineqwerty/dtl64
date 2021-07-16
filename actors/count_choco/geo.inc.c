@@ -41,7 +41,7 @@ const GeoLayout count_choco_Bone_opt2[] = {
 const GeoLayout count_choco_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_ANIMATED_PART(LAYER_OPAQUE, -1, 44, 5, count_choco_body_mesh),
+		GEO_ANIMATED_PART(LAYER_OPAQUE, -1, 10, 5, count_choco_body_mesh),
 		GEO_OPEN_NODE(),
 			GEO_SWITCH_CASE(0, geo_switch_choco_mouth),
 			GEO_OPEN_NODE(),

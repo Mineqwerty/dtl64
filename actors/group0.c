@@ -32,3 +32,4 @@
 #include "book_of_life_page/model.inc.c"
 #include "book_of_life_page/anims/data.inc.c"
 #include "book_of_life_page/anims/table.inc.c"
+#include "book_of_life_gone/model.inc.c"

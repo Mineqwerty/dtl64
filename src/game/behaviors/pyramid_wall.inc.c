@@ -18,6 +18,9 @@ void bhv_ssl_moving_pyramid_wall_init(void) {
         case 2: gCurrentObject->oAnimations = count_choco_anims;
         cur_obj_init_animation(0);
         break;
+        case 3: gCurrentObject->oAnimations = mike_anims;
+        cur_obj_init_animation(0);
+        break;
 
     }
 }
@@ -25,7 +28,9 @@ void bhv_ssl_moving_pyramid_wall_init(void) {
 
 void bhv_ssl_moving_pyramid_wall_loop(void) {
     if (gCurrentObject->respawnInfo == RESPAWN_INFO_DONT_RESPAWN) {
+        if (o->oBehParams2ndByte != 3) {
         cur_obj_init_animation(1);
+        }
         if (rescueState == 0) {
             rescueState = 1;
             set_mario_action(gMarioStates, ACT_WAITING_FOR_DIALOG, 0);
@@ -40,15 +45,22 @@ void bhv_ssl_moving_pyramid_wall_loop(void) {
                 case 2: create_dialog_box(DIALOG_039);
                 gMarioState->raposaRescued[2] = 1;
                 break;
+                case 3: create_dialog_box(DIALOG_040);
+                gMarioState->raposaRescued[3] = 1;
+                break;
             }
         }
         if (rescueState == 3) {
+            
             set_mario_action(gMarioStates, ACT_IDLE, 0);
             gMarioObject->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];
             func_80321080(500);
             if (gDialogResponse == 0) {
                 rescueState = 0;
             obj_mark_for_deletion(o);
+            if (gCurrLevelNum == LEVEL_BOWSER_1) {
+                initiate_warp(LEVEL_TTM, 1, 0x0A, 0);
+            }
             }
         }
         if (gDialogResponse == 1) {
@@ -64,6 +76,10 @@ void bhv_ssl_moving_pyramid_wall_loop(void) {
                            break;
                            case 2:
                            gMarioState->cutsceneActive = 7;
+                gMarioState->dialogueLines = 1;
+                           break;
+                           case 3:
+                           gMarioState->cutsceneActive = 80;
                 gMarioState->dialogueLines = 1;
                            break;
                        }

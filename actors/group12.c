@@ -25,3 +25,6 @@ UNUSED static const u64 binid_4 = 4;
 
 #include "impact_smoke/model.inc.c"
 UNUSED static const u64 binid_5 = 5;
+
+#include "wilfre_bullet/model.inc.c"
+#include "wilfre_spike/model.inc.c"
